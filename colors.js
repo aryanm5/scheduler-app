@@ -1,6 +1,6 @@
 import { Appearance } from 'react-native'
 
-var light = Appearance.getColorScheme() === 'light';
+var light = false;//Appearance.getColorScheme() === 'light';
 //^^ SETTING TO LIGHT FOR TESTING ONLY!!
 
 const COLORS = {
