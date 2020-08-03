@@ -20,7 +20,7 @@ import {
     StatusBar,
 } from 'react-native';
 import COLORS from './colors';
-import { Landing, VerifyModal } from './components';
+import { Landing, VerifyModal, Main } from './components';
 
 
 class App extends Component {
@@ -48,7 +48,7 @@ class App extends Component {
                                     ? <Landing updateUser={this.updateUser} changeView={this.changeView} />
                                     : this.state.whichView === 'verify'
                                         ? <VerifyModal updateUser={this.updateUser} changeView={this.changeView} user={this.state.user} />
-                                        : <Text style={{color: COLORS.text}}> Hello, {this.state.user.name}!</Text>
+                                        : <Main user={this.state.user} />
                             }
                         </View>
                     </TouchableWithoutFeedback>
