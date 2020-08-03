@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { LoginModal, SignUpModal } from '../components';
 import COLORS from '../colors';
 import SwitchButton from 'switch-button-react-native';
@@ -24,36 +24,38 @@ class Landing extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <View style={styles.topSection}>
-                    <Text style={styles.title}>SCHEDULER</Text>
-                    <Text style={[styles.text, styles.subtitle]}>A centralized, end-to-end platform to quickly and easily set up appointments, classes, and meetings.</Text>
-                </View>
-                <View style={styles.contentSection}>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={styles.container}>
+                <View style={{ flex: 1 }}>
+                    <View style={styles.topSection}>
+                        <Text style={styles.title}>SCHEDULER</Text>
+                        <Text style={[styles.text, styles.subtitle]}>A centralized, end-to-end platform to quickly and easily set up appointments, classes, and meetings.</Text>
+                    </View>
+                    <View style={styles.contentSection}>
 
-                    <SwitchButton
-                        onValueChange={(val) => this.setState({ activeSwitch: val })}      // this is necessary for this component
-                        text1='LOGIN'                        // optional: first text in switch button --- default ON
-                        text2='SIGN UP'                       // optional: second text in switch button --- default OFF
-                        switchWidth={Dimensions.get('window').width}                 // optional: switch width --- default 44
-                        switchHeight={Dimensions.get('window').height * 3 / 5 / 8}                 // optional: switch height --- default 100
-                        switchdirection='ltr'             // optional: switch button direction ( ltr and rtl ) --- default ltr
-                        switchBorderRadius={0}          // optional: switch border radius --- default oval
-                        switchSpeedChange={250}           // optional: button change speed --- default 100
-                        switchBorderColor='rgba(52, 52, 52, 0)'       // optional: switch border color --- default #d4d4d4
-                        switchBackgroundColor={COLORS.background}      // optional: switch background color --- default #fff
-                        btnBorderColor='#00a4b9'          // optional: button border color --- default #00a4b9
-                        btnBackgroundColor={COLORS.button}      // optional: button background color --- default #00bcd4
-                        fontColor={COLORS.gray}               // optional: text font color --- default #b1b1b1
-                        activeFontColor='#fff'            // optional: active font color --- default #fff
-                    />
-                    {
-                        this.state.activeSwitch === 1
-                            ? <LoginModal updateUser={this.props.updateUser} changeView={this.props.changeView} />
-                            : <SignUpModal updateUser={this.props.updateUser} changeView={this.props.changeView} />
-                    }
+                        <SwitchButton
+                            onValueChange={(val) => this.setState({ activeSwitch: val })}      // this is necessary for this component
+                            text1='LOGIN'                        // optional: first text in switch button --- default ON
+                            text2='SIGN UP'                       // optional: second text in switch button --- default OFF
+                            switchWidth={Dimensions.get('window').width}                 // optional: switch width --- default 44
+                            switchHeight={Dimensions.get('window').height * 3 / 5 / 8}                 // optional: switch height --- default 100
+                            switchdirection='ltr'             // optional: switch button direction ( ltr and rtl ) --- default ltr
+                            switchBorderRadius={0}          // optional: switch border radius --- default oval
+                            switchSpeedChange={250}           // optional: button change speed --- default 100
+                            switchBorderColor='rgba(52, 52, 52, 0)'       // optional: switch border color --- default #d4d4d4
+                            switchBackgroundColor={COLORS.background}      // optional: switch background color --- default #fff
+                            btnBorderColor='#00a4b9'          // optional: button border color --- default #00a4b9
+                            btnBackgroundColor={COLORS.button}      // optional: button background color --- default #00bcd4
+                            fontColor={COLORS.gray}               // optional: text font color --- default #b1b1b1
+                            activeFontColor='#fff'            // optional: active font color --- default #fff
+                        />
+                        {
+                            this.state.activeSwitch === 1
+                                ? <LoginModal updateUser={this.props.updateUser} changeView={this.props.changeView} />
+                                : <SignUpModal updateUser={this.props.updateUser} changeView={this.props.changeView} />
+                        }
+                    </View>
                 </View>
-            </View >
+            </TouchableWithoutFeedback >
         );
     }
 }

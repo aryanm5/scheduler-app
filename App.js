@@ -35,23 +35,22 @@ class App extends Component {
     changeView = (newView) => {
         this.setState({ whichView: newView }); //landing, verify, or main
     }
+
     render() {
         return (
             <>
                 <StatusBar animated={true} backgroundColor={COLORS.background} barStyle={COLORS.lightMode ? 'dark-content' : 'light-content'} />
                 <SafeAreaView style={{ flex: 0, backgroundColor: COLORS.background }} />
                 <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
-                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                        <View style={styles.container}>
-                            {
-                                this.state.whichView === 'landing'
-                                    ? <Landing updateUser={this.updateUser} changeView={this.changeView} />
-                                    : this.state.whichView === 'verify'
-                                        ? <VerifyModal updateUser={this.updateUser} changeView={this.changeView} user={this.state.user} />
-                                        : <Main user={this.state.user} />
-                            }
-                        </View>
-                    </TouchableWithoutFeedback>
+                    <View style={styles.container}>
+                        {
+                            this.state.whichView === 'landing'
+                                ? <Landing updateUser={this.updateUser} changeView={this.changeView} />
+                                : this.state.whichView === 'verify'
+                                    ? <VerifyModal updateUser={this.updateUser} changeView={this.changeView} user={this.state.user} />
+                                    : <Main user={this.state.user} updateUser={this.updateUser} />
+                        }
+                    </View>
                 </KeyboardAvoidingView>
             </>
         );

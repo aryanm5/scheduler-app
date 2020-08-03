@@ -1,0 +1,1 @@
+export { RelaxImage } from './relax.jpg'; 

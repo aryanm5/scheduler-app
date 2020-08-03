@@ -5,3 +5,5 @@ export { VerifyModal } from './VerifyModal';
 export { Main } from './Main';
 export { Events } from './Events';
 export { Upcoming } from './Upcoming';
+export { EventRow } from './EventRow';
+export { Settings } from './Settings';

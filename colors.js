@@ -1,6 +1,6 @@
 import { Appearance } from 'react-native'
 
-const light = Appearance.getColorScheme() === 'light';
+var light = Appearance.getColorScheme() === 'light';
 //^^ SETTING TO LIGHT FOR TESTING ONLY!!
 
 const COLORS = {
@@ -9,6 +9,7 @@ const COLORS = {
     button: light ? '#007aff' : '#0a84ff',
     brown: light ? '#433633' : '#b5651d',
     gray: light ? '#8e8e93' : '#b1b1b1',
+    secondary: light ? '#dfdfdf' : '#343434',
     lightMode: light,
 }
 export default COLORS;
