@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
         color: COLORS.text,
         fontWeight: 'bold',
         fontSize: 36,
-        textAlign: 'center',
+        textAlign: 'left',
     },
     settingsButton: {
         position: 'absolute',
