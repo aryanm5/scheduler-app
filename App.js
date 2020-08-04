@@ -31,7 +31,6 @@ class App extends Component {
     }
 
     landingChangeView = (changeTo) => {
-        console.log('changing landing to ' + changeTo);
         this.setState({ landingWhichView: changeTo });
     }
     updateUser = (user) => {

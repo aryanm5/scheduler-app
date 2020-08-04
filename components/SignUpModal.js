@@ -16,6 +16,7 @@ class SignUpModal extends Component {
                 name: this.state.nameText,
                 email: this.state.emailText,
                 password: this.state.passwordText,
+                emailNotify: true,
             }, (data) => {
                 if(data.err) {
                     this.setState({ errorMessage: data.message });
@@ -29,9 +30,9 @@ class SignUpModal extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <TextInput style={styles.textInput} onChangeText={(val) => { this.setState({ nameText: val }); }} placeholder='FULL NAME' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='name' autoCapitalize='words' returnKeyType='next' textContentType='name' />
-                <TextInput style={styles.textInput} onChangeText={(val) => { this.setState({ emailText: val }); }} placeholder='EMAIL ADDRESS' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='email' autoCapitalize='none' returnKeyType='next' keyboardType='email-address' textContentType='emailAddress' />
-                <TextInput style={styles.textInput} onChangeText={(val) => { this.setState({ passwordText: val }); }} placeholder='PASSWORD' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='password' secureTextEntry={true} autoCapitalize='none' returnKeyType='done' textContentType='password' />
+                <TextInput style={styles.textInput} onChangeText={(val) => { this.setState({ nameText: val }); }} placeholder='FULL NAME' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='name' autoCapitalize='words' returnKeyType='next' textContentType='name' onSubmitEditing={() => { this.emailTextInput.focus(); }} blurOnSubmit={false} />
+                <TextInput ref={(input) => { this.emailTextInput = input; }} style={styles.textInput} onChangeText={(val) => { this.setState({ emailText: val }); }} placeholder='EMAIL ADDRESS' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='email' autoCapitalize='none' returnKeyType='next' keyboardType='email-address' textContentType='emailAddress' onSubmitEditing={() => { this.passwordTextInput.focus(); }} blurOnSubmit={false} />
+                <TextInput ref={(input) => { this.passwordTextInput = input; }} style={styles.textInput} onChangeText={(val) => { this.setState({ passwordText: val }); }} placeholder='PASSWORD' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='password' secureTextEntry={true} autoCapitalize='none' returnKeyType='done' textContentType='password' />
                 <TouchableOpacity activeOpacity={0.9} onPress={this.signup} style={styles.submitButton}>
                     <Text style={styles.submitText}>SIGN UP</Text>
                 </TouchableOpacity>

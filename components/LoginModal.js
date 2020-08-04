@@ -31,8 +31,8 @@ class LoginModal extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <TextInput style={styles.textInput} onChangeText={(val) => { this.setState({ emailText: val }); }} placeholder='EMAIL ADDRESS' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='email' autoCapitalize='none' returnKeyType='next' keyboardType='email-address' textContentType='emailAddress' />
-                <TextInput style={styles.textInput} onChangeText={(val) => { this.setState({ passwordText: val }); }} placeholder='PASSWORD' placeholderTextColor='#808080' selectionColor='#000' secureTextEntry={true} autoCompleteType='password' onSubmitEditing={this.login} returnKeyType='go' autoCapitalize='none' textContentType='password' />
+                <TextInput style={styles.textInput} onChangeText={(val) => { this.setState({ emailText: val }); }} placeholder='EMAIL ADDRESS' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='email' autoCapitalize='none' returnKeyType='next' keyboardType='email-address' onSubmitEditing={() => { this.passwordTextInput.focus(); }} blurOnSubmit={false} textContentType='emailAddress' />
+                <TextInput ref={(input) => { this.passwordTextInput = input; }} style={styles.textInput} onChangeText={(val) => { this.setState({ passwordText: val }); }} placeholder='PASSWORD' placeholderTextColor='#808080' selectionColor='#000' secureTextEntry={true} autoCompleteType='password' onSubmitEditing={this.login} returnKeyType='go' autoCapitalize='none' textContentType='password' />
                 <TouchableOpacity activeOpacity={0.9} style={styles.submitButton} onPress={this.login}>
                     <Text style={styles.submitText}>LOGIN</Text>
                 </TouchableOpacity>
