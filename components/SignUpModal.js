@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TextInput, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import API from '../api';
 import COLORS from '../colors';
 
@@ -7,10 +7,11 @@ import COLORS from '../colors';
 class SignUpModal extends Component {
     constructor(props) {
         super(props);
-        this.state = { nameText: '', emailText: '', passwordText: '', errorMessage: '' };
+        this.state = { nameText: '', emailText: '', passwordText: '', errorMessage: '', loading: false, };
     }
     signup = () => {
-        if(this.state.emailText.length > 0 && this.state.passwordText.length > 0) {
+        if (this.state.emailText.length > 0 && this.state.passwordText.length > 0) {
+            this.setState({ loading: true });
             API.get({
                 task: 'createUser',
                 name: this.state.nameText,
@@ -18,10 +19,12 @@ class SignUpModal extends Component {
                 password: this.state.passwordText,
                 emailNotify: true,
             }, (data) => {
-                if(data.err) {
+                if (data.err) {
+                    this.setState({ loading: false });
                     this.setState({ errorMessage: data.message });
                 } else {
                     this.props.updateUser(data);
+                    this.setState({ loading: false });
                     this.props.changeView('verify');
                 }
             });
@@ -30,11 +33,14 @@ class SignUpModal extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <TextInput style={styles.textInput} onChangeText={(val) => { this.setState({ nameText: val }); }} placeholder='FULL NAME' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='name' autoCapitalize='words' returnKeyType='next' textContentType='name' onSubmitEditing={() => { this.emailTextInput.focus(); }} blurOnSubmit={false} />
-                <TextInput ref={(input) => { this.emailTextInput = input; }} style={styles.textInput} onChangeText={(val) => { this.setState({ emailText: val }); }} placeholder='EMAIL ADDRESS' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='email' autoCapitalize='none' returnKeyType='next' keyboardType='email-address' textContentType='emailAddress' onSubmitEditing={() => { this.passwordTextInput.focus(); }} blurOnSubmit={false} />
-                <TextInput ref={(input) => { this.passwordTextInput = input; }} style={styles.textInput} onChangeText={(val) => { this.setState({ passwordText: val }); }} placeholder='PASSWORD' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='password' secureTextEntry={true} autoCapitalize='none' returnKeyType='done' textContentType='password' />
+                <TextInput style={styles.textInput} onChangeText={(val) => { this.setState({ nameText: val }); }} placeholder='FULL NAME' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='name' autoCapitalize='words' textContentType='name' />
+                <TextInput style={styles.textInput} onChangeText={(val) => { this.setState({ emailText: val }); }} placeholder='EMAIL ADDRESS' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='email' autoCapitalize='none' keyboardType='email-address' textContentType='emailAddress' />
+                <TextInput style={styles.textInput} onChangeText={(val) => { this.setState({ passwordText: val }); }} placeholder='PASSWORD' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='password' secureTextEntry={true} autoCapitalize='none' returnKeyType='done' textContentType='password' />
                 <TouchableOpacity activeOpacity={0.9} onPress={this.signup} style={styles.submitButton}>
-                    <Text style={styles.submitText}>SIGN UP</Text>
+                    {this.state.loading
+                        ? <ActivityIndicator size="small" color='#FFF' animating={this.state.loading} style={{ paddingHorizontal: 15 }} />
+                        : < Text style={styles.submitText}>SIGN UP</Text>
+                    }
                 </TouchableOpacity>
                 <Text style={styles.errorText}>{this.state.errorMessage}</Text>
             </View>
@@ -56,7 +62,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 25,
         marginBottom: 20,
-        borderWidth: COLORS.lightMode ? 3:0,
+        borderWidth: COLORS.lightMode ? 3 : 0,
         borderColor: COLORS.brown,
         paddingHorizontal: 20,
         color: 'black',

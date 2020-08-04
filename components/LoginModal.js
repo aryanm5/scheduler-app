@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TextInput, Text, TouchableOpacity, StyleSheet, Keyboard } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity, StyleSheet, Keyboard, ActivityIndicator } from 'react-native';
 import API from '../api';
 import COLORS from '../colors';
 
@@ -7,21 +7,24 @@ import COLORS from '../colors';
 class LoginModal extends Component {
     constructor(props) {
         super(props);
-        this.state = { emailText: '', passwordText: '', errorMessage: '' };
+        this.state = { emailText: '', passwordText: '', errorMessage: '', loading: false, };
     }
 
     login = () => {
         Keyboard.dismiss();
         if (this.state.emailText.length > 0 && this.state.passwordText.length > 0) {
+            this.setState({ loading: true });
             API.get({
                 task: 'tryLogin',
                 email: this.state.emailText,
                 password: this.state.passwordText,
             }, (data) => {
                 if (data.err) {
+                    this.setState({ loading: false });
                     this.setState({ errorMessage: data.message });
                 } else {
                     this.props.updateUser(data);
+                    this.setState({ loading: false });
                     this.props.changeView('main');
                 }
             });
@@ -33,11 +36,14 @@ class LoginModal extends Component {
             <View style={styles.container}>
                 <TextInput style={styles.textInput} onChangeText={(val) => { this.setState({ emailText: val }); }} placeholder='EMAIL ADDRESS' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='email' autoCapitalize='none' returnKeyType='next' keyboardType='email-address' onSubmitEditing={() => { this.passwordTextInput.focus(); }} blurOnSubmit={false} textContentType='emailAddress' />
                 <TextInput ref={(input) => { this.passwordTextInput = input; }} style={styles.textInput} onChangeText={(val) => { this.setState({ passwordText: val }); }} placeholder='PASSWORD' placeholderTextColor='#808080' selectionColor='#000' secureTextEntry={true} autoCompleteType='password' onSubmitEditing={this.login} returnKeyType='go' autoCapitalize='none' textContentType='password' />
-                <TouchableOpacity activeOpacity={0.9} style={styles.submitButton} onPress={this.login}>
-                    <Text style={styles.submitText}>LOGIN</Text>
+                <TouchableOpacity activeOpacity={0.9} style={styles.submitButton} onPress={() => { if (!this.state.loading) { this.login(); } }}>
+                    {this.state.loading
+                        ? <ActivityIndicator size="small" color='#FFF' animating={this.state.loading} style={{paddingHorizontal: 15}} />
+                        : < Text style={styles.submitText}>LOGIN</Text>
+                    }
                 </TouchableOpacity>
                 <Text style={styles.errorText}>{this.state.errorMessage}</Text>
-            </View>
+            </View >
         );
     }
 }
@@ -53,7 +59,7 @@ const styles = StyleSheet.create({
     textInput: {
         width: '80%',
         height: 50,
-        backgroundColor: 'white',
+        backgroundColor: '#FFF',
         borderRadius: 25,
         marginBottom: 20,
         borderWidth: COLORS.lightMode ? 3 : 0,
@@ -69,7 +75,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     submitText: {
-        color: '#FFFFFF',
+        color: '#FFF',
         fontWeight: 'bold',
         fontSize: 16,
     },
