@@ -8,18 +8,6 @@ import SwitchButton from 'switch-button-react-native';
 class Landing extends Component {
     constructor(props) {
         super(props);
-        this.state = { activeSwitch: 1, };
-    }
-
-    setLogin = () => {
-        this.setState({
-            activeSwitch: 1,
-        });
-    }
-    setSignUp = () => {
-        this.setState({
-            activeSwitch: 2,
-        });
     }
 
     render() {
@@ -33,7 +21,8 @@ class Landing extends Component {
                     <View style={styles.contentSection}>
 
                         <SwitchButton
-                            onValueChange={(val) => this.setState({ activeSwitch: val })}      // this is necessary for this component
+                            initialValue={this.props.view}
+                            onValueChange={(val) => this.props.landingChangeView(val)}      // this is necessary for this component
                             text1='LOGIN'                        // optional: first text in switch button --- default ON
                             text2='SIGN UP'                       // optional: second text in switch button --- default OFF
                             switchWidth={Dimensions.get('window').width}                 // optional: switch width --- default 44
@@ -49,7 +38,7 @@ class Landing extends Component {
                             activeFontColor='#fff'            // optional: active font color --- default #fff
                         />
                         {
-                            this.state.activeSwitch === 1
+                            this.props.view === 1
                                 ? <LoginModal updateUser={this.props.updateUser} changeView={this.props.changeView} />
                                 : <SignUpModal updateUser={this.props.updateUser} changeView={this.props.changeView} />
                         }

@@ -30,6 +30,7 @@ class VerifyModal extends Component {
     }
 
     goBack = () => {
+        this.props.landingChangeView(2);
         this.props.changeView('landing');
     }
 

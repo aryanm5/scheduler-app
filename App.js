@@ -27,7 +27,12 @@ class App extends Component {
     //const [user, setUser] = React.useState({ loggedIn: false });
     constructor(props) {
         super(props);
-        this.state = { whichView: 'landing', user: { loggedIn: false } };
+        this.state = { whichView: 'landing', landingWhichView: 1, user: { loggedIn: false } };
+    }
+
+    landingChangeView = (changeTo) => {
+        console.log('changing landing to ' + changeTo);
+        this.setState({ landingWhichView: changeTo });
     }
     updateUser = (user) => {
         this.setState({ user: user });
@@ -45,9 +50,9 @@ class App extends Component {
                     <View style={styles.container}>
                         {
                             this.state.whichView === 'landing'
-                                ? <Landing updateUser={this.updateUser} changeView={this.changeView} />
+                                ? <Landing view={this.state.landingWhichView} landingChangeView={this.landingChangeView} updateUser={this.updateUser} changeView={this.changeView} />
                                 : this.state.whichView === 'verify'
-                                    ? <VerifyModal updateUser={this.updateUser} changeView={this.changeView} user={this.state.user} />
+                                    ? <VerifyModal updateUser={this.updateUser} landingChangeView={this.landingChangeView} changeView={this.changeView} user={this.state.user} />
                                     : <Main user={this.state.user} updateUser={this.updateUser} />
                         }
                     </View>
