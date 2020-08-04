@@ -15,8 +15,7 @@
     "react-native": "0.63.2",
     "react-native-swiper": "^1.6.0-rc.3",
     "react-native-vector-icons": "^7.0.0",
-    "react-native-view-more-text": "^2.1.0",
-    "switch-button-react-native": "^1.0.3"
+    "react-native-view-more-text": "^2.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

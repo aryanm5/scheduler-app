@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { LoginModal, SignUpModal } from '../components';
+import { LoginModal, SignUpModal, SwitchButton } from '../components';
 import COLORS from '../colors';
-import SwitchButton from 'switch-button-react-native';
 
 
 class Landing extends Component {

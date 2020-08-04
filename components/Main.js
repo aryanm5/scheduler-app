@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions, SafeAreaView } from 'react-native';
 import COLORS from '../colors';
-import SwitchButton from 'switch-button-react-native';
 import { Events, Upcoming, Settings } from '../components';
 import Swiper from 'react-native-swiper'
 
