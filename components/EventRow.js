@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, SafeAreaView, TouchableWithoutFeedback, Dimensions } from 'react-native';
+import { SectionRowButton } from '../components';
 import API from '../api';
 import COLORS from '../colors';
 import Modal from '@kazzkiq/react-native-modalbox';
@@ -76,32 +77,21 @@ class EventRow extends Component {
                                     {this.props.event.desc}
                                 </Text>
                             </ViewMoreText>
+
+                            <View style={styles.rowButtonGroup}>
+                                <SectionRowButton text='EDIT EVENT' first />
+                                <SectionRowButton text={`PENDING CLIENTS (${this.numPending})`} />
+                                <SectionRowButton text='APPROVED CLIENTS' />
+                                <SectionRowButton text='VIEW TIME SLOTS' />
+                                <SectionRowButton text='GET EVENT LINK' />
+                            </View>
+                            <View style={[styles.rowButtonGroup, { paddingVertical: 2 }]}>
+                                <SectionRowButton text='DELETE EVENT' color='#FF0000' first />
+                            </View>
                         </ScrollView>
                         <Icon name="angle-down" size={50} color={COLORS.gray} style={styles.closeModalButton} onPress={this.hideModal} />
                     </SafeAreaView>
                 </Modal>
-
-                {/*
-                <Modal isVisible={this.state.showingModal} avoidKeyboard={true} onSwipeComplete={this.hideModal} animationIn='slideInRight' animationOut='slideOutRight' swipeDirection='right' propagateSwipe>
-                    <SafeAreaView style={{ flex: 1, flexDirection: 'column-reverse', alignItems: 'center' }}>
-                        <View style={styles.modalView}>
-                            <ScrollView style={{ height: '100%' }}>
-                                <Text style={styles.modalEventName} numberOfLines={2}>
-                                    {this.props.event.name}
-                                </Text>
-                                <ViewMoreText
-                                    numberOfLines={3}
-                                    renderViewMore={(onPress) => <Text onPress={onPress} style={styles.toggleRead}>Read More</Text>}
-                                    renderViewLess={(onPress) => <Text onPress={onPress} style={styles.toggleRead}>Read Less</Text>}
-                                >
-                                    <Text style={styles.modalEventDesc}>
-                                        {this.props.event.desc}
-                                    </Text>
-                                </ViewMoreText>
-                            </ScrollView>
-                        </View>
-                    </SafeAreaView>
-                </Modal>*/}
             </>
         );
     }
@@ -119,13 +109,21 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         overflow: 'hidden',
     },
+    rowButtonGroup: {
+        flex: 1,
+        backgroundColor: COLORS.background,
+        borderRadius: 20,
+        marginTop: 20,
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+    },
     modalHandle: {
-        width:35,
-        height:5,
-        borderRadius:3,
+        width: 35,
+        height: 5,
+        borderRadius: 3,
         backgroundColor: COLORS.gray,
         alignSelf: 'center',
-        marginTop:10,
+        marginTop: 10,
     },
     modalView: {
         height: Dimensions.get('window').height * 0.95,

@@ -11,12 +11,7 @@ import {
     SafeAreaView,
     StyleSheet,
     KeyboardAvoidingView,
-    TouchableWithoutFeedback,
-    Keyboard,
-    Dimensions,
-    ScrollView,
     View,
-    Text,
     StatusBar,
 } from 'react-native';
 import COLORS from './colors';
