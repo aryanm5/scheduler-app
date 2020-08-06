@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, SafeAreaView, TouchableWithoutFeedback, Dimensions } from 'react-native';
 import { SectionRowButton } from '../components';
 import API from '../api';
-import COLORS from '../colors';
 import Modal from '@kazzkiq/react-native-modalbox';
 import ViewMoreText from 'react-native-view-more-text';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -32,6 +31,94 @@ class EventRow extends Component {
     }
 
     render() {
+        const COLORS = this.props.colors;
+        const styles = StyleSheet.create({
+            container: {
+                minWidth: '100%',
+                backgroundColor: COLORS.secondary,
+                paddingHorizontal: 20,
+                paddingVertical: 18,
+                borderColor: COLORS.gray,
+                borderWidth: 1,
+                borderRadius: 30,
+                marginBottom: 20,
+                overflow: 'hidden',
+            },
+            rowButtonGroup: {
+                flex: 1,
+                backgroundColor: COLORS.background,
+                borderRadius: 20,
+                marginTop: 20,
+                paddingHorizontal: 15,
+                paddingVertical: 10,
+            },
+            modalHandle: {
+                width: 35,
+                height: 5,
+                borderRadius: 3,
+                backgroundColor: COLORS.gray,
+                alignSelf: 'center',
+                marginTop: 10,
+            },
+            modalView: {
+                height: Dimensions.get('window').height * 0.95,
+                width: '100%',
+                position: 'absolute',
+                bottom: 0,
+                borderRadius: 25,
+                borderWidth: 1,
+                borderColor: COLORS.gray,
+                backgroundColor: COLORS.secondary,
+                padding: 20,
+            },
+            modalEventName: {
+                color: COLORS.text,
+                fontSize: 28,
+                fontWeight: 'bold',
+                marginBottom: 10,
+            },
+            modalEventDesc: {
+                color: COLORS.text,
+                fontSize: 18,
+            },
+            toggleRead: {
+                color: COLORS.button,
+                fontSize: 16,
+                fontWeight: 'bold',
+            },
+            closeModalButton: {
+                position: 'absolute',
+                bottom: 25,
+                right: 5,
+            },
+            eventName: {
+                color: COLORS.text,
+                fontSize: 18,
+                fontWeight: 'bold',
+            },
+            numPending: {
+                backgroundColor: COLORS.button,
+                position: 'absolute',
+                width: '12%',
+                justifyContent: 'center',
+                top: 0,
+                bottom: 0,
+                right: 0,
+                borderTopRightRadius: 30,
+                borderBottomRightRadius: 30,
+            },
+            numPendingText: {
+                color: 'white',
+                fontWeight: 'bold',
+                fontSize: 18,
+                textAlign: 'center',
+                textAlignVertical: 'center',
+            },
+            even: {
+                backgroundColor: COLORS.background,
+            },
+        });
+
         this.numPending = this.countPendingClients();
         return (
             <>
@@ -79,14 +166,14 @@ class EventRow extends Component {
                             </ViewMoreText>
 
                             <View style={styles.rowButtonGroup}>
-                                <SectionRowButton text='EDIT EVENT' first />
-                                <SectionRowButton text={`PENDING CLIENTS (${this.numPending})`} />
-                                <SectionRowButton text='APPROVED CLIENTS' />
-                                <SectionRowButton text='VIEW TIME SLOTS' />
-                                <SectionRowButton text='GET EVENT LINK' />
+                                <SectionRowButton colors={COLORS} text='EDIT EVENT' first />
+                                <SectionRowButton colors={COLORS} text={`PENDING CLIENTS (${this.numPending})`} />
+                                <SectionRowButton colors={COLORS} text='APPROVED CLIENTS' />
+                                <SectionRowButton colors={COLORS} text='VIEW TIME SLOTS' />
+                                <SectionRowButton colors={COLORS} text='GET EVENT LINK' />
                             </View>
                             <View style={[styles.rowButtonGroup, { paddingVertical: 2 }]}>
-                                <SectionRowButton text='DELETE EVENT' color='#FF0000' first />
+                                <SectionRowButton colors={COLORS} text='DELETE EVENT' color='#FF0000' first />
                             </View>
                         </ScrollView>
                         <Icon name="angle-down" size={50} color={COLORS.gray} style={styles.closeModalButton} onPress={this.hideModal} />
@@ -97,91 +184,5 @@ class EventRow extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        minWidth: '100%',
-        backgroundColor: COLORS.secondary,
-        paddingHorizontal: 20,
-        paddingVertical: 18,
-        borderColor: COLORS.gray,
-        borderWidth: 1,
-        borderRadius: 30,
-        marginBottom: 20,
-        overflow: 'hidden',
-    },
-    rowButtonGroup: {
-        flex: 1,
-        backgroundColor: COLORS.background,
-        borderRadius: 20,
-        marginTop: 20,
-        paddingHorizontal: 15,
-        paddingVertical: 10,
-    },
-    modalHandle: {
-        width: 35,
-        height: 5,
-        borderRadius: 3,
-        backgroundColor: COLORS.gray,
-        alignSelf: 'center',
-        marginTop: 10,
-    },
-    modalView: {
-        height: Dimensions.get('window').height * 0.95,
-        width: '100%',
-        position: 'absolute',
-        bottom: 0,
-        borderRadius: 25,
-        borderWidth: 1,
-        borderColor: COLORS.gray,
-        backgroundColor: COLORS.secondary,
-        padding: 20,
-    },
-    modalEventName: {
-        color: COLORS.text,
-        fontSize: 28,
-        fontWeight: 'bold',
-        marginBottom: 10,
-    },
-    modalEventDesc: {
-        color: COLORS.text,
-        fontSize: 18,
-    },
-    toggleRead: {
-        color: COLORS.button,
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    closeModalButton: {
-        position: 'absolute',
-        bottom: 25,
-        right: 5,
-    },
-    eventName: {
-        color: COLORS.text,
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-    numPending: {
-        backgroundColor: COLORS.button,
-        position: 'absolute',
-        width: '12%',
-        justifyContent: 'center',
-        top: 0,
-        bottom: 0,
-        right: 0,
-        borderTopRightRadius: 30,
-        borderBottomRightRadius: 30,
-    },
-    numPendingText: {
-        color: 'white',
-        fontWeight: 'bold',
-        fontSize: 18,
-        textAlign: 'center',
-        textAlignVertical: 'center',
-    },
-    even: {
-        backgroundColor: COLORS.background,
-    },
-});
 
 export { EventRow };

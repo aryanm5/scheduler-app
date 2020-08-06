@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { LoginModal, SignUpModal, SwitchButton } from '../components';
-import COLORS from '../colors';
 
 
 class Landing extends Component {
@@ -11,6 +10,45 @@ class Landing extends Component {
 
 
     render() {
+        const COLORS = this.props.colors;
+        const styles = StyleSheet.create({
+            container: {
+                backgroundColor: COLORS.background,
+                flex: 1,
+                flexDirection: 'column',
+                justifyContent: 'center',
+            },
+            topSection: {
+                flex: 2,
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+            },
+            contentSection: {
+                flex: 3,
+                flexDirection: 'column',
+                alignItems: 'center',
+            },
+            title: {
+                color: COLORS.text,
+                fontFamily: Platform.OS === 'ios'
+                    ? 'Futura'
+                    : 'Roboto',
+                fontSize: 40,
+                fontWeight: 'bold',
+                marginTop: 20,
+            },
+            subtitle: {
+                paddingHorizontal: 20,
+                textAlign: 'center',
+                marginTop: 20,
+                fontSize: 16,
+            },
+            text: {
+                color: COLORS.text,
+            },
+        });
+
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={styles.container}>
                 <View style={{ flex: 1 }}>
@@ -39,8 +77,8 @@ class Landing extends Component {
                         />
                         {
                             this.props.view === 1
-                                ? <LoginModal updateUser={this.props.updateUser} changeView={this.props.changeView} />
-                                : <SignUpModal updateUser={this.props.updateUser} changeView={this.props.changeView} />
+                                ? <LoginModal colors={this.props.colors} updateUser={this.props.updateUser} changeView={this.props.changeView} />
+                                : <SignUpModal colors={this.props.colors} updateUser={this.props.updateUser} changeView={this.props.changeView} />
                         }
                     </View>
                 </View>
@@ -49,42 +87,6 @@ class Landing extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: COLORS.background,
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-    },
-    topSection: {
-        flex: 2,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    contentSection: {
-        flex: 3,
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    title: {
-        color: COLORS.text,
-        fontFamily: Platform.OS === 'ios'
-            ? 'Futura'
-            : 'Roboto',
-        fontSize: 40,
-        fontWeight: 'bold',
-        marginTop: 20,
-    },
-    subtitle: {
-        paddingHorizontal: 20,
-        textAlign: 'center',
-        marginTop: 20,
-        fontSize: 16,
-    },
-    text: {
-        color: COLORS.text,
-    },
-});
+
 
 export { Landing };

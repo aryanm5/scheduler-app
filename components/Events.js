@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, FlatList, Text, Image, StyleSheet, Alert, RefreshControl } from 'react-native';
 import API from '../api';
-import COLORS from '../colors';
 import { EventRow } from '../components';
 
 
@@ -13,7 +12,7 @@ class Events extends Component {
         }
     }
 
-    eventRenderItem = ({ item, index }) => (<EventRow event={item} index={index} />);
+    eventRenderItem = ({ item, index }) => (<EventRow colors={this.props.colors} event={item} index={index} />);
 
     refreshUser = () => {
         API.get({
@@ -34,6 +33,22 @@ class Events extends Component {
     }
 
     render() {
+        const COLORS = this.props.colors;
+        const styles = StyleSheet.create({
+            container: {
+                flex: 1,
+                width: '100%',
+                alignItems: 'center',
+                justifyContent: 'center',
+            },
+            eventsContainer: {
+                flex: 1,
+            },
+            text: {
+                color: COLORS.text,
+            }
+        });
+
         return (
             <View style={styles.container}>
                 <View style={styles.eventsContainer}>
@@ -61,19 +76,5 @@ class Events extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        width: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    eventsContainer: {
-        flex: 1,
-    },
-    text: {
-        color: COLORS.text,
-    }
-});
 
 export { Events };

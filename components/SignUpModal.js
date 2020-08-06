@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, TextInput, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import API from '../api';
-import COLORS from '../colors';
 
 
 class SignUpModal extends Component {
@@ -31,6 +30,46 @@ class SignUpModal extends Component {
         }
     }
     render() {
+        const COLORS = this.props.colors;
+        const styles = StyleSheet.create({
+            container: {
+                flex: 1,
+                width: '100%',
+                flexDirection: 'column',
+                alignItems: 'center',
+                marginTop: 30,
+            },
+            textInput: {
+                width: '80%',
+                height: 50,
+                backgroundColor: 'white',
+                borderRadius: 25,
+                marginBottom: 20,
+                borderWidth: COLORS.lightMode ? 3 : 0,
+                borderColor: COLORS.brown,
+                paddingHorizontal: 20,
+                color: 'black',
+            },
+            submitButton: {
+                backgroundColor: COLORS.button,
+                paddingHorizontal: 20,
+                paddingVertical: 15,
+                borderRadius: 15,
+                marginTop: 20,
+            },
+            submitText: {
+                color: '#FFFFFF',
+                fontWeight: 'bold',
+                fontSize: 16,
+            },
+            errorText: {
+                color: '#FF0000',
+                fontSize: 16,
+                marginTop: 10,
+                textAlign: 'center',
+            }
+        });
+
         return (
             <View style={styles.container}>
                 <TextInput style={styles.textInput} onChangeText={(val) => { this.setState({ nameText: val }); }} placeholder='FULL NAME' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='name' autoCapitalize='words' textContentType='name' />
@@ -48,42 +87,5 @@ class SignUpModal extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        width: '100%',
-        flexDirection: 'column',
-        alignItems: 'center',
-        marginTop: 30,
-    },
-    textInput: {
-        width: '80%',
-        height: 50,
-        backgroundColor: 'white',
-        borderRadius: 25,
-        marginBottom: 20,
-        borderWidth: COLORS.lightMode ? 3 : 0,
-        borderColor: COLORS.brown,
-        paddingHorizontal: 20,
-        color: 'black',
-    },
-    submitButton: {
-        backgroundColor: COLORS.button,
-        paddingHorizontal: 20,
-        paddingVertical: 15,
-        borderRadius: 15,
-        marginTop: 20,
-    },
-    submitText: {
-        color: '#FFFFFF',
-        fontWeight: 'bold',
-        fontSize: 16,
-    },
-    errorText: {
-        color: '#FF0000',
-        fontSize: 16,
-        marginTop: 10,
-    }
-});
 
 export { SignUpModal };

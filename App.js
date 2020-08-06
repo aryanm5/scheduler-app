@@ -14,7 +14,7 @@ import {
     View,
     StatusBar,
 } from 'react-native';
-import COLORS from './colors';
+import getColors from './colors';
 import { Landing, VerifyModal, Main } from './components';
 
 
@@ -22,7 +22,7 @@ class App extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { whichView: 'landing', landingWhichView: 1, user: { loggedIn: false } };
+        this.state = { whichView: 'landing', landingWhichView: 1, user: { loggedIn: false }, colors: getColors('check'), };
     }
 
     landingChangeView = (changeTo) => {
@@ -37,9 +37,23 @@ class App extends Component {
             this.updateUser({ loggedIn: false });
         }
     }
+    setColors = (setTo) => {
+        this.setState({ colors: getColors(setTo) });
+    }
 
 
     render() {
+        const COLORS = this.state.colors;
+        const styles = StyleSheet.create({
+            container: {
+                backgroundColor: COLORS.background,
+                flex: 1,
+                justifyContent: 'flex-start',
+            },
+            text: {
+                color: COLORS.text,
+            }
+        });
         return (
             <>
                 <StatusBar animated={true} backgroundColor={COLORS.background} barStyle={COLORS.lightMode ? 'dark-content' : 'light-content'} />
@@ -48,10 +62,10 @@ class App extends Component {
                     <View style={styles.container}>
                         {
                             this.state.whichView === 'landing'
-                                ? <Landing view={this.state.landingWhichView} landingChangeView={this.landingChangeView} updateUser={this.updateUser} changeView={this.changeView} />
+                                ? <Landing colors={this.state.colors} view={this.state.landingWhichView} landingChangeView={this.landingChangeView} updateUser={this.updateUser} changeView={this.changeView} />
                                 : this.state.whichView === 'verify'
-                                    ? <VerifyModal updateUser={this.updateUser} landingChangeView={this.landingChangeView} changeView={this.changeView} user={this.state.user} />
-                                    : <Main user={this.state.user} updateUser={this.updateUser} changeView={this.changeView} />
+                                    ? <VerifyModal colors={this.state.colors} updateUser={this.updateUser} landingChangeView={this.landingChangeView} changeView={this.changeView} user={this.state.user} />
+                                    : <Main colors={this.state.colors} setColors={this.setColors} user={this.state.user} updateUser={this.updateUser} changeView={this.changeView} />
                         }
                     </View>
                 </KeyboardAvoidingView>
@@ -60,15 +74,5 @@ class App extends Component {
     }
 };
 
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: COLORS.background,
-        flex: 1,
-        justifyContent: 'flex-start',
-    },
-    text: {
-        color: COLORS.text,
-    }
-});
 
 export default App;
