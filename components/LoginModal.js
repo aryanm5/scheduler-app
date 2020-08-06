@@ -64,7 +64,7 @@ class LoginModal extends Component {
                 fontSize: 16,
             },
             errorText: {
-                color: '#FF0000',
+                color: COLORS.red,
                 fontSize: 16,
                 marginTop: 10,
                 textAlign: 'center',

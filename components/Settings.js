@@ -69,7 +69,7 @@ class Settings extends Component {
                         <Text style={styles.email} numberOfLines={1}>{this.props.user.email}</Text>
                         <SectionRowButton colors={COLORS} text='CHANGE NAME' />
                         <SectionRowButton colors={COLORS} text='CHANGE PASSWORD' />
-                        <SectionRowButton colors={COLORS} text={this.props.user.emailNotify ? 'DISABLE ALL EMAILS' : 'ENABLE EMAILS'} color={this.props.user.emailNotify ? '#FF0000' : '#00FF00'} />
+                        <SectionRowButton colors={COLORS} text={this.props.user.emailNotify ? 'DISABLE ALL EMAILS' : 'ENABLE EMAILS'} color={this.props.user.emailNotify ? COLORS.red : COLORS.green} />
                     </View>
                     <View style={[styles.rowButtonGroup, { paddingVertical: 2 }]}>
                         <SectionRowButton
