@@ -69,7 +69,8 @@ class EventRow extends Component {
                 borderWidth: 1,
                 borderColor: COLORS.gray,
                 backgroundColor: COLORS.secondary,
-                padding: 20,
+                paddingVertical: 20,
+                paddingHorizontal: 15,//20 to 15
             },
             modalEventName: {
                 color: COLORS.text,

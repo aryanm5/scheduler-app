@@ -28,7 +28,6 @@ class Settings extends Component {
                 width: '100%',
                 flexDirection: 'column',
                 alignItems: 'center',
-                paddingHorizontal: 10,
             },
             scrollView: {
                 flex: 1,

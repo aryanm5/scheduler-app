@@ -26,7 +26,7 @@ class SectionRowButton extends Component {
             },
             text: {
                 color: COLORS.text,
-                fontSize: 18,
+                fontSize: 17,
                 fontWeight: 'bold',
             },
             arrow: {
