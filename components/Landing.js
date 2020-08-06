@@ -9,6 +9,7 @@ class Landing extends Component {
         super(props);
     }
 
+
     render() {
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={styles.container}>

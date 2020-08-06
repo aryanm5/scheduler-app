@@ -19,7 +19,7 @@ import { Landing, VerifyModal, Main } from './components';
 
 
 class App extends Component {
-    //const [user, setUser] = React.useState({ loggedIn: false });
+
     constructor(props) {
         super(props);
         this.state = { whichView: 'landing', landingWhichView: 1, user: { loggedIn: false } };
@@ -33,7 +33,11 @@ class App extends Component {
     }
     changeView = (newView) => {
         this.setState({ whichView: newView }); //landing, verify, or main
+        if (newView === 'landing') {
+            this.updateUser({ loggedIn: false });
+        }
     }
+
 
     render() {
         return (
@@ -47,7 +51,7 @@ class App extends Component {
                                 ? <Landing view={this.state.landingWhichView} landingChangeView={this.landingChangeView} updateUser={this.updateUser} changeView={this.changeView} />
                                 : this.state.whichView === 'verify'
                                     ? <VerifyModal updateUser={this.updateUser} landingChangeView={this.landingChangeView} changeView={this.changeView} user={this.state.user} />
-                                    : <Main user={this.state.user} updateUser={this.updateUser} />
+                                    : <Main user={this.state.user} updateUser={this.updateUser} changeView={this.changeView} />
                         }
                     </View>
                 </KeyboardAvoidingView>
@@ -61,7 +65,6 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.background,
         flex: 1,
         justifyContent: 'flex-start',
-
     },
     text: {
         color: COLORS.text,

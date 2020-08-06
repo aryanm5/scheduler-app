@@ -53,7 +53,7 @@ class Main extends Component {
                             }>
                             <Events user={this.props.user} updateUser={this.props.updateUser} />
                             <Upcoming user={this.props.user} updateUser={this.props.updateUser} />
-                            <Settings user={this.props.user} updateUser={this.props.updateUser} />
+                            <Settings user={this.props.user} updateUser={this.props.updateUser} changeView={this.props.changeView} />
                         </Swiper>
                         {/*
                             this.state.whichView === 1
