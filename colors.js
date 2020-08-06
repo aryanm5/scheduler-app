@@ -17,7 +17,7 @@ const getColorsLD = (light) => {
 
 const getColors = (light, after) => {
     if (light === 'check') {
-        light = Appearance.getColorScheme() === 'dark';
+        light = Appearance.getColorScheme() === 'light';
         return getColorsLD(light);
     } else {
         return getColorsLD(light === 'light');
