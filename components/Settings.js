@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, StyleSheet, Switch, Platform } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Switch, Platform, TouchableOpacity } from 'react-native';
 import { SectionRowButton } from '../components';
+import { Account, ChangeName, ChangePassword, DisableEmails, EnableEmails } from './settings_actions';
 import API from '../api';
+import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 
 class Settings extends Component {
     constructor(props) {
         super(props);
-        this.state = { darkModeEnabled: !this.props.colors.lightMode };
+        this.state = { whichView: 'settings', darkModeEnabled: !this.props.colors.lightMode };
+        this.willRemoveView = false;
     }
 
     darkModeToggled = () => {
@@ -18,6 +21,14 @@ class Settings extends Component {
 
     logout = () => {
         this.props.changeView('landing');
+    }
+
+    setWhichView = (setTo) => {
+        this.setState({ whichView: setTo }, () => { setTimeout(() => { this.swiper.scrollBy(1); }, 1); });
+    }
+    viewBack = () => {
+        this.willRemoveView = true;
+        this.swiper.scrollBy(-1);
     }
 
     render() {
@@ -62,32 +73,56 @@ class Settings extends Component {
 
         return (
             <View style={styles.container}>
-                <ScrollView style={styles.scrollView} contentContainerStyle={{ alignItems: 'center' }} showsVerticalScrollIndicator={false}>
-                    <View style={styles.rowButtonGroup}>
-                        <Text style={styles.name} numberOfLines={1}>{this.props.user.name}</Text>
-                        <Text style={styles.email} numberOfLines={1}>{this.props.user.email}</Text>
-                        <SectionRowButton colors={COLORS} text='CHANGE NAME' />
-                        <SectionRowButton colors={COLORS} text='CHANGE PASSWORD' />
-                        <SectionRowButton colors={COLORS} text={this.props.user.emailNotify ? 'DISABLE ALL EMAILS' : 'ENABLE EMAILS'} color={this.props.user.emailNotify ? COLORS.red : COLORS.green} />
-                    </View>
-                    <View style={[styles.rowButtonGroup, { paddingVertical: 2 }]}>
-                        <SectionRowButton
-                            colors={COLORS}
-                            text={`DARK ${Platform.OS === 'ios' ? 'MODE' : 'THEME'}`}
-                            icon={<Switch onValueChange={this.darkModeToggled} value={this.state.darkModeEnabled} trackColor={{ true: COLORS.button }} />}
-                            first />
-                    </View>
-                    <View style={[styles.rowButtonGroup, { paddingVertical: 2 }]}>
-                        <SectionRowButton
-                            colors={COLORS}
-                            text='LOGOUT'
-                            icon={<Icon name='log-out-outline' size={36} color={COLORS.text} />}
-                            onPress={this.logout}
-                            first />
-                    </View>
-                </ScrollView>
+                <Swiper
+                    ref={(component) => { this.swiper = component; }}
+                    onMomentumScrollEnd={() => { if (this.willRemoveView) { this.setState({ whichView: 'settings' }); this.willRemoveView = false; } }}
+                    loop={false}
+                    dot={<></>}
+                    activeDot={<></>}>
+                    <ScrollView style={styles.scrollView} contentContainerStyle={{ alignItems: 'center' }} showsVerticalScrollIndicator={false}>
+                        <View style={styles.rowButtonGroup}>
+                            <TouchableOpacity onPress={() => { this.setWhichView('account'); }} activeOpacity={1}>
+                                <Text style={styles.name} numberOfLines={1}>{this.props.user.name}</Text>
+                                <Text style={styles.email} numberOfLines={1}>{this.props.user.email}</Text>
+                            </TouchableOpacity>
+                            <SectionRowButton onPress={() => { this.setWhichView('name'); }} colors={COLORS} text='CHANGE NAME' />
+                            <SectionRowButton onPress={() => { this.setWhichView('password'); }} colors={COLORS} text='CHANGE PASSWORD' />
+                            <SectionRowButton onPress={() => { this.setWhichView('toggleEmails'); }} colors={COLORS} text={this.props.user.emailNotify ? 'DISABLE ALL EMAILS' : 'ENABLE EMAILS'} color={this.props.user.emailNotify ? COLORS.red : COLORS.green} />
+                        </View>
+                        <View style={[styles.rowButtonGroup, { paddingVertical: 2 }]}>
+                            <SectionRowButton
+                                colors={COLORS}
+                                text={`DARK ${Platform.OS === 'ios' ? 'MODE' : 'THEME'}`}
+                                icon={<Switch onValueChange={this.darkModeToggled} value={this.state.darkModeEnabled} trackColor={{ true: COLORS.button }} />}
+                                first />
+                        </View>
+                        <View style={[styles.rowButtonGroup, { paddingVertical: 2 }]}>
+                            <SectionRowButton
+                                colors={COLORS}
+                                text='LOGOUT'
+                                icon={<Icon name='log-out-outline' size={36} color={COLORS.text} />}
+                                onPress={this.logout}
+                                first />
+                        </View>
+                    </ScrollView>
+
+                    {
+                        this.state.whichView === 'settings'
+                            ? null
+                            : this.renderView(this.state.whichView)
+                    }
+                </Swiper>
             </View>
         );
+    }
+
+    renderView = (whichView) => {
+        switch (whichView) {
+            case 'account': return <Account colors={this.props.colors} goBack={this.viewBack} />;
+            case 'name': return <ChangeName colors={this.props.colors} goBack={this.viewBack} />;
+            case 'password': return <ChangePassword colors={this.props.colors} goBack={this.viewBack} />;
+            case 'toggleEmails': return (this.props.user.emailNotify ? <DisableEmails colors={this.props.colors} goBack={this.viewBack} /> : <EnableEmails colors={this.props.colors} goBack={this.viewBack} />);
+        }
     }
 }
 
