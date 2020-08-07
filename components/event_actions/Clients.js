@@ -17,6 +17,7 @@ class Clients extends Component {
         return (
             <View style={commonStyles.container}>
                 <Icon name='angle-left' size={40} color={COLORS.text} onPress={this.props.goBack} style={commonStyles.backButton} />
+                <Text style={commonStyles.title}>APPROVED CLIENTS</Text>
                 <Text style={commonStyles.text}>
                     Approved Clients !!
                 </Text>

@@ -14,6 +14,17 @@ const getEventActionStyles = (COLORS) => {
             color: COLORS.text,
             fontSize: 18,
         },
+        title: {
+            position: 'absolute',
+            right: 0,
+            top: 5,
+            paddingVertical: 10,
+            paddingHorizontal: 5,
+            color: COLORS.text,
+            fontSize: 20,
+            fontWeight: 'bold',
+            textAlignVertical: 'center',
+        },
         backButton: {
             position: 'absolute',
             left:0,

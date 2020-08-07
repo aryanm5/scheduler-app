@@ -118,10 +118,10 @@ class Settings extends Component {
 
     renderView = (whichView) => {
         switch (whichView) {
-            case 'account': return <Account colors={this.props.colors} goBack={this.viewBack} />;
-            case 'name': return <ChangeName colors={this.props.colors} goBack={this.viewBack} />;
-            case 'password': return <ChangePassword colors={this.props.colors} goBack={this.viewBack} />;
-            case 'toggleEmails': return (this.props.user.emailNotify ? <DisableEmails colors={this.props.colors} goBack={this.viewBack} /> : <EnableEmails colors={this.props.colors} goBack={this.viewBack} />);
+            case 'account': return <Account user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.viewBack} />;
+            case 'name': return <ChangeName user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.viewBack} />;
+            case 'password': return <ChangePassword user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.viewBack} />;
+            case 'toggleEmails': return (this.props.user.emailNotify ? <DisableEmails user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.viewBack} /> : <EnableEmails user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.viewBack} />);
         }
     }
 }

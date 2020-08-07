@@ -13,10 +13,11 @@ class DisableEmails extends Component {
     render() {
         const COLORS = this.props.colors;
         const commonStyles = getSettingsActionStyles(COLORS);
-        
+
         return (
             <View style={commonStyles.container}>
                 <Icon name='angle-left' size={40} color={COLORS.text} onPress={this.props.goBack} style={commonStyles.backButton} />
+                <Text style={[commonStyles.title, { color: COLORS.red }]}>DISABLE EMAILS</Text>
                 <Text style={commonStyles.text}>
                     Disable Emails !!
                 </Text>

@@ -37,7 +37,6 @@ class EventRow extends Component {
     modalBack = () => {
         this.willRemoveModalView = true;
         this.swiper.scrollBy(-1);
-        //setTimeout(() => { this.setState({ modalView: 'event' }); }, 500);
     }
 
     render() {

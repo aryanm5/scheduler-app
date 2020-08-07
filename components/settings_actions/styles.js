@@ -14,11 +14,21 @@ const getSettingsActionStyles = (COLORS) => {
             color: COLORS.text,
             fontSize: 18,
         },
+        title: {
+            position: 'absolute',
+            right: 0,
+            top: 0,
+            paddingVertical:10,
+            color: COLORS.text,
+            fontSize: 18,
+            fontWeight: 'bold',
+            textAlignVertical: 'center',
+        },
         backButton: {
             position: 'absolute',
             left:0,
             top:0,
-            paddingVertical:5,
+            paddingVertical:0,
             paddingHorizontal:15,
         },
         errorText: {
