@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text, Image, StyleSheet, Alert, RefreshControl } from 'react-native';
+import { View, FlatList, Text, Image, StyleSheet, Alert, RefreshControl, TouchableOpacity } from 'react-native';
 import API from '../api';
 import { EventRow } from '../components';
 
@@ -46,17 +46,33 @@ class Events extends Component {
             },
             text: {
                 color: COLORS.text,
-            }
+                fontSize: 18,
+            },
+            buttonText: {
+                color: '#FFF',
+                fontSize: 18,
+            },
+            noEventsCreate: {
+                backgroundColor: COLORS.button,
+                paddingHorizontal: 20,
+                paddingVertical: 15,
+                borderRadius: 15,
+                marginTop: 20,
+                alignItems: 'center',
+            },
         });
 
         return (
             <View style={styles.container}>
                 <View style={styles.eventsContainer}>
                     {this.props.user.events.length === 0 || this.props.user.events[0] === 'none'
-                        ? <View style={{ marginTop: 50 }}>
+                        ? <View style={{ marginTop: 80 }}>
                             <Text style={styles.text}>
                                 You don't have any events yet.
                             </Text>
+                            <TouchableOpacity onPress={() => { }} activeOpacity={0.9} style={styles.noEventsCreate}>
+                                <Text style={styles.buttonText}>Create Event</Text>
+                            </TouchableOpacity>
                         </View>
                         : <FlatList
                             showsVerticalScrollIndicator={false}

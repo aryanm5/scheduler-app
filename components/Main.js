@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, SafeAreaView, TouchableOpacity } from 'react-native';
 import { Events, Upcoming, Settings } from '../components';
-import Swiper from 'react-native-swiper'
+import Swiper from 'react-native-swiper';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 
 const viewNames = ['My Events', 'Upcoming', 'Settings'];
@@ -24,9 +25,10 @@ class Main extends Component {
             },
             header: {
                 flex: 0,
+                flexDirection: 'row',
                 height: Dimensions.get('window').height / 12,
-                justifyContent: 'flex-end',
-                alignItems: 'flex-start',
+                justifyContent: 'flex-start',
+                alignItems: 'flex-end',
                 paddingLeft: 15,
             },
             headerText: {
@@ -34,6 +36,10 @@ class Main extends Component {
                 fontWeight: 'bold',
                 fontSize: 36,
                 textAlign: 'left',
+            },
+            createEventButton: {
+                position: 'absolute',
+                right: 5,
             },
             settingsButton: {
                 position: 'absolute',
@@ -60,6 +66,13 @@ class Main extends Component {
                         <Text style={styles.headerText}>
                             {viewNames[this.state.whichView]}
                         </Text>
+                        {
+                            this.state.whichView < 2
+                                ? <TouchableOpacity activeOpacity={0.9} onPress={() => { }} style={styles.createEventButton}>
+                                    <Icon name='pluscircleo' size={38} color={COLORS.button} />
+                                </TouchableOpacity>
+                                : null
+                        }
                     </View>
                     <View style={styles.content}>
                         <Swiper

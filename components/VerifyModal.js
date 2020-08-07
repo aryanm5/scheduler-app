@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import API from '../api';
 import Icon from 'react-native-vector-icons/AntDesign';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import { openInbox } from 'react-native-email-link';
 
 
 class VerifyModal extends Component {
     constructor(props) {
         super(props);
-        this.state = { errorMessage: '' };
+        this.state = { errorMessage: '', loading: false, };
     }
 
     checkVerified = () => {
+        this.setState({ loading: true });
         API.get({
             task: 'getUser',
             token: this.props.user.token,
         }, (data) => {
+            this.setState({ loading: false });
             if (data.err) {
                 this.setState({ errorMessage: data.message });
             } else {
@@ -33,6 +37,13 @@ class VerifyModal extends Component {
         this.props.changeView('landing');
     }
 
+    inboxPressed = () => {
+        openInbox({
+            title: 'Open Mail',
+            message: 'Which app would you like to open?'
+        });
+    }
+
     render() {
         const COLORS = this.props.colors;
         const styles = StyleSheet.create({
@@ -46,10 +57,10 @@ class VerifyModal extends Component {
             },
             backButton: {
                 position: 'absolute',
-                left:0,
-                top:0,
-                paddingVertical:10,
-                paddingHorizontal:15,
+                left: 0,
+                top: 0,
+                paddingVertical: 10,
+                paddingHorizontal: 15,
             },
             header: {
                 fontSize: 32,
@@ -62,15 +73,17 @@ class VerifyModal extends Component {
                 fontSize: 16,
                 color: COLORS.text,
             },
-            checkButton: {
+            button: {
+                flexDirection: 'row',
+                alignItems: 'center',
                 backgroundColor: COLORS.button,
                 paddingHorizontal: 20,
                 paddingVertical: 15,
                 borderRadius: 15,
                 marginTop: 20,
             },
-            checkButtonText: {
-                color: '#FFFFFF',
+            buttonText: {
+                color: '#FFF',
                 fontWeight: 'bold',
                 fontSize: 16,
             },
@@ -81,7 +94,7 @@ class VerifyModal extends Component {
                 textAlign: 'center',
             }
         });
-        
+
         return (
             <View style={styles.container}>
                 <Icon name='arrowleft' size={36} color={COLORS.text} onPress={this.goBack} style={styles.backButton} />
@@ -93,10 +106,18 @@ class VerifyModal extends Component {
                     An email has been sent to you. Click the link in the email to verify your account and continue.{'\n\n'}
                     There may be a small delay (≈10 min) before you receive the email.{'\n'}
                 </Text>
-                <TouchableOpacity activeOpacity={0.9} style={styles.checkButton} onPress={this.checkVerified}>
-                    <Text style={styles.checkButtonText}>I Verified My Account</Text>
+                <TouchableOpacity activeOpacity={0.9} style={[styles.button, { paddingVertical: 13, }]} onPress={this.inboxPressed}>
+                    <MaterialIcon name='mail' size={28} color={COLORS.text} />
+                    <Text style={styles.buttonText}> Open Mail</Text>
                 </TouchableOpacity>
-                <Text style={styles.errorText}>{this.state.errorMessage}</Text>
+                <TouchableOpacity activeOpacity={0.9} style={styles.button} onPress={this.checkVerified}>
+                    <Text style={styles.buttonText}>I Verified My Account</Text>
+                </TouchableOpacity>
+                {
+                    this.state.loading
+                    ? <ActivityIndicator size="small" color={COLORS.text} animating={this.state.loading} style={{ marginTop: 10, }} />
+                    : <Text style={styles.errorText}>{this.state.errorMessage}</Text>
+                }
             </View>
         );
     }
