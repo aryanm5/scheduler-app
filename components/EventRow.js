@@ -49,7 +49,7 @@ class EventRow extends Component {
                 paddingVertical: 18,
                 borderColor: COLORS.gray,
                 borderWidth: 1,
-                borderRadius: 30,
+                borderRadius: 20,//30
                 marginBottom: 20,
                 overflow: 'hidden',
             },
@@ -114,8 +114,8 @@ class EventRow extends Component {
                 top: 0,
                 bottom: 0,
                 right: 0,
-                borderTopRightRadius: 30,
-                borderBottomRightRadius: 30,
+                borderTopRightRadius: 20,//30
+                borderBottomRightRadius: 20,
             },
             numPendingText: {
                 color: 'white',
@@ -137,7 +137,7 @@ class EventRow extends Component {
                         {this.props.event.name}
                     </Text>
                     {this.numPending > 0
-                        ? <TouchableOpacity style={styles.numPending} activeOpacity={0.9} onPress={() => { }} >
+                        ? <TouchableOpacity style={styles.numPending} activeOpacity={0.9} onPress={() => { this.showModal(); setTimeout(() => { this.setModalView('pending') }, 400); }}>
                             <Text style={styles.numPendingText}>
                                 {this.numPending}
                             </Text>
@@ -163,7 +163,7 @@ class EventRow extends Component {
                         <View style={styles.modalHandle}></View>
                         <Swiper
                             ref={(component) => { this.swiper = component; }}
-                            onMomentumScrollEnd={() => { if(this.willRemoveModalView) { this.setState({ modalView: 'event' }); this.willRemoveModalView = false; } }}
+                            onMomentumScrollEnd={() => { if (this.willRemoveModalView) { this.setState({ modalView: 'event' }); this.willRemoveModalView = false; } }}
                             loop={false}
                             dot={<></>}
                             activeDot={<></>}>
