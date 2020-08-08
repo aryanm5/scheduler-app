@@ -90,10 +90,8 @@ class Settings extends Component {
                     <View style={{ flex: 1 }}>
                         <ScrollView style={styles.scrollView} contentContainerStyle={{ alignItems: 'center' }} showsVerticalScrollIndicator={false}>
                             <View style={styles.rowButtonGroup}>
-                                <TouchableOpacity activeOpacity={1}>
-                                    <Text style={styles.name} numberOfLines={1}>{this.props.user.name}</Text>
-                                    <Text style={styles.email} numberOfLines={1}>{this.props.user.email}</Text>
-                                </TouchableOpacity>
+                                <Text style={styles.name} numberOfLines={1}>{this.props.user.name}</Text>
+                                <Text style={styles.email} numberOfLines={1}>{this.props.user.email}</Text>
                                 <SectionRowButton onPress={() => { this.setWhichView('name'); }} colors={COLORS} text='CHANGE NAME' />
                                 <SectionRowButton onPress={() => { this.setWhichView('password'); }} colors={COLORS} text='CHANGE PASSWORD' />
                                 <SectionRowButton onPress={() => { this.setWhichView('toggleEmails'); }} colors={COLORS} text={this.props.user.emailNotify ? 'DISABLE ALL EMAILS' : 'ENABLE EMAILS'} color={this.props.user.emailNotify ? COLORS.red : COLORS.green} />

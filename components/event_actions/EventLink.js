@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Linking } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import getEventActionStyles from './styles';
 
@@ -19,7 +19,12 @@ class EventLink extends Component {
                 <Icon name='angle-left' size={40} color={COLORS.text} onPress={this.props.goBack} style={commonStyles.backButton} />
                 <Text style={commonStyles.title}>EVENT LINK</Text>
                 <Text style={commonStyles.text}>
-                    Event Link !!
+                    <Text style={{fontSize: 24, fontWeight: 'bold'}}>{this.props.event.name}</Text>{'\n\n'}
+                    Send this permanent URL to your clients for them to select time slots:{'\n\n'}
+                    <Text style={{ color: COLORS.button, fontWeight: 'bold', }}
+                        onPress={() => Linking.openURL(`https://tinyurl.com/scdlr?e=${this.props.user.userId}-${this.props.event.id}`)}>
+                        {`https://tinyurl.com/scdlr?e=${this.props.user.userId}-${this.props.event.id}\n\n`}
+                    </Text>
                 </Text>
             </View>
         );
