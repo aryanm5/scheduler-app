@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, SafeAreaView, TouchableOpacity, Keyboard } from 'react-native';
 import { Events, Upcoming, Settings } from '../components';
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -79,7 +79,7 @@ class Main extends Component {
                             loadMinimal={true}
                             loadMinimalSize={2}
                             loop={false}
-                            onIndexChanged={(index) => { this.setState({ whichView: index }); }}
+                            onIndexChanged={(index) => { Keyboard.dismiss(); this.setState({ whichView: index }); }}
                             dot={<View style={{
                                 backgroundColor: 'rgba(160,160,160,.8)',
                                 width: 10,//8

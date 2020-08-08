@@ -42,13 +42,13 @@ class SignUpModal extends Component {
             textInput: {
                 width: '80%',
                 height: 50,
-                backgroundColor: 'white',
+                backgroundColor: '#FFF',
                 borderRadius: 25,
                 marginBottom: 20,
                 borderWidth: COLORS.lightMode ? 3 : 0,
                 borderColor: COLORS.brown,
                 paddingHorizontal: 20,
-                color: 'black',
+                color: '#000',
             },
             submitButton: {
                 backgroundColor: COLORS.button,
@@ -58,7 +58,7 @@ class SignUpModal extends Component {
                 marginTop: 20,
             },
             submitText: {
-                color: '#FFFFFF',
+                color: '#FFF',
                 fontWeight: 'bold',
                 fontSize: 16,
             },
