@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, SafeAreaView, TouchableWithoutFeedback, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, SafeAreaView, Dimensions } from 'react-native';
 import { SectionRowButton } from '../components';
 import { EditEvent, PendingClients, Clients, TimeSlots, EventLink, DeleteEvent } from './event_actions';
 import Modal from '@kazzkiq/react-native-modalbox';

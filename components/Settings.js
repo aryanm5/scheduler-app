@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, StyleSheet, Switch, Platform, TouchableOpacity, Keyboard, Dimensions } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Switch, Platform, TouchableOpacity, Dimensions } from 'react-native';
 import { SectionRowButton } from '../components';
 import { Account, ChangeName, ChangePassword, DisableEmails, EnableEmails } from './settings_actions';
-import API from '../api';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 
