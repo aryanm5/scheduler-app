@@ -28,10 +28,10 @@ const getEventActionStyles = (COLORS) => {
         },
         backButton: {
             position: 'absolute',
-            left:0,
-            top:0,
-            paddingVertical:5,
-            paddingHorizontal:15,
+            left: 0,
+            top: 0,
+            paddingVertical: 5,
+            paddingHorizontal: 15,
         },
         button: {
             backgroundColor: COLORS.button,

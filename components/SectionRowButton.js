@@ -42,8 +42,8 @@ class SectionRowButton extends Component {
                 </Text>
                 {
                     this.props.icon
-                    ? <View style={styles.arrow}>{this.props.icon}</View>
-                    : <Icon name='angle-right' size={36} color={this.props.color || COLORS.text} style={styles.arrow} />
+                        ? <View style={styles.arrow}>{this.props.icon}</View>
+                        : <Icon name='angle-right' size={36} color={this.props.color || COLORS.text} style={styles.arrow} />
                 }
             </TouchableOpacity>
         );

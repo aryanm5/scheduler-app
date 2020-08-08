@@ -13,7 +13,7 @@ class PendingClients extends Component {
     render() {
         const COLORS = this.props.colors;
         const commonStyles = getEventActionStyles(COLORS);
-        
+
         return (
             <View style={commonStyles.container}>
                 <Icon name='angle-left' size={40} color={COLORS.text} onPress={this.props.goBack} style={commonStyles.backButton} />

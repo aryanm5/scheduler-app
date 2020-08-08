@@ -24,7 +24,7 @@ class Upcoming extends Component {
 
         return (
             <View style={styles.container}>
-                <Text style={{color: COLORS.text}}>
+                <Text style={{ color: COLORS.text }}>
                     Upcoming!
                 </Text>
             </View>

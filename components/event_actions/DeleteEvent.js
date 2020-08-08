@@ -19,7 +19,7 @@ class DeleteEvent extends Component {
             eventName: this.props.event.name,
         }, (data) => {
             this.setState({ loading: false });
-            if(data.err) {
+            if (data.err) {
                 this.setState({ errorMessage: data.message });
             } else {
                 this.props.updateUser(data);
@@ -42,14 +42,14 @@ class DeleteEvent extends Component {
                     This action cannot be undone.
                 </Text>
                 <View style={{ flexDirection: 'row', marginTop: 20, }}>
-                    <TouchableOpacity activeOpacity={0.9} onPress={this.props.goBack} style={[commonStyles.button, {flex:1}]}>
+                    <TouchableOpacity activeOpacity={0.9} onPress={this.props.goBack} style={[commonStyles.button, { flex: 1 }]}>
                         <Text style={commonStyles.buttonText}>Cancel</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.9} onPress={this.deleteEvent} style={[commonStyles.button, { backgroundColor: COLORS.red, marginLeft: 20, flex:1 }]}>
-                    {this.state.loading
-                        ? <ActivityIndicator size="small" color={commonStyles.buttonText} animating={this.state.loading} style={{ paddingHorizontal: 15 }} />
-                        : <Text style={commonStyles.buttonText}>Delete</Text>
-                    }
+                    <TouchableOpacity activeOpacity={0.9} onPress={this.deleteEvent} style={[commonStyles.button, { backgroundColor: COLORS.red, marginLeft: 20, flex: 1 }]}>
+                        {this.state.loading
+                            ? <ActivityIndicator size="small" color={commonStyles.buttonText} animating={this.state.loading} style={{ paddingHorizontal: 15 }} />
+                            : <Text style={commonStyles.buttonText}>Delete</Text>
+                        }
                     </TouchableOpacity>
                 </View>
                 <Text style={commonStyles.errorText}>{this.state.errorMessage}</Text>

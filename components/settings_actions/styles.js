@@ -29,7 +29,7 @@ const getSettingsActionStyles = (COLORS) => {
             position: 'absolute',
             right: 0,
             top: 0,
-            paddingVertical:10,
+            paddingVertical: 10,
             color: COLORS.text,
             fontSize: 18,
             fontWeight: 'bold',
@@ -37,10 +37,10 @@ const getSettingsActionStyles = (COLORS) => {
         },
         backButton: {
             position: 'absolute',
-            left:0,
-            top:0,
-            paddingVertical:0,
-            paddingHorizontal:15,
+            left: 0,
+            top: 0,
+            paddingVertical: 0,
+            paddingHorizontal: 15,
         },
         button: {
             backgroundColor: COLORS.button,
