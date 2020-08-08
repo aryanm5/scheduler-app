@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, StyleSheet, Switch, Platform, TouchableOpacity, Dimensions } from 'react-native';
 import { SectionRowButton } from '../components';
-import { Account, ChangeName, ChangePassword, DisableEmails, EnableEmails } from './settings_actions';
+import { ChangeName, ChangePassword, DisableEmails, EnableEmails } from './settings_actions';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 
@@ -90,7 +90,7 @@ class Settings extends Component {
                     <View style={{ flex: 1 }}>
                         <ScrollView style={styles.scrollView} contentContainerStyle={{ alignItems: 'center' }} showsVerticalScrollIndicator={false}>
                             <View style={styles.rowButtonGroup}>
-                                <TouchableOpacity onPress={() => { this.setWhichView('account'); }} activeOpacity={1}>
+                                <TouchableOpacity activeOpacity={1}>
                                     <Text style={styles.name} numberOfLines={1}>{this.props.user.name}</Text>
                                     <Text style={styles.email} numberOfLines={1}>{this.props.user.email}</Text>
                                 </TouchableOpacity>
@@ -129,7 +129,6 @@ class Settings extends Component {
 
     renderView = (whichView) => {
         switch (whichView) {
-            case 'account': return <Account user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.viewBack} />;
             case 'name': return <ChangeName user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.viewBack} />;
             case 'password': return <ChangePassword user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.viewBack} />;
             case 'toggleEmails': return (this.props.user.emailNotify ? <DisableEmails user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.viewBack} /> : <EnableEmails user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.viewBack} />);
