@@ -13,7 +13,7 @@ class VerifyModal extends Component {
     }
 
     checkVerified = () => {
-        this.setState({ loading: true });
+        this.setState({ errorMessage: '', loading: true, });
         API.get({
             task: 'getUser',
             token: this.props.user.token,
@@ -111,13 +111,13 @@ class VerifyModal extends Component {
                     <Text style={styles.buttonText}> Open Mail</Text>
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={0.9} style={styles.button} onPress={this.checkVerified}>
-                    <Text style={styles.buttonText}>I Verified My Account</Text>
+                    {
+                        this.state.loading
+                            ? <ActivityIndicator size="small" color='#FFF' animating={this.state.loading} style={{ paddingHorizontal: 30, }} />
+                            : <Text style={styles.buttonText}>I Verified My Account</Text>
+                    }
                 </TouchableOpacity>
-                {
-                    this.state.loading
-                    ? <ActivityIndicator size="small" color={COLORS.text} animating={this.state.loading} style={{ marginTop: 10, }} />
-                    : <Text style={styles.errorText}>{this.state.errorMessage}</Text>
-                }
+                <Text style={styles.errorText}>{this.state.errorMessage}</Text>
             </View>
         );
     }

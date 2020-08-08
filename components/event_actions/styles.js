@@ -8,11 +8,12 @@ const getEventActionStyles = (COLORS) => {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            paddingHorizontal: 30,
+            paddingHorizontal: 20,
         },
         text: {
             color: COLORS.text,
             fontSize: 18,
+            textAlign: 'center',
         },
         title: {
             position: 'absolute',
@@ -31,6 +32,19 @@ const getEventActionStyles = (COLORS) => {
             top:0,
             paddingVertical:5,
             paddingHorizontal:15,
+        },
+        button: {
+            backgroundColor: COLORS.button,
+            paddingHorizontal: 20,
+            paddingVertical: 15,
+            borderRadius: 15,
+            marginTop: 20,
+        },
+        buttonText: {
+            color: '#FFF',
+            fontWeight: 'bold',
+            fontSize: 16,
+            textAlign: 'center',
         },
         errorText: {
             color: '#FF0000',

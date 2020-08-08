@@ -35,7 +35,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 var light;
 
 const setLight = async () => {
-    console.log('setting light');
     try {
         const value = await AsyncStorage.getItem('@lightOrDark_Key')
         if (value !== null) {
@@ -47,7 +46,6 @@ const setLight = async () => {
         console.error(e);
         light = Appearance.getColorScheme() === 'light';
     } finally {
-        console.log('setting mycolors');
         global.MYCOLORS = {
             background: light ? '#F4F4F8' : '#000000',//'#121212',
             text: light ? '#000000' : '#ffffff',
@@ -57,7 +55,6 @@ const setLight = async () => {
             secondary: light ? '#dfdfdf' : '#343434',
             lightMode: light,
         }
-        console.log('set myoclors');
     }
 }
 

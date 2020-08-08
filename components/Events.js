@@ -12,7 +12,7 @@ class Events extends Component {
         }
     }
 
-    eventRenderItem = ({ item, index }) => (<EventRow colors={this.props.colors} event={item} index={index} />);
+    eventRenderItem = ({ item, index }) => (<EventRow colors={this.props.colors} user={this.props.user} updateUser={this.props.updateUser} event={item} index={index} />);
 
     refreshUser = () => {
         API.get({
@@ -20,7 +20,7 @@ class Events extends Component {
             token: this.props.user.token,
         }, (data) => {
             if (data.err) {
-                Alert.alert('Refresh Error', 'An error occurred while refreshing.\nPlease check your internet connection.\nError Message: ' + data.message);
+                Alert.alert('Refresh Error', 'An error occurred while refreshing.\nPlease check your internet connection or logout and login again.\nError Message: ' + data.message);
             } else {
                 this.props.updateUser(data);
                 this.setState({ isFetching: false, });

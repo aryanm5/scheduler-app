@@ -23,6 +23,7 @@ const getSettingsActionStyles = (COLORS) => {
         text: {
             color: COLORS.text,
             fontSize: 18,
+            textAlign: 'center',
         },
         title: {
             position: 'absolute',
@@ -52,6 +53,7 @@ const getSettingsActionStyles = (COLORS) => {
             color: '#FFF',
             fontWeight: 'bold',
             fontSize: 16,
+            textAlign: 'center',
         },
         errorText: {
             color: '#FF0000',

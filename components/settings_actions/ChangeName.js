@@ -13,7 +13,7 @@ class ChangeName extends Component {
 
     changeName = () => {
         if (this.state.nameText.length > 0 && this.state.nameText !== this.props.user.name) {
-            this.setState({ loading: true, });
+            this.setState({ errorMessage: '', loading: true, });
             API.get({
                 task: 'changeName',
                 token: this.props.user.token,
@@ -44,8 +44,8 @@ class ChangeName extends Component {
                         ? <ActivityIndicator size="small" color={commonStyles.buttonText} animating={this.state.loading} style={{ paddingHorizontal: 20 }} />
                         : <Text style={commonStyles.buttonText}>CHANGE NAME</Text>
                     }
-
                 </TouchableOpacity>
+                <Text style={commonStyles.errorText}>{this.state.errorMessage}</Text>
             </View>
         );
     }

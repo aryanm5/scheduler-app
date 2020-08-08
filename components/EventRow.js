@@ -28,8 +28,7 @@ class EventRow extends Component {
         this.setState({ showingModal: true });
     }
     hideModal = () => {
-        this.setState({ modalView: 'event' });
-        this.setState({ showingModal: false });
+        this.setState({ modalView: 'event', showingModal: false });
     }
     setModalView = (setTo) => {
         this.setState({ modalView: setTo }, () => { setTimeout(() => { this.swiper.scrollToEnd(); }, 1); });
@@ -168,7 +167,7 @@ class EventRow extends Component {
                             snapToInterval={Dimensions.get('window').width - 30}
                             snapToAlignment={'center'}
                             contentContainerStyle={{ width: this.state.modalView === 'event' ? '100%' : '200%', }}
-                            onMomentumScrollEnd={(e) => { if (this.willRemoveModalView || this.state.modalView !== 'event' && e.nativeEvent.contentOffset.x === 0) { this.setState({ modalView: 'event' }); this.willRemoveModalView = false; } }}
+                            onMomentumScrollEnd={(e) => { if (this.willRemoveModalView || this.state.modalView !== 'event' && e.nativeEvent.contentOffset.x <= 2) { this.setState({ modalView: 'event' }); this.willRemoveModalView = false; } }}
                             overScrollMode='never'
                             bounces={false}
                             showsHorizontalScrollIndicator={false}
@@ -219,12 +218,12 @@ class EventRow extends Component {
 
     renderModalView = (whichView) => {
         switch (whichView) {
-            case 'edit': return <EditEvent colors={this.props.colors} goBack={this.modalBack} />;
-            case 'pending': return <PendingClients colors={this.props.colors} goBack={this.modalBack} />;
-            case 'clients': return <Clients colors={this.props.colors} goBack={this.modalBack} />;
-            case 'times': return <TimeSlots colors={this.props.colors} goBack={this.modalBack} />;
-            case 'link': return <EventLink colors={this.props.colors} goBack={this.modalBack} />;
-            case 'delete': return <DeleteEvent colors={this.props.colors} goBack={this.modalBack} />;
+            case 'edit': return <EditEvent event={this.props.event} user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.modalBack} />;
+            case 'pending': return <PendingClients event={this.props.event} user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.modalBack} />;
+            case 'clients': return <Clients event={this.props.event} user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.modalBack} />;
+            case 'times': return <TimeSlots event={this.props.event} user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.modalBack} />;
+            case 'link': return <EventLink event={this.props.event} user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.modalBack} />;
+            case 'delete': return <DeleteEvent hideModal={this.hideModal} event={this.props.event} user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.modalBack} />;
         }
     }
 }
