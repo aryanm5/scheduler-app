@@ -26,7 +26,6 @@ class Settings extends Component {
         this.setState({ whichView: setTo }, () => { setTimeout(() => { this.swiper.scrollToEnd(); }, 1); });
     }
     viewBack = () => {
-        Keyboard.dismiss();
         this.willRemoveView = true;
         this.swiper.scrollTo({ x: 0 });
     }

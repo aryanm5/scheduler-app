@@ -5,7 +5,6 @@ import { EditEvent, PendingClients, Clients, TimeSlots, EventLink, DeleteEvent }
 import Modal from '@kazzkiq/react-native-modalbox';
 import ViewMoreText from 'react-native-view-more-text';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Swiper from 'react-native-swiper';
 
 
 class EventRow extends Component {
@@ -29,14 +28,15 @@ class EventRow extends Component {
         this.setState({ showingModal: true });
     }
     hideModal = () => {
+        this.setState({ modalView: 'event' });
         this.setState({ showingModal: false });
     }
     setModalView = (setTo) => {
-        this.setState({ modalView: setTo }, () => { setTimeout(() => { this.swiper.scrollBy(1); }, 1); });
+        this.setState({ modalView: setTo }, () => { setTimeout(() => { this.swiper.scrollToEnd(); }, 1); });
     }
     modalBack = () => {
         this.willRemoveModalView = true;
-        this.swiper.scrollBy(-1);
+        this.swiper.scrollTo({ x: 0 });
     }
 
     render() {
@@ -79,7 +79,7 @@ class EventRow extends Component {
                 borderColor: COLORS.gray,
                 backgroundColor: COLORS.secondary,
                 paddingVertical: 20,
-                paddingHorizontal: 15,//20 to 15
+                paddingHorizontal: 15,
             },
             modalEventName: {
                 color: COLORS.text,
@@ -161,44 +161,54 @@ class EventRow extends Component {
                 >
                     <SafeAreaView style={{ flex: 1 }}>
                         <View style={styles.modalHandle}></View>
-                        <Swiper
+                        <ScrollView
                             ref={(component) => { this.swiper = component; }}
-                            onMomentumScrollEnd={() => { if (this.willRemoveModalView) { this.setState({ modalView: 'event' }); this.willRemoveModalView = false; } }}
-                            loop={false}
-                            dot={<></>}
-                            activeDot={<></>}>
-                            <ScrollView style={{ width: '100%', position: 'absolute', top: 30, bottom: 35, paddingHorizontal: 20, }} showsVerticalScrollIndicator={false}>
-                                <Text style={styles.modalEventName} numberOfLines={2}>
-                                    {this.props.event.name}
-                                </Text>
-                                <ViewMoreText
-                                    numberOfLines={3}
-                                    renderViewMore={(onPress) => <Text onPress={onPress} style={styles.toggleRead}>Read More</Text>}
-                                    renderViewLess={(onPress) => <Text onPress={onPress} style={styles.toggleRead}>Read Less</Text>}
-                                >
-                                    <Text style={styles.modalEventDesc}>
-                                        {this.props.event.desc}
-                                    </Text>
-                                </ViewMoreText>
+                            horizontal={true}
+                            decelerationRate={0}
+                            snapToInterval={Dimensions.get('window').width - 30}
+                            snapToAlignment={'center'}
+                            contentContainerStyle={{ width: this.state.modalView === 'event' ? '100%' : '200%', }}
+                            onMomentumScrollEnd={(e) => { if (this.willRemoveModalView || this.state.modalView !== 'event' && e.nativeEvent.contentOffset.x === 0) { this.setState({ modalView: 'event' }); this.willRemoveModalView = false; } }}
+                            overScrollMode='never'
+                            bounces={false}
+                            showsHorizontalScrollIndicator={false}
+                            showsVerticalScrollIndicator={false}
+                        >
+                            <View style={{ flex: 1 }}>
 
-                                <View style={styles.rowButtonGroup}>
-                                    <SectionRowButton onPress={() => { this.setModalView('edit'); }} colors={COLORS} text='EDIT EVENT' first />
-                                    <SectionRowButton onPress={() => { this.setModalView('pending'); }} colors={COLORS} text={`PENDING CLIENTS (${this.numPending})`} />
-                                    <SectionRowButton onPress={() => { this.setModalView('clients'); }} colors={COLORS} text='APPROVED CLIENTS' />
-                                    <SectionRowButton onPress={() => { this.setModalView('times'); }} colors={COLORS} text='VIEW TIME SLOTS' />
-                                    <SectionRowButton onPress={() => { this.setModalView('link'); }} colors={COLORS} text='GET EVENT LINK' />
-                                </View>
-                                <View style={[styles.rowButtonGroup, { paddingVertical: 2 }]}>
-                                    <SectionRowButton onPress={() => { this.setModalView('delete'); }} colors={COLORS} text='DELETE EVENT' color='#FF0000' first />
-                                </View>
-                            </ScrollView>
+                                <ScrollView style={{ width: '100%', position: 'absolute', top: 30, bottom: 35, paddingHorizontal: 20, }} showsVerticalScrollIndicator={false}>
+                                    <Text style={styles.modalEventName} numberOfLines={2}>
+                                        {this.props.event.name}
+                                    </Text>
+                                    <ViewMoreText
+                                        numberOfLines={3}
+                                        renderViewMore={(onPress) => <Text onPress={onPress} style={styles.toggleRead}>Read More</Text>}
+                                        renderViewLess={(onPress) => <Text onPress={onPress} style={styles.toggleRead}>Read Less</Text>}
+                                    >
+                                        <Text style={styles.modalEventDesc}>
+                                            {this.props.event.desc}
+                                        </Text>
+                                    </ViewMoreText>
+
+                                    <View style={styles.rowButtonGroup}>
+                                        <SectionRowButton onPress={() => { this.setModalView('edit'); }} colors={COLORS} text='EDIT EVENT' first />
+                                        <SectionRowButton onPress={() => { this.setModalView('pending'); }} colors={COLORS} text={`PENDING CLIENTS (${this.numPending})`} />
+                                        <SectionRowButton onPress={() => { this.setModalView('clients'); }} colors={COLORS} text='APPROVED CLIENTS' />
+                                        <SectionRowButton onPress={() => { this.setModalView('times'); }} colors={COLORS} text='VIEW TIME SLOTS' />
+                                        <SectionRowButton onPress={() => { this.setModalView('link'); }} colors={COLORS} text='GET EVENT LINK' />
+                                    </View>
+                                    <View style={[styles.rowButtonGroup, { paddingVertical: 2 }]}>
+                                        <SectionRowButton onPress={() => { this.setModalView('delete'); }} colors={COLORS} text='DELETE EVENT' color='#FF0000' first />
+                                    </View>
+                                </ScrollView>
+                            </View>
 
                             {
                                 this.state.modalView === 'event'
                                     ? null
-                                    : this.renderModalView(this.state.modalView)
+                                    : <View style={{ flex: 1 }}>{this.renderModalView(this.state.modalView)}</View>
                             }
-                        </Swiper>
+                        </ScrollView>
 
                         <Icon name="angle-down" size={50} color={COLORS.gray} style={styles.closeModalButton} onPress={this.hideModal} />
                     </SafeAreaView>
