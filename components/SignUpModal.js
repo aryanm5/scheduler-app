@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import { View, TextInput, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import API from '../api';
 
 
 class SignUpModal extends Component {
     constructor(props) {
         super(props);
-        this.state = { nameText: '', emailText: '', passwordText: '', errorMessage: '', loading: false, };
+        this.state = { hidden: true, nameText: '', emailText: '', passwordText: '', errorMessage: '', loading: false, };
     }
+
+    toggleHidden = () => {
+        this.setState({ hidden: !this.state.hidden });
+    }
+
     signup = () => {
         if (this.state.emailText.length > 0 && this.state.passwordText.length > 0) {
             this.setState({ loading: true });
@@ -74,11 +80,14 @@ class SignUpModal extends Component {
             <View style={styles.container}>
                 <TextInput style={styles.textInput} onChangeText={(val) => { this.setState({ nameText: val }); }} placeholder='FULL NAME' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='name' autoCapitalize='words' textContentType='name' />
                 <TextInput style={styles.textInput} onChangeText={(val) => { this.setState({ emailText: val }); }} placeholder='EMAIL ADDRESS' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='email' autoCapitalize='none' keyboardType='email-address' textContentType='emailAddress' />
-                <TextInput style={styles.textInput} onChangeText={(val) => { this.setState({ passwordText: val }); }} placeholder='PASSWORD' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='password' secureTextEntry={true} autoCapitalize='none' returnKeyType='done' textContentType='password' />
+                <View style={{ width: '80%', justifyContent: 'center', marginBottom: 20, }}>
+                    <TextInput style={[styles.textInput, { marginBottom: 0, width: '100%' }]} onChangeText={(val) => { this.setState({ passwordText: val }); }} placeholder='PASSWORD' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='password' secureTextEntry={this.state.hidden} autoCapitalize='none' returnKeyType='done' textContentType='password' />
+                    <Icon name={this.state.hidden ? 'eye-off' : 'eye'} size={28} color='#000' onPress={this.toggleHidden} style={{ position: 'absolute', right: 12 }} />
+                </View>
                 <TouchableOpacity activeOpacity={0.9} onPress={this.signup} style={styles.submitButton}>
                     {this.state.loading
                         ? <ActivityIndicator size="small" color='#FFF' animating={this.state.loading} style={{ paddingHorizontal: 15 }} />
-                        : < Text style={styles.submitText}>SIGN UP</Text>
+                        : <Text style={styles.submitText}>SIGN UP</Text>
                     }
                 </TouchableOpacity>
                 <Text style={styles.errorText}>{this.state.errorMessage}</Text>
