@@ -10,6 +10,23 @@ const getEventActionStyles = (COLORS) => {
             justifyContent: 'center',
             paddingHorizontal: 20,
         },
+        textInput: {
+            width: '100%',
+            height: 50,
+            backgroundColor: '#FFF',
+            borderRadius: 25,
+            borderWidth: COLORS.lightMode ? 3 : 0,
+            borderColor: COLORS.brown,
+            paddingHorizontal: 20,
+            color: 'black',
+        },
+        multilineTextInput: {
+            borderRadius: 10,
+            borderWidth: COLORS.lightMode ? 2 : 0,
+            height: 120,
+            paddingHorizontal: 10,
+            paddingTop: 8,
+        },
         text: {
             color: COLORS.text,
             fontSize: 18,
