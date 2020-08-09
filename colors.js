@@ -9,7 +9,7 @@ const getColorsLD = (light) => {
         gray: light ? '#8e8e93' : '#b1b1b1',
         secondary: light ? '#dfdfdf' : '#343434',
         red: light ? '#ff0000' : '#ff0000',
-        green: '#00ff00',
+        green: light ? '#228B22' : '#00ff00',
         lightMode: light,
     }
 }
