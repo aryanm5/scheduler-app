@@ -41,7 +41,7 @@ class EnableEmails extends Component {
                 </Text>
                 <TouchableOpacity onPress={this.disableEmails} activeOpacity={0.9} style={[commonStyles.button, { backgroundColor: COLORS.green }]}>
                     {this.state.loading
-                        ? <ActivityIndicator size="small" color={commonStyles.buttonText.color} animating={this.state.loading} style={{ paddingHorizontal: 30 }} />
+                        ? <ActivityIndicator size="small" color={COLORS.lightMode ? '#FFF' : '#000'} animating={this.state.loading} style={{ paddingHorizontal: 30 }} />
                         : <Text style={COLORS.lightMode ? commonStyles.buttonText : [commonStyles.buttonText, { color:'#000' }]}>ENABLE EMAILS</Text>
                     }
                 </TouchableOpacity>
