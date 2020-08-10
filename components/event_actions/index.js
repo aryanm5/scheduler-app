@@ -1,3 +1,4 @@
+export { EventInfo } from './EventInfo';
 export { EditEvent } from './EditEvent';
 export { PendingClients } from './PendingClients';
 export { Clients } from './Clients';

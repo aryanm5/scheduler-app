@@ -11,7 +11,7 @@ class EventLink extends Component {
         this.state = { errorMessage: '' };
     }
 
-    copyToClipboard = async (url) => {
+    shareURL = async (url) => {
         this.setState({ errorMessage: '' });
         try {
             const result = await Share.share({
@@ -38,7 +38,7 @@ class EventLink extends Component {
                         {`${eventURL}`}
                     </Text>
                 </Text>
-                <TouchableOpacity activeOpacity={0.9} onPress={() => { this.copyToClipboard(eventURL); }} style={commonStyles.button}>
+                <TouchableOpacity activeOpacity={0.9} onPress={() => { this.shareURL(eventURL); }} style={commonStyles.button}>
                     <Text style={commonStyles.buttonText}>
                         <Ionicon name='ios-share-outline' size={22} color={commonStyles.buttonText.color} />
                         {' '}Share

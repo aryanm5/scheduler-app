@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, SafeAreaView, Dimensions } from 'react-native';
 import { SectionRowButton } from '../components';
-import { EditEvent, PendingClients, Clients, TimeSlots, EventLink, DeleteEvent } from './event_actions';
+import { EventInfo, EditEvent, PendingClients, Clients, TimeSlots, EventLink, DeleteEvent } from './event_actions';
 import Modal from '@kazzkiq/react-native-modalbox';
-import ViewMoreText from 'react-native-view-more-text';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
@@ -179,22 +178,15 @@ class EventRow extends Component {
                                     <Text style={styles.modalEventName} numberOfLines={2}>
                                         {this.props.event.name}
                                     </Text>
-                                    <ViewMoreText
-                                        numberOfLines={3}
-                                        renderViewMore={(onPress) => <Text onPress={onPress} style={styles.toggleRead}>Read More</Text>}
-                                        renderViewLess={(onPress) => <Text onPress={onPress} style={styles.toggleRead}>Read Less</Text>}
-                                    >
-                                        <Text style={styles.modalEventDesc}>
-                                            {this.props.event.desc}
-                                        </Text>
-                                    </ViewMoreText>
-
                                     <View style={styles.rowButtonGroup}>
-                                        <SectionRowButton onPress={() => { this.setModalView('edit'); }} colors={COLORS} text='EDIT EVENT' first />
-                                        <SectionRowButton onPress={() => { this.setModalView('pending'); }} colors={COLORS} text={`PENDING CLIENTS (${this.numPending})`} />
+                                        <SectionRowButton onPress={() => { this.setModalView('info'); }} colors={COLORS} text='EVENT INFO' first />
+                                        <SectionRowButton onPress={() => { this.setModalView('edit'); }} colors={COLORS} text='EDIT EVENT' />
+                                        <SectionRowButton onPress={() => { this.setModalView('link'); }} colors={COLORS} text='GET EVENT LINK' />
+                                    </View>
+                                    <View style={styles.rowButtonGroup}>
+                                        <SectionRowButton onPress={() => { this.setModalView('pending'); }} colors={COLORS} text={`PENDING CLIENTS (${this.numPending})`} first />
                                         <SectionRowButton onPress={() => { this.setModalView('clients'); }} colors={COLORS} text='APPROVED CLIENTS' />
                                         <SectionRowButton onPress={() => { this.setModalView('times'); }} colors={COLORS} text='VIEW TIME SLOTS' />
-                                        <SectionRowButton onPress={() => { this.setModalView('link'); }} colors={COLORS} text='GET EVENT LINK' />
                                     </View>
                                     <View style={[styles.rowButtonGroup, { paddingVertical: 2 }]}>
                                         <SectionRowButton onPress={() => { this.setModalView('delete'); }} colors={COLORS} text='DELETE EVENT' color='#FF0000' first />
@@ -218,11 +210,12 @@ class EventRow extends Component {
 
     renderModalView = (whichView) => {
         switch (whichView) {
+            case 'info': return <EventInfo event={this.props.event} user={this.props.user} colors={this.props.colors} goBack={this.modalBack} />;
             case 'edit': return <EditEvent event={this.props.event} user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.modalBack} />;
             case 'pending': return <PendingClients event={this.props.event} user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.modalBack} />;
             case 'clients': return <Clients event={this.props.event} user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.modalBack} />;
             case 'times': return <TimeSlots event={this.props.event} user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.modalBack} />;
-            case 'link': return <EventLink event={this.props.event} user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.modalBack} />;
+            case 'link': return <EventLink event={this.props.event} user={this.props.user} colors={this.props.colors} goBack={this.modalBack} />;
             case 'delete': return <DeleteEvent hideModal={this.hideModal} event={this.props.event} user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.modalBack} />;
         }
     }
