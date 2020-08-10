@@ -22,7 +22,10 @@ class App extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { whichView: 'landing', landingWhichView: 1, user: { loggedIn: false }, colors: getColors('check'), };
+        this.state = { loadingColors: true, whichView: 'landing', landingWhichView: 1, user: { loggedIn: false }, colors: {}, };
+        getColors('check', (result) => {
+            this.setState({ colors: result, loadingColors: false });
+        });
     }
 
     landingChangeView = (changeTo) => {
@@ -50,25 +53,32 @@ class App extends Component {
                 flex: 1,
                 justifyContent: 'flex-start',
             },
-            text: {
-                color: COLORS.text,
-            }
+            loadingColorsContainer: {
+                flex: 1,
+                backgroundColor: '#F4F4F8',
+            },
         });
         return (
             <>
-                <StatusBar animated={true} backgroundColor={COLORS.background} barStyle={COLORS.lightMode ? 'dark-content' : 'light-content'} />
-                <SafeAreaView style={{ flex: 0, backgroundColor: COLORS.background }} />
-                <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
-                    <View style={styles.container}>
-                        {
-                            this.state.whichView === 'landing'
-                                ? <Landing colors={this.state.colors} view={this.state.landingWhichView} landingChangeView={this.landingChangeView} updateUser={this.updateUser} changeView={this.changeView} />
-                                : this.state.whichView === 'verify'
-                                    ? <VerifyModal colors={this.state.colors} updateUser={this.updateUser} landingChangeView={this.landingChangeView} changeView={this.changeView} user={this.state.user} />
-                                    : <Main colors={this.state.colors} setColors={this.setColors} user={this.state.user} updateUser={this.updateUser} changeView={this.changeView} />
-                        }
-                    </View>
-                </KeyboardAvoidingView>
+                {
+                    this.state.loadingColors
+                        ? <View style={styles.loadingColorsContainer}></View>
+                        : <>
+                            <StatusBar animated={true} backgroundColor={COLORS.background} barStyle={COLORS.lightMode ? 'dark-content' : 'light-content'} />
+                            <SafeAreaView style={{ flex: 0, backgroundColor: COLORS.background }} />
+                            <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
+                                <View style={styles.container}>
+                                    {
+                                        this.state.whichView === 'landing'
+                                            ? <Landing colors={this.state.colors} view={this.state.landingWhichView} landingChangeView={this.landingChangeView} updateUser={this.updateUser} changeView={this.changeView} />
+                                            : this.state.whichView === 'verify'
+                                                ? <VerifyModal colors={this.state.colors} updateUser={this.updateUser} landingChangeView={this.landingChangeView} changeView={this.changeView} user={this.state.user} />
+                                                : <Main colors={this.state.colors} setColors={this.setColors} user={this.state.user} updateUser={this.updateUser} changeView={this.changeView} />
+                                    }
+                                </View>
+                            </KeyboardAvoidingView>
+                        </>
+                }
             </>
         );
     }

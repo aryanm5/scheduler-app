@@ -1,12 +1,32 @@
 import React, { Component } from 'react';
 import { View, TextInput, Text, TouchableOpacity, StyleSheet, Keyboard, ActivityIndicator } from 'react-native';
 import API from '../api';
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 class LoginModal extends Component {
     constructor(props) {
         super(props);
         this.state = { emailText: '', passwordText: '', errorMessage: '', loading: false, };
+        AsyncStorage.getItem('schedToken', (err, result) => {
+            if (!err && result !== null) {
+                this.setState({ loading: true });
+                API.get({
+                    task: 'getUser',
+                    token: result,
+                }, (data) => {
+                    if (data.err) {
+                        this.setState({ loading: false });
+                        this.setState({ errorMessage: data.message });
+                        AsyncStorage.removeItem('schedToken');
+                    } else {
+                        this.props.updateUser(data);
+                        this.setState({ loading: false });
+                        this.props.changeView('main');
+                    }
+                });
+            }
+        });
     }
 
     login = () => {
@@ -24,6 +44,7 @@ class LoginModal extends Component {
                 } else {
                     this.props.updateUser(data);
                     this.setState({ loading: false });
+                    AsyncStorage.setItem('schedToken', data.token);
                     this.props.changeView('main');
                 }
             });

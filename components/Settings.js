@@ -3,6 +3,7 @@ import { View, Text, ScrollView, StyleSheet, Switch, Platform, TouchableOpacity,
 import { SectionRowButton } from '../components';
 import { ChangeName, ChangePassword, DisableEmails, EnableEmails } from './settings_actions';
 import Icon from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 class Settings extends Component {
@@ -14,10 +15,13 @@ class Settings extends Component {
 
     darkModeToggled = () => {
         this.props.setColors(this.state.darkModeEnabled ? 'light' : 'dark');
-        this.setState({ darkModeEnabled: !this.state.darkModeEnabled });
+        this.setState({ darkModeEnabled: !this.state.darkModeEnabled }, () => {
+            AsyncStorage.setItem('schedMode', (this.state.darkModeEnabled ? 'dark' : 'light'));
+        });
     }
 
     logout = () => {
+        AsyncStorage.removeItem('schedToken');
         this.props.changeView('landing');
     }
 

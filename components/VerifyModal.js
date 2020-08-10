@@ -4,6 +4,7 @@ import API from '../api';
 import Icon from 'react-native-vector-icons/AntDesign';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { openInbox } from 'react-native-email-link';
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 class VerifyModal extends Component {
@@ -24,6 +25,7 @@ class VerifyModal extends Component {
             } else {
                 if (data.validated) {
                     this.props.updateUser(data);
+                    AsyncStorage.setItem('schedToken', data.token);
                     this.props.changeView('main');
                 } else {
                     this.setState({ errorMessage: `Error: You haven't verified ${this.props.user.email} yet.` });
