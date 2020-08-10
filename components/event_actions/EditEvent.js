@@ -98,7 +98,7 @@ class EditEvent extends Component {
                     </Text>
                     <View style={{ width: '100%' }}>
                         <Text style={[commonStyles.text, { textAlign: 'left', fontWeight: 'bold', fontSize: 15, }]}> PASSWORD</Text>
-                        <TextInput defaultValue={this.props.event.passwordProtected ? this.props.event.password : ''} style={commonStyles.textInput} onChangeText={(val) => { this.setState({ passwordText: val }); }} placeholder='Blank = no password' placeholderTextColor='#808080' selectionColor='#000' />
+                        <TextInput defaultValue={this.props.event.passwordProtected ? this.props.event.password : ''} style={commonStyles.textInput} onChangeText={(val) => { this.setState({ passwordText: val }); }} placeholder='Blank = no password' autoCapitalize='none' placeholderTextColor='#808080' selectionColor='#000' />
                         <View style={{ flexDirection: 'row', width: '100%' }}>
                             <TouchableOpacity onPress={this.changePassword} activeOpacity={0.9} style={[commonStyles.button, { width: '40%', paddingVertical: 10, marginTop: 5, }]}>
                                 {

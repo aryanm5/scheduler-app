@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, SafeAreaView, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, SafeAreaView, Dimensions, Platform, KeyboardAvoidingView } from 'react-native';
 import { SectionRowButton } from '../components';
 import { EventInfo, EditEvent, PendingClients, Clients, TimeSlots, EventLink, DeleteEvent } from './event_actions';
 import Modal from '@kazzkiq/react-native-modalbox';
@@ -71,6 +71,7 @@ class EventRow extends Component {
                 height: Dimensions.get('window').height * 0.95,
                 width: '100%',
                 position: 'absolute',
+                ...(Platform.OS === 'android' && {top: 20}),
                 bottom: 0,
                 borderRadius: 25,
                 borderWidth: 1,
@@ -197,7 +198,7 @@ class EventRow extends Component {
                             {
                                 this.state.modalView === 'event'
                                     ? null
-                                    : <View style={{ flex: 1 }}>{this.renderModalView(this.state.modalView)}</View>
+                                    : <View style={{ flex: 1 }}><KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : 'height'} style={{flex:1}}>{this.renderModalView(this.state.modalView)}</KeyboardAvoidingView></View>
                             }
                         </ScrollView>
 
