@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, SafeAreaView, TouchableOpacity, Keyboard } from 'react-native';
-import { Events, Upcoming, Settings } from '../components';
+import { View, Text, StyleSheet, Dimensions, SafeAreaView, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
+import { Events, Upcoming, Settings, CreateEvent } from '../components';
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/AntDesign';
 
@@ -10,7 +10,16 @@ const viewNames = ['My Events', 'Upcoming', 'Settings'];
 class Main extends Component {
     constructor(props) {
         super(props);
-        this.state = { whichView: 0 };
+        this.state = { showingCreate: false, whichView: 0 };
+        this.willRemoveCreate = false;
+    }
+
+    showCreate = () => {
+        this.setState({ showingCreate: true, }, () => { setTimeout(() => { this.createSwiper.scrollToEnd(); }, 1); });
+    }
+    hideCreate = () => {
+        this.willRemoveCreate = true;
+        this.createSwiper.scrollTo({ x: 0 });
     }
 
     render() {
@@ -58,60 +67,85 @@ class Main extends Component {
                 paddingTop: 5,
             },
         });
+        const dotSize = (this.props.user.events.length === 0 || this.props.user.events[0] === 'none' ? 15 : 10);
 
         return (
             <View style={styles.container}>
                 <SafeAreaView>
-                    <View style={styles.header}>
-                        <Text style={styles.headerText}>
-                            {viewNames[this.state.whichView]}
-                        </Text>
+                    <ScrollView
+                        ref={(component) => { this.createSwiper = component; }}
+                        horizontal={true}
+                        decelerationRate={0}
+                        snapToInterval={Dimensions.get('window').width-60}
+                        snapToAlignment={'center'}
+                        contentContainerStyle={{ width: this.state.showingCreate ? '200%' : '100%', }}
+                        onMomentumScrollEnd={(e) => { if (this.willRemoveCreate || this.state.showingCreate && e.nativeEvent.contentOffset.x <= 2) { this.setState({ showingCreate: false }); this.willRemoveCreate = false; } }}
+                        overScrollMode='never'
+                        bounces={false}
+                        showsHorizontalScrollIndicator={false}
+                        showsVerticalScrollIndicator={false}
+                    >
+                        <View style={{ flex: 1 }}>
+                            <View style={styles.header}>
+                                <Text style={styles.headerText}>
+                                    {viewNames[this.state.whichView]}
+                                </Text>
+                                {
+                                    this.state.whichView < 2
+                                        ? <TouchableOpacity activeOpacity={0.9} onPress={this.showCreate} style={styles.createEventButton}>
+                                            <Icon name='pluscircleo' size={38} color={COLORS.button} />
+                                        </TouchableOpacity>
+                                        : null
+                                }
+                            </View>
+                            <View style={styles.content}>
+                                <Swiper
+                                    loadMinimal={true}
+                                    loadMinimalSize={2}
+                                    loop={false}
+                                    onIndexChanged={(index) => { Keyboard.dismiss(); this.setState({ whichView: index }); }}
+                                    dot={<View style={{
+                                        backgroundColor: 'rgba(160,160,160,.8)',
+                                        width: dotSize,
+                                        height: dotSize,
+                                        borderRadius: 40,
+                                        marginLeft: 5,
+                                        marginRight: 5,
+                                        marginTop: 3,
+                                        marginBottom: 0,
+                                    }}
+                                    />}
+                                    activeDot={<View style={{
+                                        backgroundColor: COLORS.button,
+                                        width: dotSize,
+                                        height: dotSize,
+                                        borderRadius: 40,
+                                        marginLeft: 5,
+                                        marginRight: 5,
+                                        marginTop: 3,
+                                        marginBottom: 0,
+                                    }}
+                                    />
+                                    }>
+                                    <Events showCreate={this.showCreate} colors={COLORS} user={this.props.user} updateUser={this.props.updateUser} />
+                                    <Upcoming colors={COLORS} user={this.props.user} updateUser={this.props.updateUser} />
+                                    <Settings colors={COLORS} setColors={this.props.setColors} user={this.props.user} updateUser={this.props.updateUser} changeView={this.props.changeView} />
+                                </Swiper>
+                            </View>
+                        </View>
+
                         {
-                            this.state.whichView < 2
-                                ? <TouchableOpacity activeOpacity={0.9} onPress={() => { }} style={styles.createEventButton}>
-                                    <Icon name='pluscircleo' size={38} color={COLORS.button} />
-                                </TouchableOpacity>
+                            this.state.showingCreate
+                                ? <CreateEvent goBack={this.hideCreate} user={this.props.user} updateUser={this.props.updateUser} colors={COLORS} />
                                 : null
+
                         }
-                    </View>
-                    <View style={styles.content}>
-                        <Swiper
-                            loadMinimal={true}
-                            loadMinimalSize={2}
-                            loop={false}
-                            onIndexChanged={(index) => { Keyboard.dismiss(); this.setState({ whichView: index }); }}
-                            dot={<View style={{
-                                backgroundColor: 'rgba(160,160,160,.8)',
-                                width: 10,//8
-                                height: 10,
-                                borderRadius: 40,
-                                marginLeft: 5,
-                                marginRight: 5,
-                                marginTop: 3,
-                                marginBottom: 0,
-                            }}
-                            />}
-                            activeDot={<View style={{
-                                backgroundColor: COLORS.button,
-                                width: 10,//8
-                                height: 10,
-                                borderRadius: 40,
-                                marginLeft: 5,
-                                marginRight: 5,
-                                marginTop: 3,
-                                marginBottom: 0,
-                            }}
-                            />
-                            }>
-                            <Events colors={COLORS} user={this.props.user} updateUser={this.props.updateUser} />
-                            <Upcoming colors={COLORS} user={this.props.user} updateUser={this.props.updateUser} />
-                            <Settings colors={COLORS} setColors={this.props.setColors} user={this.props.user} updateUser={this.props.updateUser} changeView={this.props.changeView} />
-                        </Swiper>
-                    </View>
+                    </ScrollView>
                 </SafeAreaView>
             </View>
         );
     }
+
 }
 
 

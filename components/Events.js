@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, FlatList, Text, Image, StyleSheet, Alert, RefreshControl, TouchableOpacity } from 'react-native';
 import API from '../api';
 import { EventRow } from '../components';
-
+import Icon from 'react-native-vector-icons/AntDesign';
 
 class Events extends Component {
     constructor(props) {
@@ -39,10 +39,6 @@ class Events extends Component {
                 flex: 1,
                 width: '100%',
                 alignItems: 'center',
-                justifyContent: 'center',
-            },
-            eventsContainer: {
-                flex: 1,
             },
             text: {
                 color: COLORS.text,
@@ -64,29 +60,36 @@ class Events extends Component {
 
         return (
             <View style={styles.container}>
-                <View style={styles.eventsContainer}>
-                    {this.props.user.events.length === 0 || this.props.user.events[0] === 'none'
-                        ? <View style={{ marginTop: 80 }}>
-                            <Text style={styles.text}>
-                                You don't have any events yet.
+                {this.props.user.events.length === 0 || this.props.user.events[0] === 'none'
+                    ? <><View style={{ marginTop: 80 }}>
+                        <Text style={styles.text}>
+                            You don't have any events yet.
                             </Text>
-                            <TouchableOpacity onPress={() => { }} activeOpacity={0.9} style={styles.noEventsCreate}>
-                                <Text style={styles.buttonText}>Create Event</Text>
-                            </TouchableOpacity>
+                        <TouchableOpacity onPress={this.props.showCreate} activeOpacity={0.9} style={styles.noEventsCreate}>
+                            <Text style={styles.buttonText}>Create Event</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', position: 'absolute', bottom: 80, width: '100%' }}>
+                            <Text style={[styles.text, { fontSize: 20, }]}>
+                                Swipe{' '}
+                            </Text>
+                            <Icon name='arrowright' size={32} color={styles.text.color} />
                         </View>
-                        : <FlatList
-                            showsVerticalScrollIndicator={false}
-                            showsHorizontalScrollIndicator={false}
-                            refreshControl={<RefreshControl
-                                colors={[COLORS.button]}
-                                tintColor={COLORS.button}
-                                refreshing={this.state.isFetching}
-                                onRefresh={this.onRefresh} />}
-                            data={this.props.user.events}
-                            keyExtractor={(item, index) => index.toString()}
-                            renderItem={this.eventRenderItem} />
-                    }
-                </View>
+
+                    </>
+                    : <FlatList
+                        showsVerticalScrollIndicator={false}
+                        showsHorizontalScrollIndicator={false}
+                        refreshControl={<RefreshControl
+                            colors={[COLORS.button]}
+                            tintColor={COLORS.button}
+                            refreshing={this.state.isFetching}
+                            onRefresh={this.onRefresh} />}
+                        data={this.props.user.events}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={this.eventRenderItem} />
+                }
             </View>
         );
     }
