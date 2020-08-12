@@ -98,7 +98,7 @@ class LoginModal extends Component {
                 <TextInput ref={(input) => { this.passwordTextInput = input; }} style={styles.textInput} onChangeText={(val) => { this.setState({ passwordText: val }); }} placeholder='PASSWORD' placeholderTextColor='#808080' selectionColor='#000' secureTextEntry={true} autoCompleteType='password' onSubmitEditing={this.login} returnKeyType='go' autoCapitalize='none' textContentType='password' />
                 <TouchableOpacity activeOpacity={0.9} style={styles.submitButton} onPress={() => { if (!this.state.loading) { this.login(); } }}>
                     {this.state.loading
-                        ? <ActivityIndicator size="small" color='#FFF' animating={this.state.loading} style={{ paddingHorizontal: 15 }} />
+                        ? <ActivityIndicator size='small' color='#FFF' animating={this.state.loading} style={{ paddingHorizontal: 15 }} />
                         : <Text style={styles.submitText}>LOGIN</Text>
                     }
                 </TouchableOpacity>

@@ -7,9 +7,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 class Events extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            isFetching: false,
-        }
+        this.state = { isFetching: false, }
     }
 
     eventRenderItem = ({ item, index }) => (<EventRow colors={this.props.colors} user={this.props.user} updateUser={this.props.updateUser} event={item} index={index} />);

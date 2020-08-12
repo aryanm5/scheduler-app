@@ -41,7 +41,7 @@ class ChangeName extends Component {
                 <TextInput defaultValue={this.props.user.name} style={commonStyles.textInput} onChangeText={(val) => { this.setState({ nameText: val }); }} placeholder='NEW NAME' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='name' autoCapitalize='words' textContentType='name' />
                 <TouchableOpacity activeOpacity={0.9} style={commonStyles.button} onPress={this.changeName}>
                     {this.state.loading
-                        ? <ActivityIndicator size="small" color={commonStyles.buttonText.color} animating={this.state.loading} style={{ paddingHorizontal: 20 }} />
+                        ? <ActivityIndicator size='small' color={commonStyles.buttonText.color} animating={this.state.loading} style={{ paddingHorizontal: 20 }} />
                         : <Text style={commonStyles.buttonText}>CHANGE NAME</Text>
                     }
                 </TouchableOpacity>

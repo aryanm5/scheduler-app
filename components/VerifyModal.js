@@ -115,7 +115,7 @@ class VerifyModal extends Component {
                 <TouchableOpacity activeOpacity={0.9} style={styles.button} onPress={this.checkVerified}>
                     {
                         this.state.loading
-                            ? <ActivityIndicator size="small" color='#FFF' animating={this.state.loading} style={{ paddingHorizontal: 30, }} />
+                            ? <ActivityIndicator size='small' color='#FFF' animating={this.state.loading} style={{ paddingHorizontal: 30, }} />
                             : <Text style={styles.buttonText}>I Verified My Account</Text>
                     }
                 </TouchableOpacity>

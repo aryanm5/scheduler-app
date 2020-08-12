@@ -103,7 +103,7 @@ class EditEvent extends Component {
                             <TouchableOpacity onPress={this.changePassword} activeOpacity={0.9} style={[commonStyles.button, { width: '40%', paddingVertical: 10, marginTop: 5, }]}>
                                 {
                                     this.state.loadingPassword
-                                        ? <ActivityIndicator size="small" color={commonStyles.buttonText.color} animating={this.state.loadingPassword} />
+                                        ? <ActivityIndicator size='small' color={commonStyles.buttonText.color} animating={this.state.loadingPassword} />
                                         : <Text style={[commonStyles.buttonText, { fontSize: 16, }]}>Save</Text>
                                 }
                             </TouchableOpacity>
@@ -121,7 +121,7 @@ class EditEvent extends Component {
                             <TouchableOpacity onPress={this.changeDesc} activeOpacity={0.9} style={[commonStyles.button, { width: '40%', paddingVertical: 10, marginTop: 5, }]}>
                                 {
                                     this.state.loadingDesc
-                                        ? <ActivityIndicator size="small" color={commonStyles.buttonText.color} animating={this.state.loadingDesc} />
+                                        ? <ActivityIndicator size='small' color={commonStyles.buttonText.color} animating={this.state.loadingDesc} />
                                         : <Text style={[commonStyles.buttonText, { fontSize: 16, }]}>Save</Text>
                                 }
                             </TouchableOpacity>
@@ -142,7 +142,7 @@ class EditEvent extends Component {
                     </View>
                     {
                         this.state.loadingToggle
-                            ? <ActivityIndicator size="small" color={COLORS.text} animating={this.state.loadingToggle} />
+                            ? <ActivityIndicator size='small' color={COLORS.text} animating={this.state.loadingToggle} />
                             : null
                     }
                     {

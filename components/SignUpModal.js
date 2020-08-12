@@ -86,7 +86,7 @@ class SignUpModal extends Component {
                 </View>
                 <TouchableOpacity activeOpacity={0.9} onPress={this.signup} style={styles.submitButton}>
                     {this.state.loading
-                        ? <ActivityIndicator size="small" color='#FFF' animating={this.state.loading} style={{ paddingHorizontal: 15 }} />
+                        ? <ActivityIndicator size='small' color='#FFF' animating={this.state.loading} style={{ paddingHorizontal: 15 }} />
                         : <Text style={styles.submitText}>SIGN UP</Text>
                     }
                 </TouchableOpacity>

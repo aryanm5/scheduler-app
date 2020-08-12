@@ -47,7 +47,7 @@ class DeleteEvent extends Component {
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={0.9} onPress={this.deleteEvent} style={[commonStyles.button, { backgroundColor: COLORS.red, marginLeft: 20, flex: 1 }]}>
                         {this.state.loading
-                            ? <ActivityIndicator size="small" color={commonStyles.buttonText} animating={this.state.loading} style={{ paddingHorizontal: 15 }} />
+                            ? <ActivityIndicator size='small' color={commonStyles.buttonText} animating={this.state.loading} style={{ paddingHorizontal: 15 }} />
                             : <Text style={commonStyles.buttonText}>Delete</Text>
                         }
                     </TouchableOpacity>

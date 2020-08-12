@@ -56,7 +56,7 @@ class ChangePassword extends Component {
                 <TextInput style={[commonStyles.textInput, { marginTop: 30 }]} onChangeText={(val) => { this.setState({ confirmPass: val }); }} placeholder='CONFIRM NEW PASSWORD' placeholderTextColor='#808080' selectionColor='#000' secureTextEntry={true} autoCompleteType='password' autoCapitalize='none' textContentType='password' />
                 <TouchableOpacity activeOpacity={0.9} style={commonStyles.button} onPress={this.changePass}>
                     {this.state.loading
-                        ? <ActivityIndicator size="small" color={commonStyles.buttonText} animating={this.state.loading} style={{ paddingHorizontal: 25 }} />
+                        ? <ActivityIndicator size='small' color={commonStyles.buttonText} animating={this.state.loading} style={{ paddingHorizontal: 25 }} />
                         : <Text style={commonStyles.buttonText}>CHANGE PASSWORD</Text>
                     }
                 </TouchableOpacity>

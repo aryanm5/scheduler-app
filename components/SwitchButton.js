@@ -104,8 +104,8 @@ class SwitchButton extends Component {
                             height: this.props.switchHeight || this.state.sbHeight,
                             borderRadius: this.props.switchBorderRadius !== undefined ? this.props.switchBorderRadius : this.state.sbHeight / 2,
                             borderWidth: 1,
-                            borderColor: this.props.switchBorderColor || "#d4d4d4",
-                            backgroundColor: this.props.switchBackgroundColor || "#fff"
+                            borderColor: this.props.switchBorderColor || '#d4d4d4',
+                            backgroundColor: this.props.switchBackgroundColor || '#fff'
                         }]}
                     >
                         <View style={[{ flexDirection: this._switchDirection(this.props.switchdirection || this.state.direction) }]} >
@@ -117,8 +117,8 @@ class SwitchButton extends Component {
                                         width: this.props.switchWidth / 2 || this.state.sbWidth / 2,
                                         height: this.props.switchHeight - 6 || this.state.sbHeight - 6,
                                         borderRadius: this.props.switchBorderRadius !== undefined ? this.props.switchBorderRadius : this.state.sbHeight / 2,
-                                        borderColor: this.props.btnBorderColor || "#00a4b9",
-                                        backgroundColor: this.props.btnBackgroundColor || "#00bcd4"
+                                        borderColor: this.props.btnBorderColor || '#00a4b9',
+                                        backgroundColor: this.props.btnBackgroundColor || '#00bcd4'
                                     }]}
                                 />
                             </Animated.View>
@@ -130,7 +130,7 @@ class SwitchButton extends Component {
                                 left: 0
                             }]}
                             >
-                                <Text style={[{ fontWeight: 'bold', fontSize: 16 }, this.state.activeSwitch === 1 ? { color: this.props.activeFontColor || "#fff" } : { color: this.props.fontColor || "#b1b1b1" }]}>
+                                <Text style={[{ fontWeight: 'bold', fontSize: 16 }, this.state.activeSwitch === 1 ? { color: this.props.activeFontColor || '#fff' } : { color: this.props.fontColor || '#b1b1b1' }]}>
                                     {this.props.text1 || 'ON'}
                                 </Text>
                             </View>
@@ -143,7 +143,7 @@ class SwitchButton extends Component {
                                     right: 0
                                 }]}
                             >
-                                <Text style={[{ fontWeight: 'bold', fontSize: 16 }, this.state.activeSwitch === 2 ? { color: this.props.activeFontColor || "#fff" } : { color: this.props.fontColor || "#b1b1b1" }]}>
+                                <Text style={[{ fontWeight: 'bold', fontSize: 16 }, this.state.activeSwitch === 2 ? { color: this.props.activeFontColor || '#fff' } : { color: this.props.fontColor || '#b1b1b1' }]}>
                                     {this.props.text2 || 'OFF'}
                                 </Text>
                             </View>

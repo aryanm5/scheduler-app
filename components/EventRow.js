@@ -202,7 +202,7 @@ class EventRow extends Component {
                             }
                         </ScrollView>
 
-                        <Icon name="angle-down" size={50} color={COLORS.gray} style={styles.closeModalButton} onPress={this.hideModal} />
+                        <Icon name='angle-down' size={50} color={COLORS.gray} style={styles.closeModalButton} onPress={this.hideModal} />
                     </SafeAreaView>
                 </Modal>
             </>
