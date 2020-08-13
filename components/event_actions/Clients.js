@@ -24,23 +24,23 @@ class Clients extends Component {
         }
         result = result.sort((x, y) => {
             var xDate = x.date.split(' '); var yDate = y.date.split(' ');
-            if(months.indexOf(xDate[0]) < months.indexOf(yDate[0])) {
+            if (months.indexOf(xDate[0]) < months.indexOf(yDate[0])) {
                 return -1;
-            } else if(months.indexOf(yDate[0]) < months.indexOf(xDate[0])) {
+            } else if (months.indexOf(yDate[0]) < months.indexOf(xDate[0])) {
                 return 1;
             } else {
                 //Sort by day number here
-                if(Number(xDate[1]) < Number(yDate[1])) {
+                if (Number(xDate[1]) < Number(yDate[1])) {
                     return -1;
-                } else if(Number(yDate[1]) < Number(xDate[1])) {
+                } else if (Number(yDate[1]) < Number(xDate[1])) {
                     return 1;
                 } else {
                     //sort by time here :o
                     x = x.startTime; y = y.startTime;
-                    if(x.split(':')[0] == '12' && x.split(' ')[0].split(':')[1] == '00' && y.split(' ')[1] == 'PM') { return -1; }
-                    if(y.split(':')[0] == '12' && y.split(' ')[0].split(':')[1] == '00' && x.split(' ')[1] == 'PM') { return 1; }
-                    if(x.split(':')[0].length === 1) { x = '0' + x; }
-                    if(y.split(':')[0].length === 1) { y = '0' + y; }
+                    if (x.split(':')[0] == '12' && x.split(' ')[0].split(':')[1] == '00' && y.split(' ')[1] == 'PM') { return -1; }
+                    if (y.split(':')[0] == '12' && y.split(' ')[0].split(':')[1] == '00' && x.split(' ')[1] == 'PM') { return 1; }
+                    if (x.split(':')[0].length === 1) { x = '0' + x; }
+                    if (y.split(':')[0].length === 1) { y = '0' + y; }
                     return (x.split(' ')[1] + x.split(' ')[0] > y.split(' ')[1] + y.split(' ')[0]) ? 1 : -1;
                 }
             }
@@ -92,7 +92,7 @@ class Clients extends Component {
                                 refreshing={this.state.isFetching}
                                 onRefresh={this.refreshUser} />}
                             data={this.state.clients}
-                            keyExtractor = {(item, index) => index.toString()}
+                            keyExtractor={(item, index) => index.toString()}
                             renderItem={this.renderClient}
                             contentContainerStyle={{ paddingBottom: 100 }} />
                     </View>

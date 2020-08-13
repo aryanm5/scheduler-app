@@ -71,7 +71,7 @@ class EventRow extends Component {
                 height: Dimensions.get('window').height * 0.95,
                 width: '100%',
                 position: 'absolute',
-                ...(Platform.OS === 'android' && {top: 20}),
+                ...(Platform.OS === 'android' && { top: 20 }),
                 bottom: 0,
                 borderRadius: 25,
                 borderWidth: 1,
@@ -198,7 +198,7 @@ class EventRow extends Component {
                             {
                                 this.state.modalView === 'event'
                                     ? null
-                                    : <View style={{ flex: 1 }}><KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : 'height'} style={{flex:1}}>{this.renderModalView(this.state.modalView)}</KeyboardAvoidingView></View>
+                                    : <View style={{ flex: 1 }}><KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>{this.renderModalView(this.state.modalView)}</KeyboardAvoidingView></View>
                             }
                         </ScrollView>
 

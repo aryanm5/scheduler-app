@@ -78,6 +78,18 @@ class EventInfo extends Component {
                         </View>
                         : null
                     }
+                    <View style={[styles.section, { flexDirection: 'row', }]}>
+                        <Text style={styles.textBold}>SLOT DURATION: </Text>
+                        <Text style={[styles.text, { marginTop: -5, }]}>
+                            {` ${this.props.event.times[0].duration} min`}
+                        </Text>
+                    </View>
+                    <View style={[styles.section, { flexDirection: 'row', }]}>
+                        <Text style={styles.textBold}>MAX CLIENTS: </Text>
+                        <Text style={[styles.text, { marginTop: -5, }]}>
+                            {' ' + this.props.event.maxClients}
+                        </Text>
+                    </View>
                     <View style={styles.section}>
                         <Text style={styles.textBold}>DESCRIPTION</Text>
                         <ViewMoreText
