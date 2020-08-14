@@ -186,7 +186,7 @@ class EventRow extends Component {
                                         <SectionRowButton onPress={() => { this.setModalView('link'); }} colors={COLORS} text='GET EVENT LINK' />
                                     </View>
                                     <View style={styles.rowButtonGroup}>
-                                        <SectionRowButton onPress={() => { this.setModalView('pending'); }} colors={COLORS} text={`PENDING CLIENTS (${this.numPending})`} first />
+                                        <SectionRowButton onPress={() => { this.setModalView('pending'); }} colors={COLORS} text={`PENDING CLIENTS ${this.numPending > 0 ? `(${this.numPending})` : ''}`} first />
                                         <SectionRowButton onPress={() => { this.setModalView('clients'); }} colors={COLORS} text='APPROVED CLIENTS' />
                                         <SectionRowButton onPress={() => { this.setModalView('times'); }} colors={COLORS} text='VIEW TIME SLOTS' />
                                     </View>
