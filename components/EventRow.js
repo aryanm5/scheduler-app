@@ -43,12 +43,13 @@ class EventRow extends Component {
             container: {
                 minWidth: '100%',
                 backgroundColor: COLORS.secondary,
-                paddingHorizontal: 20,
+                paddingLeft: 20,
+                paddingRight: '12%',
                 paddingVertical: 18,
                 borderColor: COLORS.gray,
                 borderWidth: 1,
                 borderRadius: 20,//30
-                marginBottom: 20,
+                marginBottom: 15,
                 overflow: 'hidden',
             },
             rowButtonGroup: {
@@ -132,7 +133,7 @@ class EventRow extends Component {
         return (
             <>
                 <TouchableOpacity onPress={this.showModal} activeOpacity={1} style={this.props.index % 2 === 0 ? [styles.container, styles.even] : styles.container}>
-                    <Text style={styles.eventName}>
+                    <Text style={styles.eventName} numberOfLines={2}>
                         {this.props.event.name}
                     </Text>
                     {this.numPending > 0

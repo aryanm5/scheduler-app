@@ -30,7 +30,7 @@ class Main extends Component {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                paddingHorizontal: 30,
+                paddingHorizontal: 20,
             },
             header: {
                 flex: 0,
@@ -76,7 +76,7 @@ class Main extends Component {
                         ref={(component) => { this.createSwiper = component; }}
                         horizontal={true}
                         decelerationRate={0}
-                        snapToInterval={Dimensions.get('window').width-60}
+                        snapToInterval={Dimensions.get('window').width-styles.container.paddingHorizontal*2}
                         snapToAlignment={'center'}
                         contentContainerStyle={{ width: this.state.showingCreate ? '200%' : '100%', }}
                         onMomentumScrollEnd={(e) => { if (this.willRemoveCreate || this.state.showingCreate && e.nativeEvent.contentOffset.x <= 2) { this.setState({ showingCreate: false }); this.willRemoveCreate = false; } }}
