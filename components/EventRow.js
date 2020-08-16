@@ -45,7 +45,7 @@ class EventRow extends Component {
                 backgroundColor: COLORS.secondary,
                 paddingLeft: 20,
                 paddingRight: '12%',
-                paddingVertical: 18,
+                paddingVertical: 20,
                 borderColor: COLORS.gray,
                 borderWidth: 1,
                 borderRadius: 20,//30

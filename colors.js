@@ -6,7 +6,7 @@ const getColorsLD = (light) => {
     return {
         background: light ? '#F4F4F8' : '#000000',//'#121212',
         text: light ? '#000000' : '#ffffff',
-        button: light ? '#007aff' : '#0a84ff',
+        button: light ? '#007aff' : '#0a84ff',//#ff5d73
         brown: light ? '#433633' : '#b5651d',
         gray: light ? '#8e8e93' : '#b1b1b1',
         secondary: light ? '#dfdfdf' : '#343434',

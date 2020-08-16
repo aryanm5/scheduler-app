@@ -70,7 +70,7 @@ class Landing extends Component {
                             switchSpeedChange={250}           // optional: button change speed --- default 100
                             switchBorderColor='rgba(52, 52, 52, 0)'       // optional: switch border color --- default #d4d4d4
                             switchBackgroundColor={COLORS.background}      // optional: switch background color --- default #fff
-                            btnBorderColor='#00a4b9'          // optional: button border color --- default #00a4b9
+                            btnBorderColor={COLORS.button}          // optional: button border color --- default #00a4b9
                             btnBackgroundColor={COLORS.button}      // optional: button background color --- default #00bcd4
                             fontColor={COLORS.gray}               // optional: text font color --- default #b1b1b1
                             activeFontColor='#fff'            // optional: active font color --- default #fff
