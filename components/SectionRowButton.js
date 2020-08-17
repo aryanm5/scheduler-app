@@ -13,7 +13,6 @@ class SectionRowButton extends Component {
         const COLORS = this.props.colors;
         const styles = StyleSheet.create({
             container: {
-                flex: 1,
                 width: '100%',
                 justifyContent: 'center',
                 paddingHorizontal: 10,

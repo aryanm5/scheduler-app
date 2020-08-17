@@ -53,7 +53,6 @@ class Settings extends Component {
                 width: '100%',
             },
             rowButtonGroup: {
-                flex: 1,
                 width: '100%',
                 backgroundColor: COLORS.secondary,
                 borderRadius: 20,
@@ -82,17 +81,17 @@ class Settings extends Component {
                     ref={(component) => { this.swiper = component; }}
                     horizontal={true}
                     decelerationRate={0}
-                    snapToInterval={Dimensions.get('window').width - 60}
+                    snapToInterval={Dimensions.get('window').width - 40}
                     snapToAlignment={'center'}
                     contentContainerStyle={{ width: this.state.whichView === 'settings' ? '100%' : '200%', }}
-                    onMomentumScrollEnd={(e) => { if (this.willRemoveView || this.state.whichView !== 'settings' && e.nativeEvent.contentOffset.x === 0) { this.setState({ whichView: 'settings' }); this.willRemoveView = false; } }}
+                    onMomentumScrollEnd={(e) => { if (this.willRemoveView || this.state.whichView !== 'settings' && e.nativeEvent.contentOffset.x < 5) { this.setState({ whichView: 'settings' }); this.willRemoveView = false; } }}
                     overScrollMode='never'
                     bounces={false}
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
                 >
-                    <View style={{ flex: 1 }}>
-                        <ScrollView style={styles.scrollView} contentContainerStyle={{ alignItems: 'center' }} showsVerticalScrollIndicator={false}>
+                    <View style={{ flex: 1, height:'100%', }}>
+                        {/*<ScrollView style={styles.scrollView} contentContainerStyle={{ alignItems: 'center' }} showsVerticalScrollIndicator={false}>*/}
                             <View style={styles.rowButtonGroup}>
                                 <Text style={styles.name} numberOfLines={1}>{this.props.user.name}</Text>
                                 <Text style={styles.email} numberOfLines={1}>{this.props.user.email}</Text>
@@ -115,7 +114,7 @@ class Settings extends Component {
                                     onPress={this.logout}
                                     first />
                             </View>
-                        </ScrollView>
+                        {/*</ScrollView>*/}
                     </View>
 
                     {
