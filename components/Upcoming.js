@@ -104,7 +104,6 @@ class Upcoming extends Component {
                 paddingHorizontal: 10,
             },
         });
-        console.log(this.state.times);
 
         return (
             <View style={styles.container}>

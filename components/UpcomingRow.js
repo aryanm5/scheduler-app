@@ -26,8 +26,7 @@ class UpcomingRow extends Component {
     }
 
     renderClient = ({ item, index }) => {
-        if (index === 0) { console.log(JSON.stringify(item, null, 2)); }
-        return <Client user={this.props.user} updateUser={this.props.updateUser} pending={false} newDate={index === 0} newTime={index === 0} item={{ ...item, date: this.props.time.date, startTime: this.props.time.startTime }} event={this.props.event} index={index} colors={this.props.colors} />
+        return <Client user={this.props.user} updateUser={this.props.updateUser} upcoming newDate={index === 0} newTime item={{ ...item, date: this.props.time.date, startTime: this.props.time.startTime, endTime: this.props.time.endTime }} event={this.props.event} index={index} colors={this.props.colors} />
     }
 
     render() {
@@ -150,11 +149,6 @@ class UpcomingRow extends Component {
                                 <FlatList
                                     showsVerticalScrollIndicator={false}
                                     showsHorizontalScrollIndicator={false}
-                                    refreshControl={<RefreshControl
-                                        colors={[COLORS.button]}
-                                        tintColor={COLORS.button}
-                                        refreshing={this.state.isFetching}
-                                        onRefresh={this.refreshUser} />}
                                     data={this.props.time.clients}
                                     keyExtractor={(item, index) => index.toString()}
                                     renderItem={this.renderClient}

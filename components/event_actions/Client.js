@@ -31,7 +31,7 @@ class Client extends Component {
                 Alert.alert('There was an error approving this pending client: ' + data.message);
             } else {
                 this.props.updateUser(data);
-                this.props.fillClients();
+                if(!this.props.upcoming) { this.props.fillClients(); }
             }
         });
     }
@@ -51,8 +51,9 @@ class Client extends Component {
                 if (data.err) {
                     Alert.alert('There was an error declining this pending client: ' + data.message);
                 } else {
+                    this.setState({ showingDecline: false, });
                     this.props.updateUser(data);
-                    this.props.fillClients();
+                    if(!this.props.upcoming) { this.props.fillClients(); }
                 }
             });
         }
@@ -73,8 +74,9 @@ class Client extends Component {
                 if (data.err) {
                     Alert.alert('There was an error removing this client: ' + data.message);
                 } else {
+                    this.setState({ showingDecline: false, });
                     this.props.updateUser(data);
-                    this.props.fillClients();
+                    if(!this.props.upcoming) { this.props.fillClients(); }
                 }
             });
         }
@@ -104,9 +106,13 @@ class Client extends Component {
         const styles = StyleSheet.create({
             container: {
                 minWidth: '100%',
-
                 backgroundColor: COLORS.background,
                 marginTop: this.props.newTime ? 10 : 0,
+            },
+            upcomingDate: {
+                ...commonStyles.text,
+                textAlign: 'left',
+                fontSize: 20,
             },
             date: {
                 ...commonStyles.text,
@@ -165,7 +171,11 @@ class Client extends Component {
         return (
             <>
                 {this.props.newDate
-                    ? <Text style={styles.date}>{getDay(this.props.item.date) + ', ' + this.props.item.date}</Text>
+                    ? this.props.upcoming
+                        ? <><Text style={styles.date} numberOfLines={2}>{this.props.event.name}</Text>
+                            <Text style={styles.upcomingDate}>{getDay(this.props.item.date) + ', ' + this.props.item.date}</Text>
+                            <Text style={styles.upcomingDate}>{`${this.props.item.startTime} - ${this.props.item.endTime}`}</Text></>
+                        : <Text style={styles.date}>{getDay(this.props.item.date) + ', ' + this.props.item.date}</Text>
                     : null
                 }
                 <View style={styles.container}>
@@ -176,7 +186,7 @@ class Client extends Component {
                                 : null
                         }
 
-                        <Text style={styles.time}>{this.props.item.startTime}</Text>
+                        <Text style={styles.time}>{this.props.upcoming ? this.props.index+1 : this.props.item.startTime}</Text>
                         <Text style={styles.clientInfo}>{this.props.event.clientInfo.map(i => { return <><Text style={{ fontWeight: 'bold', }}>{'\n' + i}:</Text><Text> {this.props.item[i]}</Text></>; })}</Text>
 
                         <View style={styles.buttons}>
