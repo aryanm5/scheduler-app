@@ -110,7 +110,7 @@ class UpcomingRow extends Component {
                 {this.props.first
                     ? <View style={styles.filterContainer}>
                         <Text style={styles.filterText}>SHOW EMPTY</Text>
-                        <Switch onValueChange={() => { this.props.setShowEmpty(!this.props.showEmpty); }} value={this.props.showEmpty} trackColor={{ true: COLORS.button }} style={{ transform: [{ scaleX: .7 }, { scaleY: .7 }] }}/>
+                        <Switch onValueChange={() => { this.props.setShowEmpty(!this.props.showEmpty); }} value={this.props.showEmpty} trackColor={{ true: COLORS.button }} ios_backgroundColor={COLORS.lightMode ? undefined : COLORS.secondary} style={{ transform: [{ scaleX: .75 }, { scaleY: .75 }] }}/>
                     </View>
                     : null
                 }
