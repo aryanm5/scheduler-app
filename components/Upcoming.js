@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, FlatList, RefreshControl } from 'react-native';
+import { View, Text, Image, StyleSheet, FlatList, RefreshControl, Dimensions } from 'react-native';
 import { UpcomingRow } from '../components';
 import API from '../api';
 
@@ -104,9 +104,11 @@ class Upcoming extends Component {
             container: {
                 flex: 1,
                 width: '100%',
-                flexDirection: 'column',
                 alignItems: 'center',
                 paddingHorizontal: 10,
+            },
+            relaxImage: {
+                width:'90%',
             },
         });
 
@@ -125,10 +127,15 @@ class Upcoming extends Component {
                             data={this.state.times}
                             keyExtractor={(item, index) => index.toString()}
                             renderItem={this.renderTime} />
-                        : <View style={{ marginTop: 80 }}>
-                            <Text style={{color: COLORS.text, fontSize: 18, textAlign: 'center'}}>
+                        : <View style={{ marginTop: 80, width: '100%', alignItems: 'center', }}>
+                            <Text style={{ color: COLORS.text, fontSize: 18, textAlign: 'center' }}>
                                 You have nothing scheduled for the next two weeks!
                             </Text>
+                            <Image
+                                resizeMode='contain'
+                                style={styles.relaxImage}
+                                source={require('../images/relax.png')}
+                            />
                         </View>
                 }
 
