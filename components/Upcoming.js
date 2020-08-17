@@ -10,7 +10,11 @@ class Upcoming extends Component {
     constructor(props) {
         super(props);
         this.daysArr = this.fillDays();
-        this.state = { isFetching: false, times: [], };
+        this.state = { showEmpty: true, isFetching: false, times: [], };
+    }
+
+    setShowEmpty = (setTo) => {
+        this.setState({ showEmpty: setTo, });
     }
 
     addDay = (str) => {
@@ -41,7 +45,7 @@ class Upcoming extends Component {
         var result = [];
         for (var i = 0; i < this.props.user.events.length; ++i) {
             for (var j = 0; j < this.props.user.events[i].times.length; ++j) {
-                if (this.daysArr.includes(this.props.user.events[i].times[j].date)) {
+                if (this.daysArr.includes(this.props.user.events[i].times[j].date) && (this.state.showEmpty || this.props.user.events[i].times[j].clients.length > 0 && this.props.user.events[i].times[j].clients !== 'none')) {
                     result.push({...this.props.user.events[i].times[j], eventIndex: i});
                 }
             }
@@ -88,7 +92,7 @@ class Upcoming extends Component {
     }
 
     renderTime = ({ item, index }) => {
-        return <UpcomingRow newDate={index === 0 || item.date !== this.state.times[index - 1].date} newTime={index === 0 || item.startTime !== this.state.times[index - 1].startTime} colors={this.props.colors} user={this.props.user} updateUser={this.props.updateUser} time={item} event={this.props.user.events[item.eventIndex]} index={index} colors={this.props.colors} />
+        return <UpcomingRow first={index===0} showEmpty={this.state.showEmpty} setShowEmpty={this.setShowEmpty} newDate={index === 0 || item.date !== this.state.times[index - 1].date} newTime={index === 0 || item.startTime !== this.state.times[index - 1].startTime} colors={this.props.colors} user={this.props.user} updateUser={this.props.updateUser} time={item} event={this.props.user.events[item.eventIndex]} index={index} colors={this.props.colors} />
     }
 
     render() {

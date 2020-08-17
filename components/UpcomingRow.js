@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Dimensions, Platform, FlatList, RefreshControl } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Dimensions, Platform, FlatList, Switch } from 'react-native';
 import Modal from '@kazzkiq/react-native-modalbox';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Client } from './event_actions';
@@ -91,10 +91,29 @@ class UpcomingRow extends Component {
                 paddingVertical: 20,
                 paddingHorizontal: 15,
             },
+            filterContainer: {
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                alignItems:'center',
+                zIndex:2,
+            },
+            filterText: {
+                color: COLORS.text,
+                fontSize: 12,
+                fontWeight: 'bold',
+            },
         });
 
         return (
             <>
+                {this.props.first
+                    ? <View style={styles.filterContainer}>
+                        <Text style={styles.filterText}>SHOW EMPTY</Text>
+                        <Switch onValueChange={() => { this.props.setShowEmpty(!this.props.showEmpty); }} value={this.props.showEmpty} trackColor={{ true: COLORS.button }} style={{ transform: [{ scaleX: .7 }, { scaleY: .7 }] }}/>
+                    </View>
+                    : null
+                }
                 {this.props.newDate
                     ? <Text style={styles.date}>{getDay(this.props.time.date) + ', ' + this.props.time.date}</Text>
                     : null
