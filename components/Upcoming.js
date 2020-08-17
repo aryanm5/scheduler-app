@@ -43,36 +43,38 @@ class Upcoming extends Component {
 
     fillTimes = () => {
         var result = [];
-        for (var i = 0; i < this.props.user.events.length; ++i) {
-            for (var j = 0; j < this.props.user.events[i].times.length; ++j) {
-                if (this.daysArr.includes(this.props.user.events[i].times[j].date) && (this.state.showEmpty || this.props.user.events[i].times[j].clients.length > 0 && this.props.user.events[i].times[j].clients !== 'none')) {
-                    result.push({...this.props.user.events[i].times[j], eventIndex: i});
+        if (this.props.user.events.length > 0 && this.props.user.events[0] !== 'none') {
+            for (var i = 0; i < this.props.user.events.length; ++i) {
+                for (var j = 0; j < this.props.user.events[i].times.length; ++j) {
+                    if (this.daysArr.includes(this.props.user.events[i].times[j].date) && (this.state.showEmpty || this.props.user.events[i].times[j].clients.length > 0 && this.props.user.events[i].times[j].clients !== 'none')) {
+                        result.push({ ...this.props.user.events[i].times[j], eventIndex: i });
+                    }
                 }
             }
-        }
-        result = result.sort((x, y) => {
-            var xDate = x.date.split(' '); var yDate = y.date.split(' ');
-            if (months.indexOf(xDate[0]) < months.indexOf(yDate[0])) {
-                return -1;
-            } else if (months.indexOf(yDate[0]) < months.indexOf(xDate[0])) {
-                return 1;
-            } else {
-                //Sort by day number here
-                if (Number(xDate[1]) < Number(yDate[1])) {
+            result = result.sort((x, y) => {
+                var xDate = x.date.split(' '); var yDate = y.date.split(' ');
+                if (months.indexOf(xDate[0]) < months.indexOf(yDate[0])) {
                     return -1;
-                } else if (Number(yDate[1]) < Number(xDate[1])) {
+                } else if (months.indexOf(yDate[0]) < months.indexOf(xDate[0])) {
                     return 1;
                 } else {
-                    //sort by time here :o
-                    x = x.startTime; y = y.startTime;
-                    if (x.split(':')[0] == '12' && x.split(' ')[0].split(':')[1] == '00' && y.split(' ')[1] == 'PM') { return -1; }
-                    if (y.split(':')[0] == '12' && y.split(' ')[0].split(':')[1] == '00' && x.split(' ')[1] == 'PM') { return 1; }
-                    if (x.split(':')[0].length === 1) { x = '0' + x; }
-                    if (y.split(':')[0].length === 1) { y = '0' + y; }
-                    return (x.split(' ')[1] + x.split(' ')[0] > y.split(' ')[1] + y.split(' ')[0]) ? 1 : -1;
+                    //Sort by day number here
+                    if (Number(xDate[1]) < Number(yDate[1])) {
+                        return -1;
+                    } else if (Number(yDate[1]) < Number(xDate[1])) {
+                        return 1;
+                    } else {
+                        //sort by time here :o
+                        x = x.startTime; y = y.startTime;
+                        if (x.split(':')[0] == '12' && x.split(' ')[0].split(':')[1] == '00' && y.split(' ')[1] == 'PM') { return -1; }
+                        if (y.split(':')[0] == '12' && y.split(' ')[0].split(':')[1] == '00' && x.split(' ')[1] == 'PM') { return 1; }
+                        if (x.split(':')[0].length === 1) { x = '0' + x; }
+                        if (y.split(':')[0].length === 1) { y = '0' + y; }
+                        return (x.split(' ')[1] + x.split(' ')[0] > y.split(' ')[1] + y.split(' ')[0]) ? 1 : -1;
+                    }
                 }
-            }
-        });
+            });
+        }
         return result;
     }
 
@@ -92,7 +94,7 @@ class Upcoming extends Component {
     }
 
     renderTime = ({ item, index }) => {
-        return <UpcomingRow first={index===0} showEmpty={this.state.showEmpty} setShowEmpty={this.setShowEmpty} newDate={index === 0 || item.date !== this.state.times[index - 1].date} newTime={index === 0 || item.startTime !== this.state.times[index - 1].startTime} colors={this.props.colors} user={this.props.user} updateUser={this.props.updateUser} time={item} event={this.props.user.events[item.eventIndex]} index={index} colors={this.props.colors} />
+        return <UpcomingRow first={index === 0} showEmpty={this.state.showEmpty} setShowEmpty={this.setShowEmpty} newDate={index === 0 || item.date !== this.state.times[index - 1].date} newTime={index === 0 || item.startTime !== this.state.times[index - 1].startTime} colors={this.props.colors} user={this.props.user} updateUser={this.props.updateUser} time={item} event={this.props.user.events[item.eventIndex]} index={index} colors={this.props.colors} />
     }
 
     render() {
@@ -104,24 +106,32 @@ class Upcoming extends Component {
                 width: '100%',
                 flexDirection: 'column',
                 alignItems: 'center',
-                justifyContent: 'center',
                 paddingHorizontal: 10,
             },
         });
 
         return (
             <View style={styles.container}>
-                <FlatList
-                    showsVerticalScrollIndicator={false}
-                    showsHorizontalScrollIndicator={false}
-                    refreshControl={<RefreshControl
-                        colors={[COLORS.button]}
-                        tintColor={COLORS.button}
-                        refreshing={this.state.isFetching}
-                        onRefresh={this.onRefresh} />}
-                    data={this.state.times}
-                    keyExtractor={(item, index) => index.toString()}
-                    renderItem={this.renderTime} />
+                {
+                    this.state.times.length > 0
+                        ? <FlatList
+                            showsVerticalScrollIndicator={false}
+                            showsHorizontalScrollIndicator={false}
+                            refreshControl={<RefreshControl
+                                colors={[COLORS.button]}
+                                tintColor={COLORS.button}
+                                refreshing={this.state.isFetching}
+                                onRefresh={this.onRefresh} />}
+                            data={this.state.times}
+                            keyExtractor={(item, index) => index.toString()}
+                            renderItem={this.renderTime} />
+                        : <View style={{ marginTop: 80 }}>
+                            <Text style={{color: COLORS.text, fontSize: 18, textAlign: 'center'}}>
+                                You have nothing scheduled for the next two weeks!
+                            </Text>
+                        </View>
+                }
+
             </View>
         );
     }
