@@ -10,3 +10,4 @@ export { EventRow } from './EventRow';
 export { Settings } from './Settings';
 export { SectionRowButton } from './SectionRowButton';
 export { CreateEvent } from './CreateEvent';
+export { UpcomingRow } from './UpcomingRow';

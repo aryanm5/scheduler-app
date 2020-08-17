@@ -4,23 +4,7 @@ import getEventActionStyles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import API from '../../api';
 
-const fullMonth = (date) => {
-    return {
-        'Jan': 'January',
-        'Feb': 'February',
-        'Mar': 'March',
-        'Apr': 'April',
-        'May': 'May',
-        'Jun': 'June',
-        'Jul': 'July',
-        'Aug': 'August',
-        'Sep': 'September',
-        'Oct': 'October',
-        'Nov': 'November',
-        'Dec': 'December',
-    }[date.split(' ')[0]] + ' ' + date.split(' ')[1];
-};
-const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const getDay = (str) => {
     var d = new Date(str + ', ' + (new Date().getFullYear()));
     return days[d.getDay()];
@@ -181,7 +165,7 @@ class Client extends Component {
         return (
             <>
                 {this.props.newDate
-                    ? <Text style={styles.date}>{getDay(this.props.item.date) + ', ' + fullMonth(this.props.item.date)}</Text>
+                    ? <Text style={styles.date}>{getDay(this.props.item.date) + ', ' + this.props.item.date}</Text>
                     : null
                 }
                 <View style={styles.container}>
