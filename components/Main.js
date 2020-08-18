@@ -35,7 +35,7 @@ class Main extends Component {
             header: {
                 flex: 0,
                 flexDirection: 'row',
-                height: Dimensions.get('window').height / 12,
+                height: Dimensions.get('window').height / 14,
                 justifyContent: 'flex-start',
                 alignItems: 'flex-end',
                 paddingLeft: 15,
