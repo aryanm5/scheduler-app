@@ -79,10 +79,10 @@ class Settings extends Component {
             <View style={styles.container}>
                 <ScrollView
                     ref={(component) => { this.swiper = component; }}
-                    horizontal={true}
+                    horizontal
                     decelerationRate={0}
                     snapToInterval={Dimensions.get('window').width - 40}
-                    snapToAlignment={'center'}
+                    snapToAlignment='center'
                     contentContainerStyle={{ width: this.state.whichView === 'settings' ? '100%' : '200%', }}
                     onMomentumScrollEnd={(e) => { if (this.willRemoveView || this.state.whichView !== 'settings' && e.nativeEvent.contentOffset.x < 5) { this.setState({ whichView: 'settings' }); this.willRemoveView = false; } }}
                     overScrollMode='never'

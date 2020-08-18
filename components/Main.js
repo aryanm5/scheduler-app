@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions, SafeAreaView, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
-import { Events, Upcoming, Settings, CreateEvent } from '../components';
+import { Events, Upcoming, Settings } from '../components';
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { CreateEvent } from './event_actions';
 
 
 const viewNames = ['My Events', 'Upcoming', 'Settings'];
@@ -84,6 +85,7 @@ class Main extends Component {
                         bounces={false}
                         showsHorizontalScrollIndicator={false}
                         showsVerticalScrollIndicator={false}
+                        scrollEnabled={this.state.showingCreate}
                     >
                         <View style={{ flex: 1 }}>
                             <View style={styles.header}>

@@ -1,0 +1,115 @@
+import React, { Component } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import AntIcon from 'react-native-vector-icons/AntDesign';
+import getEventActionStyles from './styles';
+import { MultiStepButton } from '../../components';
+import { CreateEvent0, CreateEvent1, CreateEvent2, CreateEvent3 } from '../event_actions';
+
+
+class CreateEvent extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { step: 1, errorMessage: '' };
+    }
+
+    changeStep = (changeTo) => {
+        if (changeTo >= 0 && changeTo < 4 && changeTo - this.state.step <= 1) {
+            this.setState({ step: changeTo, });
+        }
+    }
+
+    render() {
+        const COLORS = this.props.colors;
+        const commonStyles = getEventActionStyles(COLORS);
+        const styles = StyleSheet.create({
+            container: {
+                ...commonStyles.container,
+                paddingHorizontal: 0,
+            },
+            title: {
+                ...commonStyles.title,
+                fontSize: 24,
+            },
+            backButton: {
+                ...commonStyles.backButton,
+                paddingLeft: 10,
+                paddingRight: 50,
+            },
+            multiStepContainer: {
+                position: 'absolute',
+                bottom: 10,
+                left: 0,
+                right: 0,
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+            },
+            multiStepButton: {
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: COLORS.button,
+                height: Dimensions.get('window').width / 6,
+                width: Dimensions.get('window').width / 6,
+                borderRadius: Dimensions.get('window').width / 18,
+            },
+            multiStepButtonText: {
+                fontSize: 22,
+                fontWeight: 'bold',
+                color: '#FFF',
+                textAlignVertical: 'center',
+            },
+            stepArrow: {
+                position: 'absolute',
+                bottom: Dimensions.get('window').width / 6 + 15,
+                paddingHorizontal: 20,
+            },
+            content: {
+                position: 'absolute',
+                left: 0,
+                right: 0,
+                top: 60,
+                bottom: Dimensions.get('window').width / 6 + 55,
+                backgroundColor: COLORS.secondary,
+            },
+        });
+
+        return (
+            <View style={styles.container}>
+                <Icon name='angle-left' size={40} color={COLORS.text} onPress={this.props.goBack} style={styles.backButton} />
+                <Text style={styles.title}>CREATE EVENT</Text>
+
+                <View style={styles.content}>
+                    {this.renderContent()}
+                </View>
+                
+                {this.state.step > 0
+                    ? <AntIcon onPress={() => { this.changeStep(this.state.step - 1); }} name='arrowleft' size={36} color={COLORS.text} style={[styles.stepArrow, { left: 0 }]} />
+                    : null
+                }
+                <AntIcon onPress={() => { this.changeStep(this.state.step + 1); }} name='arrowright' size={36} color={COLORS.text} style={[styles.stepArrow, { right: 0 }]} />
+                <View style={styles.multiStepContainer}>
+                    <MultiStepButton changeStep={this.changeStep} step={this.state.step} num={0} colors={COLORS} />
+                    <MultiStepButton changeStep={this.changeStep} step={this.state.step} num={1} colors={COLORS} />
+                    <MultiStepButton changeStep={this.changeStep} step={this.state.step} num={2} colors={COLORS} />
+                    <MultiStepButton changeStep={this.changeStep} step={this.state.step} num={3} colors={COLORS} />
+                </View>
+            </View>
+        );
+    }
+
+    renderContent = () => {
+        switch (this.state.step) {
+            case 0:
+                return <CreateEvent0 step={this.state.step} changeStep={this.changeStep} colors={this.props.colors} />;
+            case 1:
+                return <CreateEvent1 step={this.state.step} changeStep={this.changeStep} colors={this.props.colors} />;
+            case 2:
+                return <CreateEvent2 step={this.state.step} changeStep={this.changeStep} colors={this.props.colors} />;
+            case 3:
+                return <CreateEvent3 step={this.state.step} changeStep={this.changeStep} colors={this.props.colors} />;
+        }
+    }
+}
+
+
+export { CreateEvent };

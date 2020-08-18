@@ -5,9 +5,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Client } from './event_actions';
 
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const months  = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const getDay = (str) => {
-    var d = new Date(str + ', ' + (new Date().getFullYear()));
-    return days[d.getDay()];
+    return days[new Date(new Date().getFullYear(), months.indexOf(str.split(' ')[0]), str.split(' ')[1]).getDay()];
 };
 
 class UpcomingRow extends Component {

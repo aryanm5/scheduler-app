@@ -5,9 +5,9 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import API from '../../api';
 
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const months  = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const getDay = (str) => {
-    var d = new Date(str + ', ' + (new Date().getFullYear()));
-    return days[d.getDay()];
+    return days[new Date(new Date().getFullYear(), months.indexOf(str.split(' ')[0]), str.split(' ')[1]).getDay()];
 };
 
 class Client extends Component {
