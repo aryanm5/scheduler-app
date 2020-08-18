@@ -36,7 +36,7 @@ class UpcomingRow extends Component {
                 minWidth: '100%',
                 paddingLeft: 20,
                 paddingVertical: 22,
-                backgroundColor: this.props.current ? COLORS.gold : this.props.index%2 === 0 ? COLORS.background : COLORS.secondary,
+                backgroundColor: this.props.current ? COLORS.gold : this.props.index % 2 === 0 ? COLORS.background : COLORS.secondary,
                 borderColor: COLORS.secondary,
             },
             date: {
@@ -93,10 +93,12 @@ class UpcomingRow extends Component {
             },
             filterContainer: {
                 position: 'absolute',
-                top: 0,
+                top: -5,
                 right: 0,
-                alignItems:'center',
-                zIndex:2,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent:'center',
+                zIndex: 2,
             },
             filterText: {
                 color: COLORS.text,
@@ -108,13 +110,13 @@ class UpcomingRow extends Component {
             <>
                 {this.props.first
                     ? <View style={styles.filterContainer}>
-                        <Text style={styles.filterText}>SHOW EMPTY</Text>
-                        <Switch onValueChange={() => { this.props.setShowEmpty(!this.props.showEmpty); }} value={this.props.showEmpty} trackColor={{ true: COLORS.button }} ios_backgroundColor={COLORS.lightMode ? undefined : COLORS.secondary} style={{ transform: [{ scaleX: .75 }, { scaleY: .75 }] }}/>
+                        <Text style={styles.filterText}>SHOW EMPTY </Text>
+                        <Switch onValueChange={this.props.setShowEmpty} value={this.props.showEmpty} trackColor={{ true: COLORS.button }} ios_backgroundColor={COLORS.lightMode ? undefined : COLORS.secondary} style={{ transform: [{ scaleX: .75 }, { scaleY: .75 }] }} />
                     </View>
                     : null
                 }
                 {this.props.newDate
-                    ? <Text style={styles.date}>{getDay(this.props.time.date) + ', ' + this.props.time.date}</Text>
+                    ? <Text style={styles.date}>{this.props.first ? 'Today' : getDay(this.props.time.date) + ', ' + this.props.time.date}</Text>
                     : null
                 }
                 <TouchableOpacity onPress={this.showModal} activeOpacity={1} style={styles.container}>

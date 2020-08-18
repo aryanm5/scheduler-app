@@ -86,7 +86,7 @@ class Upcoming extends Component {
             for (var i = 0; i < this.props.user.events.length; ++i) {
                 for (var j = 0; j < this.props.user.events[i].times.length; ++j) {
                     if (this.daysArr.includes(this.props.user.events[i].times[j].date) && (this.state.showEmpty || this.props.user.events[i].times[j].clients.length > 0 && this.props.user.events[i].times[j].clients !== 'none')) {
-                        result.push({ ...this.props.user.events[i].times[j], eventIndex: i, current: (compareTime({date: formatMD(this.d), startTime: formatAMPM(this.d)}, {date: this.props.user.events[i].times[j].date, startTime: this.props.user.events[i].times[j].startTime}) >= 0 && compareTime({date: formatMD(this.d), startTime: formatAMPM(this.d)}, {date: this.props.user.events[i].times[j].date, startTime: this.props.user.events[i].times[j].endTime}) <= 0) });
+                        result.push({ ...this.props.user.events[i].times[j], eventIndex: i, current: (compareTime({ date: formatMD(this.d), startTime: formatAMPM(this.d) }, { date: this.props.user.events[i].times[j].date, startTime: this.props.user.events[i].times[j].startTime }) >= 0 && compareTime({ date: formatMD(this.d), startTime: formatAMPM(this.d) }, { date: this.props.user.events[i].times[j].date, startTime: this.props.user.events[i].times[j].endTime }) <= 0) });
                     }
                 }
             }
@@ -124,6 +124,8 @@ class Upcoming extends Component {
                 width: '100%',
                 alignItems: 'center',
                 paddingHorizontal: 10,
+                borderTopColor: COLORS.gray,
+                borderTopWidth: 1,
             },
             relaxImage: {
                 width: '90%',
@@ -144,7 +146,8 @@ class Upcoming extends Component {
                                 onRefresh={this.onRefresh} />}
                             data={this.state.times}
                             keyExtractor={(item, index) => index.toString()}
-                            renderItem={this.renderTime} />
+                            renderItem={this.renderTime}
+                            style={{ paddingTop: 10, }} />
                         : <View style={{ marginTop: 80, width: '100%', alignItems: 'center', }}>
                             <Text style={{ color: COLORS.text, fontSize: 18, textAlign: 'center' }}>
                                 You have nothing scheduled for the next two weeks!
