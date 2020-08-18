@@ -79,7 +79,7 @@ class Main extends Component {
                         snapToInterval={Dimensions.get('window').width-styles.container.paddingHorizontal*2}
                         snapToAlignment={'center'}
                         contentContainerStyle={{ width: this.state.showingCreate ? '200%' : '100%', }}
-                        onMomentumScrollEnd={(e) => { if (this.willRemoveCreate || this.state.showingCreate && e.nativeEvent.contentOffset.x <= 2) { this.setState({ showingCreate: false }); this.willRemoveCreate = false; } }}
+                        onMomentumScrollEnd={(e) => { if (this.willRemoveCreate || this.state.showingCreate && e.nativeEvent.contentOffset.x <= 10) { this.setState({ showingCreate: false }); this.willRemoveCreate = false; } }}
                         overScrollMode='never'
                         bounces={false}
                         showsHorizontalScrollIndicator={false}

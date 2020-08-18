@@ -37,7 +37,7 @@ class EnableEmails extends Component {
                 <Text style={[commonStyles.title, { color: COLORS.green }]}>ENABLE EMAILS</Text>
                 <Text style={commonStyles.text}>
                     Allow Scheduler to notify you when clients sign up to your events.{'\n\n'}
-                    You may turn on emails for individual events if that better fits your needs.{'\n'}
+                    You may toggle emails for individual events if that better fits your needs.{'\n'}
                 </Text>
                 <TouchableOpacity onPress={this.disableEmails} activeOpacity={0.9} style={[commonStyles.button, { backgroundColor: COLORS.green }]}>
                     {this.state.loading

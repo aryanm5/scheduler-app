@@ -35,10 +35,9 @@ class UpcomingRow extends Component {
             container: {
                 minWidth: '100%',
                 paddingLeft: 20,
-                paddingVertical: 20,
-                borderBottomColor: COLORS.gray,
-                borderBottomWidth: 1,
-                marginBottom: 5,
+                paddingVertical: 22,
+                backgroundColor: this.props.current ? COLORS.gold : this.props.index%2 === 0 ? COLORS.background : COLORS.secondary,
+                borderColor: COLORS.secondary,
             },
             date: {
                 color: COLORS.text,
@@ -48,12 +47,13 @@ class UpcomingRow extends Component {
                 fontWeight: 'bold',
             },
             time: {
-                color: COLORS.text,
+                color: this.props.current ? '#000' : COLORS.text,
+                fontWeight: this.props.current ? 'bold' : 'normal',
                 textAlign: 'left',
                 fontSize: 16,
             },
             eventName: {
-                color: COLORS.text,
+                color: this.props.current ? '#000' : COLORS.text,
                 fontSize: 18,
                 fontWeight: 'bold',
             },
@@ -104,7 +104,6 @@ class UpcomingRow extends Component {
                 fontWeight: 'bold',
             },
         });
-
         return (
             <>
                 {this.props.first
@@ -134,9 +133,9 @@ class UpcomingRow extends Component {
                         {this.props.time.clients.length === 0 || this.props.time.clients === 'none'
                             ? null
                             : <View style={styles.clientNames}>
-                                {this.props.time.clients.slice(0, (this.props.time.clients.length === 2 ? 2 : 1)).map(client => <Text numberOfLines={1} style={{ color: COLORS.text }}>{client.Name}</Text>)}
+                                {this.props.time.clients.slice(0, (this.props.time.clients.length === 2 ? 2 : 1)).map(client => <Text numberOfLines={1} style={{ color: this.props.current ? '#000' : COLORS.text }}>{client.Name}</Text>)}
                                 {this.props.time.clients.length > 2
-                                    ? <Text numberOfLines={1} style={{ color: COLORS.text, fontStyle: 'italic', }}>+{this.props.time.clients.length - 1} More...</Text>
+                                    ? <Text numberOfLines={1} style={{ color: this.props.current ? '#000' : COLORS.text, fontStyle: 'italic', }}>+{this.props.time.clients.length - 1} More...</Text>
                                     : null
                                 }
                             </View>

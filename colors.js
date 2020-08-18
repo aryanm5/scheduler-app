@@ -4,14 +4,15 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const getColorsLD = (light) => {
     return {
-        background: light ? '#F4F4F8' : '#000000',//'#121212',
-        text: light ? '#000000' : '#ffffff',
+        background: light ? '#F4F4F8' : '#000',//'#121212',
+        text: light ? '#000' : '#fff',
         button: light ? '#007aff' : '#0a84ff',//#ff5d73
         brown: light ? '#433633' : '#b5651d',
         gray: light ? '#8e8e93' : '#b1b1b1',
         secondary: light ? '#dfdfdf' : '#343434',
         red: light ? '#ff0000' : '#ff0000',
         green: light ? '#228B22' : '#00ff00',
+        gold: light ? '#FCA311' : '#FCA311',
         lightMode: light,
     }
 }
