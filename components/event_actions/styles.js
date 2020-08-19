@@ -68,7 +68,19 @@ const getEventActionStyles = (COLORS) => {
             fontSize: 16,
             marginTop: 10,
             textAlign: 'center',
-        }
+        },
+        createEventError: {
+            color: COLORS.red,
+            fontSize: 16,
+            marginLeft: 10,
+            fontWeight: COLORS.lightMode ? 'normal' : 'bold',
+        },
+        inputLabel: {
+            fontSize: 18,
+            fontWeight: 'bold',
+            marginLeft: 10,
+            color: COLORS.text,
+        },
     });
 }
 

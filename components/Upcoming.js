@@ -82,6 +82,7 @@ class Upcoming extends Component {
 
     fillTimes = () => {
         var result = [];
+        this.d = new Date();
         if (this.props.user.events.length > 0 && this.props.user.events[0] !== 'none') {
             for (var i = 0; i < this.props.user.events.length; ++i) {
                 for (var j = 0; j < this.props.user.events[i].times.length; ++j) {
@@ -115,7 +116,6 @@ class Upcoming extends Component {
     }
 
     render() {
-        this.currentTime = new Date();
         this.state.times = this.fillTimes();
         const COLORS = this.props.colors;
         const styles = StyleSheet.create({

@@ -10,12 +10,25 @@ import { CreateEvent0, CreateEvent1, CreateEvent2, CreateEvent3 } from '../event
 class CreateEvent extends Component {
     constructor(props) {
         super(props);
-        this.state = { step: 1, errorMessage: '' };
+        this.state = { values: { eventName: '', eventDesc: '', eventNameError: '', eventDescError: '', duration: 60, step0valid: false, error: '' }, step: 0 };
+    }
+
+    setValue = (set, setTo) => {
+        var old = this.state.values;
+        old[set] = setTo;
+        this.setState({ values: old });
     }
 
     changeStep = (changeTo) => {
         if (changeTo >= 0 && changeTo < 4 && changeTo - this.state.step <= 1) {
-            this.setState({ step: changeTo, });
+            if (changeTo < this.state.step) {
+                this.setState({ step: changeTo, });
+            } else {
+                //check for valid
+                if(this.state.values.step0valid) {
+                    this.setState({ step: changeTo });
+                }
+            }
         }
     }
 
@@ -63,13 +76,21 @@ class CreateEvent extends Component {
                 bottom: Dimensions.get('window').width / 6 + 15,
                 paddingHorizontal: 20,
             },
+            error: {
+                position: 'absolute',
+                left: 46,
+                right: 46,
+                bottom: Dimensions.get('window').width / 6 + 20,
+                color: COLORS.red,
+                fontSize: 16,
+                textAlign: 'center',
+            },
             content: {
                 position: 'absolute',
                 left: 0,
                 right: 0,
                 top: 60,
                 bottom: Dimensions.get('window').width / 6 + 55,
-                backgroundColor: COLORS.secondary,
             },
         });
 
@@ -81,12 +102,13 @@ class CreateEvent extends Component {
                 <View style={styles.content}>
                     {this.renderContent()}
                 </View>
-                
+
                 {this.state.step > 0
                     ? <AntIcon onPress={() => { this.changeStep(this.state.step - 1); }} name='arrowleft' size={36} color={COLORS.text} style={[styles.stepArrow, { left: 0 }]} />
                     : null
                 }
                 <AntIcon onPress={() => { this.changeStep(this.state.step + 1); }} name='arrowright' size={36} color={COLORS.text} style={[styles.stepArrow, { right: 0 }]} />
+                <Text style={styles.error}>{this.state.values.error}</Text>
                 <View style={styles.multiStepContainer}>
                     <MultiStepButton changeStep={this.changeStep} step={this.state.step} num={0} colors={COLORS} />
                     <MultiStepButton changeStep={this.changeStep} step={this.state.step} num={1} colors={COLORS} />
@@ -100,13 +122,13 @@ class CreateEvent extends Component {
     renderContent = () => {
         switch (this.state.step) {
             case 0:
-                return <CreateEvent0 step={this.state.step} changeStep={this.changeStep} colors={this.props.colors} />;
+                return <CreateEvent0 values={this.state.values} setValue={this.setValue} step={this.state.step} changeStep={this.changeStep} colors={this.props.colors} />;
             case 1:
-                return <CreateEvent1 step={this.state.step} changeStep={this.changeStep} colors={this.props.colors} />;
+                return <CreateEvent1 values={this.state.values} setValue={this.setValue} step={this.state.step} changeStep={this.changeStep} colors={this.props.colors} />;
             case 2:
-                return <CreateEvent2 step={this.state.step} changeStep={this.changeStep} colors={this.props.colors} />;
+                return <CreateEvent2 values={this.state.values} setValue={this.setValue} step={this.state.step} changeStep={this.changeStep} colors={this.props.colors} />;
             case 3:
-                return <CreateEvent3 step={this.state.step} changeStep={this.changeStep} colors={this.props.colors} />;
+                return <CreateEvent3 values={this.state.values} setValue={this.setValue} step={this.state.step} changeStep={this.changeStep} colors={this.props.colors} />;
         }
     }
 }
