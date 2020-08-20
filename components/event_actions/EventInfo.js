@@ -61,8 +61,8 @@ class EventInfo extends Component {
                         </Text>
 
                     </View>
-                    {this.props.event.passwordProtected
-                        ? <View style={styles.section}>
+                    {this.props.event.passwordProtected &&
+                        <View style={styles.section}>
                             <Text style={styles.textBold}>PASSWORD</Text>
                             <Text style={styles.text}>
                                 {this.props.event.password}
@@ -71,12 +71,10 @@ class EventInfo extends Component {
                                 <Ionicon name='ios-share-outline' size={22} color={commonStyles.buttonText.color} />
                                 <Text style={commonStyles.buttonText}>Share</Text>
                             </TouchableOpacity>
-                            {this.state.errorMessage
-                                ? <Text style={commonStyles.errorText}>{this.state.errorMessage}</Text>
-                                : null
+                            {this.state.errorMessage.length > 0 &&
+                                <Text style={commonStyles.errorText}>{this.state.errorMessage}</Text>
                             }
                         </View>
-                        : null
                     }
                     <View style={[styles.section, { flexDirection: 'row', }]}>
                         <Text style={styles.textBold}>SLOT DURATION: </Text>

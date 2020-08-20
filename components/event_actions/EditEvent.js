@@ -108,10 +108,8 @@ class EditEvent extends Component {
                                 }
                             </TouchableOpacity>
                         </View>
-                        {
-                            this.state.passwordError.length > 0
-                                ? <Text style={commonStyles.errorText}>{this.state.passwordError}</Text>
-                                : null
+                        {this.state.passwordError.length > 0 &&
+                            <Text style={commonStyles.errorText}>{this.state.passwordError}</Text>
                         }
                     </View>
                     <View style={{ width: '100%', marginTop: 30, }}>
@@ -126,10 +124,8 @@ class EditEvent extends Component {
                                 }
                             </TouchableOpacity>
                         </View>
-                        {
-                            this.state.descError.length > 0
-                                ? <Text style={commonStyles.errorText}>{this.state.descError}</Text>
-                                : null
+                        {this.state.descError.length > 0 &&
+                            <Text style={commonStyles.errorText}>{this.state.descError}</Text>
                         }
                     </View>
                     <View style={{ width: '80%', flexDirection: 'row', marginTop: 70, }}>
@@ -140,15 +136,11 @@ class EditEvent extends Component {
                         <Text style={commonStyles.text}>Email Notifications: </Text>
                         <Switch disabled={this.state.loadingToggle} onValueChange={this.emailNotifyToggled} value={this.state.emailNotify} trackColor={{ true: COLORS.button }} style={{ position: 'absolute', right: 0 }} />
                     </View>
-                    {
-                        this.state.loadingToggle
-                            ? <ActivityIndicator size='small' color={COLORS.text} animating={this.state.loadingToggle} />
-                            : null
+                    {this.state.loadingToggle &&
+                        <ActivityIndicator size='small' color={COLORS.text} animating={this.state.loadingToggle} />
                     }
-                    {
-                        this.state.toggleError.length > 0
-                            ? <Text style={commonStyles.errorText}>{this.state.toggleError}</Text>
-                            : null
+                    {this.state.toggleError.length > 0 &&
+                        <Text style={commonStyles.errorText}>{this.state.toggleError}</Text>
                     }
                 </ScrollView>
             </View>

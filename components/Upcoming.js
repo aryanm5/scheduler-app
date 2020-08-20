@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, FlatList, RefreshControl, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet, FlatList, RefreshControl, Switch } from 'react-native';
 import { UpcomingRow } from '../components';
 import API from '../api';
 
@@ -112,7 +112,7 @@ class Upcoming extends Component {
     }
 
     renderTime = ({ item, index }) => {
-        return <UpcomingRow current={item.current} first={index === 0} showEmpty={this.state.showEmpty} setShowEmpty={this.setShowEmpty} newDate={index === 0 || item.date !== this.state.times[index - 1].date} newTime={index === 0 || item.startTime !== this.state.times[index - 1].startTime} colors={this.props.colors} user={this.props.user} updateUser={this.props.updateUser} time={item} event={this.props.user.events[item.eventIndex]} index={index} colors={this.props.colors} />
+        return <UpcomingRow current={item.current} first={index === 0} newDate={index === 0 || item.date !== this.state.times[index - 1].date} newTime={index === 0 || item.startTime !== this.state.times[index - 1].startTime} user={this.props.user} updateUser={this.props.updateUser} time={item} event={this.props.user.events[item.eventIndex]} index={index} colors={this.props.colors} />
     }
 
     render() {
@@ -130,10 +130,28 @@ class Upcoming extends Component {
             relaxImage: {
                 width: '90%',
             },
+            filterContainer: {
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 2,
+            },
+            filterText: {
+                color: COLORS.text,
+                fontSize: 12,
+                fontWeight: 'bold',
+            },
         });
 
         return (
             <View style={styles.container}>
+                <View style={styles.filterContainer}>
+                        <Text style={styles.filterText}>SHOW EMPTY </Text>
+                        <Switch onValueChange={this.setShowEmpty} value={this.state.showEmpty} trackColor={{ true: COLORS.button }} ios_backgroundColor={COLORS.lightMode ? undefined : COLORS.secondary} style={{ transform: [{ scaleX: .75 }, { scaleY: .75 }] }} />
+                    </View>
                 {
                     this.state.times.length > 0
                         ? <FlatList

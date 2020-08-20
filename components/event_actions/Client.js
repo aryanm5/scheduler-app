@@ -170,29 +170,26 @@ class Client extends Component {
 
         return (
             <>
-                {this.props.newDate
-                    ? this.props.upcoming
+                {this.props.newDate &&
+                    (this.props.upcoming
                         ? <><Text style={styles.date} numberOfLines={2}>{this.props.event.name}</Text>
                             <Text style={styles.upcomingDate}>{getDay(this.props.item.date) + ', ' + this.props.item.date}</Text>
                             <Text style={styles.upcomingDate}>{`${this.props.item.startTime} - ${this.props.item.endTime}`}</Text></>
-                        : <Text style={styles.date}>{getDay(this.props.item.date) + ', ' + this.props.item.date}</Text>
-                    : null
+                        : <Text style={styles.date}>{getDay(this.props.item.date) + ', ' + this.props.item.date}</Text>)
                 }
                 <View style={styles.container}>
                     <TouchableOpacity activeOpacity={1} onPress={this.dismissDecline} style={{ paddingHorizontal: 20, paddingVertical: 20, }}><>
                         {
-                            !this.props.newDate && !this.props.newTime
-                                ? <View style={styles.divider} />
-                                : null
+                            !this.props.newDate && !this.props.newTime &&
+                                <View style={styles.divider} />
                         }
 
                         <Text style={styles.time}>{this.props.upcoming ? this.props.index+1 : this.props.item.startTime}</Text>
                         <Text style={styles.clientInfo}>{this.props.event.clientInfo.map(i => { return <><Text style={{ fontWeight: 'bold', }}>{'\n' + i}:</Text><Text> {this.props.item[i]}</Text></>; })}</Text>
 
                         <View style={styles.buttons}>
-                            {this.props.pending
-                                ? <TouchableOpacity activeOpacity={0.8} style={styles.actionButton} onPress={this.approve}><Icon name='check' size={34} color={COLORS.green} style={styles.approveButton} /></TouchableOpacity>
-                                : null
+                            {this.props.pending &&
+                                <TouchableOpacity activeOpacity={0.8} style={styles.actionButton} onPress={this.approve}><Icon name='check' size={34} color={COLORS.green} style={styles.approveButton} /></TouchableOpacity>
                             }
                             {this.state.showingDecline
                                 ? <Animated.View style={[styles.declineContainer, { maxWidth: this.state.declineWidth }]}><TouchableOpacity activeOpacity={0.8} onPress={this.props.pending ? this.decline : this.remove}><Text numberOfLines={1} ellipsizeMode='clip' style={styles.declineButtonText}>{this.props.pending ? 'DECLINE' : 'REMOVE CLIENT'}</Text></TouchableOpacity></Animated.View>

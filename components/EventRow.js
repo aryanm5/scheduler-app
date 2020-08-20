@@ -136,13 +136,12 @@ class EventRow extends Component {
                     <Text style={styles.eventName} numberOfLines={2}>
                         {this.props.event.name}
                     </Text>
-                    {this.numPending > 0
-                        ? <TouchableOpacity style={styles.numPending} activeOpacity={0.9} onPress={() => { this.showModal(); setTimeout(() => { this.setModalView('pending') }, 400); }}>
+                    {this.numPending > 0 &&
+                        <TouchableOpacity style={styles.numPending} activeOpacity={0.9} onPress={() => { this.showModal(); setTimeout(() => { this.setModalView('pending') }, 400); }}>
                             <Text style={styles.numPendingText}>
                                 {this.numPending}
                             </Text>
                         </TouchableOpacity>
-                        : null
                     }
 
 

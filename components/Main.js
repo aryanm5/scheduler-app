@@ -77,7 +77,7 @@ class Main extends Component {
                         ref={(component) => { this.createSwiper = component; }}
                         horizontal={true}
                         decelerationRate={0}
-                        snapToInterval={Dimensions.get('window').width-styles.container.paddingHorizontal*2}
+                        snapToInterval={Dimensions.get('window').width - styles.container.paddingHorizontal * 2}
                         snapToAlignment={'center'}
                         contentContainerStyle={{ width: this.state.showingCreate ? '200%' : '100%', }}
                         onMomentumScrollEnd={(e) => { if (this.willRemoveCreate || this.state.showingCreate && e.nativeEvent.contentOffset.x <= 10) { this.setState({ showingCreate: false }); this.willRemoveCreate = false; } }}
@@ -92,12 +92,10 @@ class Main extends Component {
                                 <Text style={styles.headerText}>
                                     {viewNames[this.state.whichView]}
                                 </Text>
-                                {
-                                    this.state.whichView < 2
-                                        ? <TouchableOpacity activeOpacity={0.9} onPress={this.showCreate} style={styles.createEventButton}>
-                                            <Icon name='pluscircleo' size={38} color={COLORS.button} />
-                                        </TouchableOpacity>
-                                        : null
+                                {this.state.whichView < 2 &&
+                                    <TouchableOpacity activeOpacity={0.9} onPress={this.showCreate} style={styles.createEventButton}>
+                                        <Icon name='pluscircleo' size={38} color={COLORS.button} />
+                                    </TouchableOpacity>
                                 }
                             </View>
                             <View style={styles.content}>
@@ -136,11 +134,8 @@ class Main extends Component {
                             </View>
                         </View>
 
-                        {
-                            this.state.showingCreate
-                                ? <CreateEvent goBack={this.hideCreate} user={this.props.user} updateUser={this.props.updateUser} colors={COLORS} />
-                                : null
-
+                        {this.state.showingCreate &&
+                            <CreateEvent goBack={this.hideCreate} user={this.props.user} updateUser={this.props.updateUser} colors={COLORS} />
                         }
                     </ScrollView>
                 </SafeAreaView>

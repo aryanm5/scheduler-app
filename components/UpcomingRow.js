@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Client } from './event_actions';
 
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-const months  = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const getDay = (str) => {
     return days[new Date(new Date().getFullYear(), months.indexOf(str.split(' ')[0]), str.split(' ')[1]).getDay()];
 };
@@ -97,7 +97,7 @@ class UpcomingRow extends Component {
                 right: 0,
                 flexDirection: 'row',
                 alignItems: 'center',
-                justifyContent:'center',
+                justifyContent: 'center',
                 zIndex: 2,
             },
             filterText: {
@@ -108,16 +108,8 @@ class UpcomingRow extends Component {
         });
         return (
             <>
-                {this.props.first
-                    ? <View style={styles.filterContainer}>
-                        <Text style={styles.filterText}>SHOW EMPTY </Text>
-                        <Switch onValueChange={this.props.setShowEmpty} value={this.props.showEmpty} trackColor={{ true: COLORS.button }} ios_backgroundColor={COLORS.lightMode ? undefined : COLORS.secondary} style={{ transform: [{ scaleX: .75 }, { scaleY: .75 }] }} />
-                    </View>
-                    : null
-                }
-                {this.props.newDate
-                    ? <Text style={styles.date}>{this.props.first ? 'Today' : getDay(this.props.time.date) + ', ' + this.props.time.date}</Text>
-                    : null
+                {this.props.newDate &&
+                    <Text style={styles.date}>{this.props.first ? 'Today' : getDay(this.props.time.date) + ', ' + this.props.time.date}</Text>
                 }
                 <TouchableOpacity onPress={this.showModal} activeOpacity={1} style={styles.container}>
                     <View style={styles.timeContainer}>
@@ -136,9 +128,8 @@ class UpcomingRow extends Component {
                             ? null
                             : <View style={styles.clientNames}>
                                 {this.props.time.clients.slice(0, (this.props.time.clients.length === 2 ? 2 : 1)).map(client => <Text numberOfLines={1} style={{ color: this.props.current ? '#000' : COLORS.text }}>{client.Name}</Text>)}
-                                {this.props.time.clients.length > 2
-                                    ? <Text numberOfLines={1} style={{ color: this.props.current ? '#000' : COLORS.text, fontStyle: 'italic', }}>+{this.props.time.clients.length - 1} More...</Text>
-                                    : null
+                                {this.props.time.clients.length > 2 &&
+                                    <Text numberOfLines={1} style={{ color: this.props.current ? '#000' : COLORS.text, fontStyle: 'italic', }}>+{this.props.time.clients.length - 1} More...</Text>
                                 }
                             </View>
                         }

@@ -10,6 +10,7 @@ class CreateEvent0 extends Component {
     }
 
     validateName = () => {
+        this.props.showNav();
         if (this.props.values.eventName.length < 1) {
             this.props.setValue('eventNameError', 'Please enter an Event name.');
             this.props.setValue('step0valid', false);
@@ -19,6 +20,7 @@ class CreateEvent0 extends Component {
         }
     }
     validateDesc = () => {
+        this.props.showNav();
         if (this.props.values.eventDesc.length < 1) {
             this.props.setValue('eventDescError', 'Please enter an Event description.');
             this.props.setValue('step0valid', false);
@@ -82,12 +84,12 @@ class CreateEvent0 extends Component {
         return (
             <View style={styles.container}>
                 <Text style={commonStyles.inputLabel}>Event Name:</Text>
-                <TextInput defaultValue={this.props.values.eventName} onBlur={this.validateName} style={this.props.values.eventNameError.length > 0 ? styles.textInputError : commonStyles.textInput} onChangeText={(val) => { this.props.setValue('eventName', val); }} placeholder='Tennis Lessons with Joe' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='name' />
-                <Text style={commonStyles.createEventError}>{this.props.values.eventNameError.length > 0 ? <Icon name='warning' size={18} /> : null}{' ' + this.props.values.eventNameError}</Text>
+                <TextInput onFocus={this.props.hideNav} defaultValue={this.props.values.eventName} onBlur={this.validateName} style={this.props.values.eventNameError.length > 0 ? styles.textInputError : commonStyles.textInput} onChangeText={(val) => { this.props.setValue('eventName', val); }} placeholder='Tennis Lessons with Joe' placeholderTextColor='#808080' selectionColor='#000' />
+                <Text style={commonStyles.createEventError}>{this.props.values.eventNameError.length > 0 && <Icon name='warning' size={18} />}{' ' + this.props.values.eventNameError}</Text>
 
                 <Text style={[commonStyles.inputLabel, { marginTop: 10, }]}>Description:</Text>
-                <TextInput multiline={true} defaultValue={this.props.values.eventDesc} onBlur={this.validateDesc} style={this.props.values.eventDescError.length > 0 ? styles.multilineTextInputError : [commonStyles.textInput, commonStyles.multilineTextInput]} onChangeText={(val) => { this.props.setValue('eventDesc', val); }} placeholder={`Sign up for tennis lessons with Coach Joe at Joe Tennis Academy!\n\nContact Joe at joe@example.com.`} placeholderTextColor='#808080' selectionColor='#000' />
-                <Text style={commonStyles.createEventError}>{this.props.values.eventDescError.length > 0 ? <Icon name='warning' size={18} /> : null}{' ' + this.props.values.eventDescError}</Text>
+                <TextInput onFocus={this.props.hideNav} multiline={true} defaultValue={this.props.values.eventDesc} onBlur={this.validateDesc} style={this.props.values.eventDescError.length > 0 ? styles.multilineTextInputError : [commonStyles.textInput, commonStyles.multilineTextInput]} onChangeText={(val) => { this.props.setValue('eventDesc', val); }} placeholder={`Sign up for tennis lessons with Coach Joe at Joe Tennis Academy!\n\nContact Joe at joe@example.com.`} placeholderTextColor='#808080' selectionColor='#000' />
+                <Text style={commonStyles.createEventError}>{this.props.values.eventDescError.length > 0 && <Icon name='warning' size={18} />}{' ' + this.props.values.eventDescError}</Text>
 
                 <Text style={[commonStyles.inputLabel, { marginTop: 10, }]}>Time Slot Duration:</Text>
                 <View style={styles.radioButtonRow}>
