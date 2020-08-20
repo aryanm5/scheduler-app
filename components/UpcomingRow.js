@@ -109,7 +109,7 @@ class UpcomingRow extends Component {
         return (
             <>
                 {this.props.newDate &&
-                    <Text style={styles.date}>{this.props.first ? 'Today' : getDay(this.props.time.date) + ', ' + this.props.time.date}</Text>
+                    <Text style={styles.date}>{this.props.today ? 'Today' : getDay(this.props.time.date) + ', ' + this.props.time.date}</Text>
                 }
                 <TouchableOpacity onPress={this.showModal} activeOpacity={1} style={styles.container}>
                     <View style={styles.timeContainer}>

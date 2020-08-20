@@ -112,7 +112,7 @@ class Upcoming extends Component {
     }
 
     renderTime = ({ item, index }) => {
-        return <UpcomingRow current={item.current} first={index === 0} newDate={index === 0 || item.date !== this.state.times[index - 1].date} newTime={index === 0 || item.startTime !== this.state.times[index - 1].startTime} user={this.props.user} updateUser={this.props.updateUser} time={item} event={this.props.user.events[item.eventIndex]} index={index} colors={this.props.colors} />
+        return <UpcomingRow current={item.current} today={item.date === this.daysArr[0]} newDate={index === 0 || item.date !== this.state.times[index - 1].date} newTime={index === 0 || item.startTime !== this.state.times[index - 1].startTime} user={this.props.user} updateUser={this.props.updateUser} time={item} event={this.props.user.events[item.eventIndex]} index={index} colors={this.props.colors} />
     }
 
     render() {
