@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, TextInput, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Ionicon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import API from '../api';
 
 
@@ -46,14 +47,15 @@ class SignUpModal extends Component {
                 marginTop: 30,
             },
             textInput: {
-                width: '80%',
+                width: '100%',
                 height: 50,
                 backgroundColor: '#FFF',
                 borderRadius: 25,
                 marginBottom: 20,
                 borderWidth: COLORS.lightMode ? 3 : 0,
                 borderColor: COLORS.brown,
-                paddingHorizontal: 20,
+                paddingRight: 10,
+                paddingLeft: 55,
                 color: '#000',
             },
             submitButton: {
@@ -73,16 +75,39 @@ class SignUpModal extends Component {
                 fontSize: 16,
                 marginTop: 10,
                 textAlign: 'center',
-            }
+            },
+            textInputContainer: {
+                width: '80%',
+                alignItems: 'center',
+            },
+            textInputIcon: {
+                position: 'absolute',
+                left: 0,
+                height: 50,
+                paddingLeft: 18,
+                paddingRight: 10,
+                justifyContent: 'center',
+                alignItems: 'center',
+            },
+            iconColor: {
+                color: COLORS.lightMode ? COLORS.brown : COLORS.secondary,
+            },
         });
 
         return (
             <View style={styles.container}>
-                <TextInput style={styles.textInput} onChangeText={(val) => { this.setState({ nameText: val }); }} placeholder='FULL NAME' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='name' autoCapitalize='words' textContentType='name' />
-                <TextInput style={styles.textInput} onChangeText={(val) => { this.setState({ emailText: val }); }} placeholder='EMAIL ADDRESS' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='email' autoCapitalize='none' keyboardType='email-address' textContentType='emailAddress' />
-                <View style={{ width: '80%', justifyContent: 'center', marginBottom: 20, }}>
-                    <TextInput style={[styles.textInput, { marginBottom: 0, width: '100%' }]} onChangeText={(val) => { this.setState({ passwordText: val }); }} placeholder='PASSWORD' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='password' secureTextEntry={this.state.hidden} autoCapitalize='none' returnKeyType='done' textContentType='password' />
-                    <Icon name={this.state.hidden ? 'eye-off' : 'eye'} size={28} color='#000' onPress={this.toggleHidden} style={{ position: 'absolute', right: 12 }} />
+                <View style={styles.textInputContainer}>
+                    <TextInput style={styles.textInput} onChangeText={(val) => { this.setState({ nameText: val }); }} placeholder='FULL NAME' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='name' autoCapitalize='words' textContentType='name' />
+                    <View style={styles.textInputIcon}><Icon name='person-outline' size={24} style={styles.iconColor} /></View>
+                </View>
+                <View style={styles.textInputContainer}>
+                    <TextInput style={styles.textInput} onChangeText={(val) => { this.setState({ emailText: val }); }} placeholder='EMAIL ADDRESS' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='email' autoCapitalize='none' keyboardType='email-address' textContentType='emailAddress' />
+                    <View style={styles.textInputIcon}><Icon name='mail-outline' size={24} style={styles.iconColor} /></View>
+                </View>
+                <View style={styles.textInputContainer}>
+                    <TextInput style={styles.textInput} onChangeText={(val) => { this.setState({ passwordText: val }); }} placeholder='PASSWORD' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='password' secureTextEntry={this.state.hidden} autoCapitalize='none' returnKeyType='done' textContentType='password' />
+                    <View style={styles.textInputIcon}><Icon name='lock-outline' size={24} style={styles.iconColor} /></View>
+                    <View style={[styles.textInputIcon, { left:null, right:10 }]}><Ionicon name={this.state.hidden ? 'eye-off' : 'eye'} size={28} color='#000' onPress={this.toggleHidden} /></View>
                 </View>
                 <TouchableOpacity activeOpacity={0.9} onPress={this.signup} style={styles.submitButton}>
                     {this.state.loading

@@ -142,7 +142,7 @@ class UpcomingRow extends Component {
                     swipeThreshold={50} // The threshold to reach in pixels to close the modal
                     isOpen={this.state.showingModal}
                     onClosed={this.hideModal}
-                    backdropOpacity={0.3}
+                    backdropOpacity={0.5}
                     coverScreen={true}
                     backButtonClose={true}
                     style={styles.modalView}

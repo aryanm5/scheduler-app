@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, TextInput, Text, TouchableOpacity, StyleSheet, Keyboard, ActivityIndicator } from 'react-native';
 import API from '../api';
 import AsyncStorage from '@react-native-community/async-storage';
-
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 class LoginModal extends Component {
     constructor(props) {
@@ -57,19 +57,19 @@ class LoginModal extends Component {
             container: {
                 flex: 1,
                 width: '100%',
-                flexDirection: 'column',
                 alignItems: 'center',
                 marginTop: 30,
             },
             textInput: {
-                width: '80%',
+                width: '100%',
                 height: 50,
                 backgroundColor: '#FFF',
                 borderRadius: 25,
                 marginBottom: 20,
                 borderWidth: COLORS.lightMode ? 3 : 0,
                 borderColor: COLORS.brown,
-                paddingHorizontal: 20,
+                paddingRight: 10,
+                paddingLeft: 55,
                 color: 'black',
             },
             submitButton: {
@@ -89,13 +89,37 @@ class LoginModal extends Component {
                 fontSize: 16,
                 marginTop: 10,
                 textAlign: 'center',
-            }
+            },
+            textInputContainer: {
+                width:'80%',
+                alignItems:'center',
+            },
+            textInputIcon: {
+                position:'absolute',
+                left:0,
+                height:50,
+                borderTopLeftRadius: 25,
+                borderBottomLeftRadius:25,
+                paddingLeft:18,
+                paddingRight:10,
+                justifyContent:'center',
+                alignItems:'center',
+            },
+            iconColor: {
+                color: COLORS.lightMode ? COLORS.brown : COLORS.secondary,
+            },
         });
 
         return (
             <View style={styles.container}>
-                <TextInput style={styles.textInput} onChangeText={(val) => { this.setState({ emailText: val }); }} placeholder='EMAIL ADDRESS' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='email' autoCapitalize='none' returnKeyType='next' keyboardType='email-address' onSubmitEditing={() => { this.passwordTextInput.focus(); }} blurOnSubmit={false} textContentType='emailAddress' />
-                <TextInput ref={(input) => { this.passwordTextInput = input; }} style={styles.textInput} onChangeText={(val) => { this.setState({ passwordText: val }); }} placeholder='PASSWORD' placeholderTextColor='#808080' selectionColor='#000' secureTextEntry={true} autoCompleteType='password' onSubmitEditing={this.login} returnKeyType='go' autoCapitalize='none' textContentType='password' />
+                <View style={styles.textInputContainer}>
+                    <TextInput style={styles.textInput} onChangeText={(val) => { this.setState({ emailText: val }); }} placeholder='EMAIL ADDRESS' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='email' autoCapitalize='none' returnKeyType='next' keyboardType='email-address' onSubmitEditing={() => { this.passwordTextInput.focus(); }} blurOnSubmit={false} textContentType='emailAddress' />
+                    <View style={styles.textInputIcon}><Icon name='mail-outline' size={24} style={styles.iconColor} /></View>
+                </View>
+                <View style={styles.textInputContainer}>
+                    <TextInput ref={(input) => { this.passwordTextInput = input; }} style={styles.textInput} onChangeText={(val) => { this.setState({ passwordText: val }); }} placeholder='PASSWORD' placeholderTextColor='#808080' selectionColor='#000' secureTextEntry={true} autoCompleteType='password' onSubmitEditing={this.login} returnKeyType='go' autoCapitalize='none' textContentType='password' />
+                    <View style={styles.textInputIcon}><Icon name='lock-outline' size={24} style={styles.iconColor} /></View>
+                </View>
                 <TouchableOpacity activeOpacity={0.9} style={styles.submitButton} onPress={() => { if (!this.state.loading) { this.login(); } }}>
                     {this.state.loading
                         ? <ActivityIndicator size='small' color='#FFF' animating={this.state.loading} style={{ paddingHorizontal: 15 }} />
