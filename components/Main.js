@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, SafeAreaView, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, SafeAreaView, TouchableOpacity, Keyboard, ScrollView, Platform } from 'react-native';
 import { Events, Upcoming, Settings } from '../components';
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -81,6 +81,14 @@ class Main extends Component {
                         snapToAlignment={'center'}
                         contentContainerStyle={{ width: this.state.showingCreate ? '200%' : '100%', }}
                         onMomentumScrollEnd={(e) => { if (this.willRemoveCreate || this.state.showingCreate && e.nativeEvent.contentOffset.x <= 10) { this.setState({ showingCreate: false }); this.willRemoveCreate = false; } }}
+                        onScroll={(event) => {
+                            if (Platform.OS === 'android') {
+                                if (this.willRemoveCreate && event.nativeEvent.contentOffset.y <= 10) {
+                                    this.setState({ showingCreate: false }); this.willRemoveCreate = false;
+                                }
+                            }
+                        }}
+                        scrollEventThrottle={100}
                         overScrollMode='never'
                         bounces={false}
                         showsHorizontalScrollIndicator={false}

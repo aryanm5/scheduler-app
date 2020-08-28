@@ -15,13 +15,12 @@ class LoginModal extends Component {
                     task: 'getUser',
                     token: result,
                 }, (data) => {
+                    this.setState({ loading: false });
                     if (data.err) {
-                        this.setState({ loading: false });
                         this.setState({ errorMessage: data.message });
                         AsyncStorage.removeItem('schedToken');
                     } else {
                         this.props.updateUser(data);
-                        this.setState({ loading: false });
                         this.props.changeView('main');
                     }
                 });
