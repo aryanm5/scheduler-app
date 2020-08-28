@@ -1,13 +1,41 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { LoginModal, SignUpModal, SwitchButton } from '../components';
+import Icon from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-community/async-storage';
+import ReactNativeHapticFeedback from "react-native-haptic-feedback";
 
+const hapticOptions = {
+    enableVibrateFallback: true,
+    ignoreAndroidSystemSettings: false
+};
 
 class Landing extends Component {
     constructor(props) {
         super(props);
+        this.state = { showDarkModeToggle: true, };
+    }
+    componentDidMount() {
+        this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+    }
+    componentWillUnmount() {
+        this.keyboardDidShowListener.remove();
+        this.keyboardDidHideListener.remove();
+    }
+    _keyboardDidShow = () => {
+        this.setState({ showDarkModeToggle: false, });
+    }
+    _keyboardDidHide = () => {
+        this.setState({ showDarkModeToggle: true, });
     }
 
+    toggleLightMode = () => {
+        ReactNativeHapticFeedback.trigger('impactLight', hapticOptions);
+        this.props.setColors(this.props.colors.lightMode ? 'dark' : 'light', () => {
+            AsyncStorage.setItem('schedMode', (this.props.colors.lightMode ? 'light' : 'dark'));
+        });
+    }
 
     render() {
         const COLORS = this.props.colors;
@@ -47,6 +75,13 @@ class Landing extends Component {
             text: {
                 color: COLORS.text,
             },
+            lightModeToggle: {
+                position: 'absolute',
+                right: 10,
+                bottom: 5,
+                padding: 20,
+                //transform: [{ scaleX: -1 }],
+            },
         });
 
         return (
@@ -81,6 +116,9 @@ class Landing extends Component {
                                 : <SignUpModal colors={this.props.colors} updateUser={this.props.updateUser} changeView={this.props.changeView} />
                         }
                     </View>
+                    {this.state.showDarkModeToggle &&
+                        <Icon name={COLORS.lightMode ? 'moon-sharp' : 'sunny'} size={26} color={COLORS.text} onPress={this.toggleLightMode} style={styles.lightModeToggle} />
+                    }
                 </View>
             </TouchableWithoutFeedback >
         );

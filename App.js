@@ -40,8 +40,8 @@ class App extends Component {
             this.updateUser({ loggedIn: false });
         }
     }
-    setColors = (setTo) => {
-        this.setState({ colors: getColors(setTo) });
+    setColors = (setTo, after) => {
+        this.setState({ colors: getColors(setTo) }, () => { if(after !== undefined) { after(); } });
     }
 
 
@@ -70,7 +70,7 @@ class App extends Component {
                                 <View style={styles.container}>
                                     {
                                         this.state.whichView === 'landing'
-                                            ? <Landing colors={this.state.colors} view={this.state.landingWhichView} landingChangeView={this.landingChangeView} updateUser={this.updateUser} changeView={this.changeView} />
+                                            ? <Landing colors={this.state.colors} setColors={this.setColors} view={this.state.landingWhichView} landingChangeView={this.landingChangeView} updateUser={this.updateUser} changeView={this.changeView} />
                                             : this.state.whichView === 'verify'
                                                 ? <VerifyModal colors={this.state.colors} updateUser={this.updateUser} landingChangeView={this.landingChangeView} changeView={this.changeView} user={this.state.user} />
                                                 : <Main colors={this.state.colors} setColors={this.setColors} user={this.state.user} updateUser={this.updateUser} changeView={this.changeView} />

@@ -68,8 +68,8 @@ class LoginModal extends Component {
                 marginBottom: 20,
                 borderWidth: COLORS.lightMode ? 3 : 0,
                 borderColor: COLORS.brown,
-                paddingRight: 10,
-                paddingLeft: 55,
+                paddingRight: COLORS.lightMode ? 7 : 10,
+                paddingLeft: COLORS.lightMode ? 52 : 55,
                 color: 'black',
             },
             submitButton: {
