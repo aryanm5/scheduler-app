@@ -57,8 +57,8 @@ class Upcoming extends Component {
     }
 
     addDay = (str) => {
-        var month = months.indexOf(str.split(" ")[0]);
-        var day = Number(str.split(" ")[1]);
+        var month = months.indexOf(str.split(' ')[0]);
+        var day = Number(str.split(' ')[1]);
         day++;
         if (day > daysInMonth[month]) {
             day = 1;
@@ -67,12 +67,12 @@ class Upcoming extends Component {
         if (month >= 12) {
             month = 0;
         }
-        return months[month] + " " + day;
+        return months[month] + ' ' + day;
     }
 
     fillDays = () => {
         var d = new Date();
-        var today = months[d.getMonth()] + " " + d.getDate();
+        var today = months[d.getMonth()] + ' ' + d.getDate();
         var result = [today];
         for (var i = 0; i < 14; ++i) {
             result.push(this.addDay(result[result.length - 1]));

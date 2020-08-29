@@ -16,7 +16,7 @@ class CreateEvent0 extends Component {
             this.props.setValue('step0valid', false);
         } else {
             this.props.setValue('eventNameError', '');
-            if(this.props.values.eventDesc.length > 1) { this.props.setValue('step0valid', true); }
+            if(this.props.values.eventDesc.length >= 1) { this.props.setValue('step0valid', true); }
         }
     }
     validateDesc = () => {
@@ -26,7 +26,7 @@ class CreateEvent0 extends Component {
             this.props.setValue('step0valid', false);
         } else {
             this.props.setValue('eventDescError', '');
-            if(this.props.values.eventName.length > 1) { this.props.setValue('step0valid', true); }
+            if(this.props.values.eventName.length >= 1) { this.props.setValue('step0valid', true); }
         }
     }
 

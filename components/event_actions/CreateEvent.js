@@ -6,11 +6,13 @@ import getEventActionStyles from './styles';
 import { MultiStepButton } from '../../components';
 import { CreateEvent0, CreateEvent1, CreateEvent2, CreateEvent3 } from '../event_actions';
 
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 class CreateEvent extends Component {
     constructor(props) {
         super(props);
-        this.state = { values: { eventPassword: '', clientInfo: ['', '', ''], manualApprove: true, emailNotify: true, eventName: '', eventDesc: '', eventNameError: '', eventDescError: '', duration: 60, step0valid: false, error: '' }, showingNavigation: true, step: 0 };
+        this.d = new Date();
+        this.state = { values: { times: [], startDate: months[this.d.getMonth()] + ' ' + this.d.getDate(), eventPassword: '', clientInfo: ['', '', ''], manualApprove: true, emailNotify: true, eventName: '', eventDesc: '', eventNameError: '', eventDescError: '', duration: 60, step0valid: false, error: '' }, showingNavigation: true, step: 0 };
     }
 
     componentDidMount() {
@@ -34,10 +36,10 @@ class CreateEvent extends Component {
         this.setState({ showingNavigation: false, });
     }
 
-    setValue = (set, setTo) => {
+    setValue = (set, setTo, after) => {
         var old = this.state.values;
         old[set] = setTo;
-        this.setState({ values: old });
+        this.setState({ values: old }, () => { if(after !== undefined) { after(); } });
     }
 
     changeStep = (changeTo) => {

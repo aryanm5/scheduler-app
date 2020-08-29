@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Dimensions, TouchableWithoutFeedback, Keyboard 
 import { LoginModal, SignUpModal, SwitchButton } from '../components';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-community/async-storage';
-import ReactNativeHapticFeedback from "react-native-haptic-feedback";
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 const hapticOptions = {
     enableVibrateFallback: true,
