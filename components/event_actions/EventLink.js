@@ -40,7 +40,7 @@ class EventLink extends Component {
                 </Text>
                 <TouchableOpacity activeOpacity={0.9} onPress={() => { this.shareURL(eventURL); }} style={commonStyles.button}>
                     <Text style={commonStyles.buttonText}>
-                        <Ionicon name='ios-share-outline' size={22} color={commonStyles.buttonText.color} />
+                        <Ionicon name='ios-share-outline' size={18} color={commonStyles.buttonText.color} />
                         {' '}Share
                     </Text>
                 </TouchableOpacity>

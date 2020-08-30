@@ -22,8 +22,8 @@ class DeleteEvent extends Component {
             if (data.err) {
                 this.setState({ errorMessage: data.message });
             } else {
-                this.props.updateUser(data);
                 this.props.hideModal();
+                this.props.updateUser(data);
             }
         });
     }

@@ -39,8 +39,8 @@ class CreateEvent1 extends Component {
                 <TextInput onFocus={this.props.hideNav} onBlur={this.props.showNav} defaultValue={this.props.values.clientInfo[2]} style={styles.clientInfoInput} onChangeText={(val) => { this.setClientInfo(2, val); }} placeholder='3 (optional)' placeholderTextColor='#808080' selectionColor='#000' />
 
                 <View style={{ flexDirection: 'row-reverse', width: '100%', marginTop: 25, paddingLeft: 15, }}>
-                    <Switch onValueChange={(val) => { this.props.setValue('manualApprove', !val); }} value={!this.props.values.manualApprove} trackColor={{ true: COLORS.button }} />
-                    <Text style={[commonStyles.inputLabel, { paddingTop: 2, marginLeft: 0, marginRight: 2 }]}>Auto-approve all clients </Text>
+                    <Switch onValueChange={(val) => { this.props.setValue('manualApprove', val); }} value={this.props.values.manualApprove} trackColor={{ true: COLORS.button }} />
+                    <Text style={[commonStyles.inputLabel, { paddingTop: 2, marginLeft: 0, marginRight: 2 }]}>Manually approve clients </Text>
                 </View>
                 <View style={{ flexDirection: 'row-reverse', width: '100%', marginTop: 10, paddingLeft: 15, }}>
                     <Switch onValueChange={(val) => { this.props.setValue('emailNotify', val); }} value={this.props.values.emailNotify} trackColor={{ true: COLORS.button }} />
