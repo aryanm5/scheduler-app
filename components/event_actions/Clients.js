@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, FlatList, RefreshControl, } from 'react-native';
+import { View, Text, FlatList, RefreshControl, } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import AntIcon from 'react-native-vector-icons/AntDesign';
 import getEventActionStyles from './styles';
 import { Client } from '../event_actions';
 import API from '../../api';
@@ -77,10 +78,11 @@ class Clients extends Component {
                 <Icon name='angle-left' size={40} color={COLORS.text} onPress={this.props.goBack} style={commonStyles.backButton} />
                 <Text style={commonStyles.title}>APPROVED CLIENTS</Text>
                 {this.state.clients.length === 0
-                    ? <View style={{ marginTop: 80 }}>
-                        <Text style={commonStyles.text}>
+                    ? <View style={{ alignItems: 'center', marginTop: '-30%' }}>
+                        <AntIcon name='closecircleo' size={80} color={COLORS.text} style={{ marginBottom: 50, }} />
+                        <Text style={[commonStyles.text, { fontSize: 20 }]}>
                             This event has no approved clients.
-                        </Text>
+                    </Text>
                     </View>
                     : <View style={{ flex: 1, top: 80, }}>
                         <FlatList

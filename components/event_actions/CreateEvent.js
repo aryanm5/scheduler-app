@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, Alert } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Alert, Keyboard } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import getEventActionStyles from './styles';
@@ -16,6 +16,14 @@ class CreateEvent extends Component {
         this.state = { values: { times: [], startDate: months[this.d.getMonth()] + ' ' + this.d.getDate(), eventPassword: '', clientInfo: ['', '', ''], manualApprove: true, emailNotify: true, eventName: '', eventDesc: '', eventNameError: '', eventDescError: '', duration: 60, maxClients: 1, step0valid: false, }, created: false, showingNavigation: true, step: 0, };
     }
 
+    componentDidMount() {
+        this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this.hideNavigation);
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.showNavigation);
+    }
+    componentWillUnmount() {
+        this.keyboardDidShowListener.remove();
+        this.keyboardDidHideListener.remove();
+    }
     showNavigation = () => {
         this.setState({ showingNavigation: true, });
     }
@@ -158,12 +166,12 @@ class CreateEvent extends Component {
                 <View style={styles.content}>
                     {this.renderContent()}
                 </View>
-                {this.state.showingNavigation &&
+                {(!this.state.created && this.state.showingNavigation) &&
                     <>
-                        {(!this.state.created && this.state.step > 0) &&
+                        {this.state.step > 0 &&
                             <AntIcon onPress={() => { this.changeStep(this.state.step - 1); }} name='arrowleft' size={36} color={COLORS.text} style={[styles.stepArrow, { left: 0 }]} />
                         }
-                        {(!this.state.created && this.state.step < 3) &&
+                        {this.state.step < 3 &&
                             <AntIcon onPress={() => { this.changeStep(this.state.step + 1); }} name='arrowright' size={36} color={COLORS.text} style={[styles.stepArrow, { right: 0 }]} />
                         }
                         <Text style={styles.error}>{this.state.values.error}</Text>

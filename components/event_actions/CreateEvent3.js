@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Linking, Share, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Linking, Share, ActivityIndicator, Dimensions } from 'react-native';
 import getEventActionStyles from './styles';
 import Ionicon from 'react-native-vector-icons/Ionicons';
+import AntIcon from 'react-native-vector-icons/AntDesign';
 
 
 class CreateEvent3 extends Component {
@@ -72,6 +73,7 @@ class CreateEvent3 extends Component {
             <View style={styles.container}>
                 {this.state.created
                     ? <>
+                        <Ionicon name='checkmark-circle' size={Dimensions.get('window').width*0.5} color={COLORS.green} style={{ marginLeft: 10, textAlign: 'center', marginBottom: 30, }} />
                         <Text style={styles.eventName}>{this.props.values.eventName + '\n'}</Text>
                         <Text style={commonStyles.text}>Your event has been created! Send this permanent URL to your clients for them to select time slots:{'\n'}</Text>
                         <Text style={styles.eventLink}

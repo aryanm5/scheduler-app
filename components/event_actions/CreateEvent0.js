@@ -118,7 +118,7 @@ class CreateEvent0 extends Component {
         return (
             <View style={styles.container}>
                 <Text style={commonStyles.inputLabel}>Event Name:</Text>
-                <TextInput onFocus={this.props.hideNav} defaultValue={this.props.values.eventName} onBlur={this.validateName} style={this.props.values.eventNameError.length > 0 ? styles.textInputError : commonStyles.textInput} onChangeText={(val) => { this.props.setValue('eventName', val); }} placeholder='Tennis Lessons with Joe' placeholderTextColor='#808080' selectionColor='#000' />
+                <TextInput onFocus={this.props.hideNav} defaultValue={this.props.values.eventName} onBlur={this.validateName} style={this.props.values.eventNameError.length > 0 ? styles.textInputError : commonStyles.textInput} onChangeText={(val) => { this.props.setValue('eventName', val); }} placeholder='Tennis Lessons With Joe' placeholderTextColor='#808080' selectionColor='#000' autoCapitalize='words' />
                 <Text style={commonStyles.createEventError}>{this.props.values.eventNameError.length > 0 && <Icon name='warning' size={18} />}{' ' + this.props.values.eventNameError}</Text>
 
                 <Text style={[commonStyles.inputLabel, { marginTop: 10, }]}>Description:</Text>
