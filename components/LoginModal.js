@@ -97,8 +97,6 @@ class LoginModal extends Component {
                 position:'absolute',
                 left:0,
                 height:50,
-                borderTopLeftRadius: 25,
-                borderBottomLeftRadius:25,
                 paddingLeft:18,
                 paddingRight:10,
                 justifyContent:'center',

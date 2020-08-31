@@ -15,9 +15,9 @@ const addMinutes = (str, min) => {
         hour++;
         minute -= 60;
     }
-    if (hour == 12 && ampm == 'AM') { ampm = 'PM'; }
-    if (hour > 12 && ampm == 'AM') { ampm = 'PM'; hour -= 12; }
-    if (hour >= 13 && ampm == 'PM') { hour -= 12; }
+    if (hour === 12 && ampm === 'AM') { ampm = 'PM'; }
+    if (hour > 12 && ampm === 'AM') { ampm = 'PM'; hour -= 12; }
+    if (hour >= 13 && ampm === 'PM') { hour -= 12; }
     return hour + ':' + (minute < 10 ? '0' + minute : minute) + ' ' + ampm;
 }
 

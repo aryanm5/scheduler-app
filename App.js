@@ -76,7 +76,7 @@ class App extends Component {
                         : <>
                             <StatusBar animated={true} backgroundColor={COLORS.background} barStyle={COLORS.lightMode ? 'dark-content' : 'light-content'} />
                             <SafeAreaView style={{ flex: 0, backgroundColor: COLORS.background }} />
-                            <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
+                            <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
                                 <View style={styles.container}>
                                     <ScrollView
                                         ref={(component) => { this.swiper = component; }}

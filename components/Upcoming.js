@@ -21,8 +21,10 @@ const compareTime = (x, y) => {
         } else {
             //sort by time here :o
             x = x.startTime; y = y.startTime;
-            if (x.split(':')[0] == '12' && x.split(' ')[0].split(':')[1] == '00' && y.split(' ')[1] == 'PM') { return -1; }
-            if (y.split(':')[0] == '12' && y.split(' ')[0].split(':')[1] == '00' && x.split(' ')[1] == 'PM') { return 1; }
+            if (x.split(':')[0] === '12' && x.split(' ')[1] === 'PM' && y.split(' ')[1] === 'PM') { return -1; }
+            if (y.split(':')[0] === '12' && y.split(' ')[1] === 'PM' && x.split(' ')[1] === 'PM') { return 1; }
+            if (x.split(':')[0] === '12' && x.split(' ')[1] === 'AM' && y.split(' ')[1] === 'AM') { return -1; }
+            if (y.split(':')[0] === '12' && y.split(' ')[1] === 'AM' && x.split(' ')[1] === 'AM') { return 1; }
             if (x.split(':')[0].length === 1) { x = '0' + x; }
             if (y.split(':')[0].length === 1) { y = '0' + y; }
             return (x.split(' ')[1] + x.split(' ')[0] > y.split(' ')[1] + y.split(' ')[0]) ? 1 : -1;

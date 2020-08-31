@@ -14,6 +14,15 @@ class CreateEvent1 extends Component {
         this.props.setValue('clientInfo', old);
     }
 
+    renderClientInfoInput(num, placeholder, styles) {
+        return (
+            <View style={{ width: '100%' }}>
+                <TextInput onFocus={this.props.hideNav} onBlur={this.props.showNav} defaultValue={this.props.values.clientInfo[num]} style={styles.clientInfoInput} onChangeText={(val) => { this.setClientInfo(num, val); }} placeholder={placeholder} placeholderTextColor='#808080' selectionColor='#000' />
+                <View style={styles.clientInfoNum}><Text style={styles.clientInfoNumText}>{num + 1}.</Text></View>
+            </View>
+        );
+    }
+
     render() {
         const COLORS = this.props.colors;
         const commonStyles = getEventActionStyles(COLORS);
@@ -26,17 +35,33 @@ class CreateEvent1 extends Component {
             clientInfoInput: {
                 ...commonStyles.textInput,
                 marginBottom: 10,
+                paddingLeft: 45,
+                borderWidth: COLORS.lightMode ? 2 : 0,
+            },
+            clientInfoNum: {
+                position: 'absolute',
+                left: 0,
+                height: 50,
+                paddingLeft: 20,
+                paddingRight: 10,
+                justifyContent: 'center',
+            },
+            clientInfoNumText: {
+                fontWeight: 'bold',
+                fontVariant: ['tabular-nums'],
+                color: COLORS.gray,
             },
         });
 
         return (
             <View style={styles.container}>
                 <Text style={commonStyles.inputLabel}>Event Password (optional):</Text>
-                <TextInput onFocus={this.props.hideNav} onBlur={this.props.showNav} defaultValue={this.props.values.eventPassword} style={commonStyles.textInput} onChangeText={(val) => { this.props.setValue('eventPassword', val); }} placeholder='None' placeholderTextColor='#808080' selectionColor='#000' />
-                <Text style={[commonStyles.inputLabel, { marginTop: 20, }]}>Questions to ask clients:</Text>
-                <TextInput onFocus={this.props.hideNav} onBlur={this.props.showNav} defaultValue={this.props.values.clientInfo[0]} style={styles.clientInfoInput} onChangeText={(val) => { this.setClientInfo(0, val); }} placeholder='1 (optional)' placeholderTextColor='#808080' selectionColor='#000' />
-                <TextInput onFocus={this.props.hideNav} onBlur={this.props.showNav} defaultValue={this.props.values.clientInfo[1]} style={styles.clientInfoInput} onChangeText={(val) => { this.setClientInfo(1, val); }} placeholder='2 (optional)' placeholderTextColor='#808080' selectionColor='#000' />
-                <TextInput onFocus={this.props.hideNav} onBlur={this.props.showNav} defaultValue={this.props.values.clientInfo[2]} style={styles.clientInfoInput} onChangeText={(val) => { this.setClientInfo(2, val); }} placeholder='3 (optional)' placeholderTextColor='#808080' selectionColor='#000' />
+                <TextInput onFocus={this.props.hideNav} onBlur={this.props.showNav} defaultValue={this.props.values.eventPassword} style={[commonStyles.textInput, { borderWidth: COLORS.lightMode ? 2 : 0, }]} onChangeText={(val) => { this.props.setValue('eventPassword', val); }} placeholder='None' placeholderTextColor='#808080' selectionColor='#000' />
+                <Text style={[commonStyles.inputLabel, { marginTop: 20, }]}>Questions for clients (optional):</Text>
+
+                {this.renderClientInfoInput(0, 'Phone Number', styles)}
+                {this.renderClientInfoInput(1, 'Street Address', styles)}
+                {this.renderClientInfoInput(2, 'Date Of Birth', styles)}
 
                 <View style={{ flexDirection: 'row-reverse', width: '100%', marginTop: 25, paddingLeft: 15, }}>
                     <Switch onValueChange={(val) => { this.props.setValue('manualApprove', val); }} value={this.props.values.manualApprove} trackColor={{ true: COLORS.button }} />

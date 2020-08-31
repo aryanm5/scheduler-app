@@ -4,7 +4,11 @@ import { SectionRowButton } from '../components';
 import { EventInfo, EditEvent, PendingClients, Clients, TimeSlots, EventLink, DeleteEvent } from './event_actions';
 import Modal from '@kazzkiq/react-native-modalbox';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import MaterialCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+
+const iconSize = 28;
 
 class EventRow extends Component {
     constructor(props) {
@@ -124,22 +128,25 @@ class EventRow extends Component {
                 textAlign: 'center',
                 textAlignVertical: 'center',
             },
+            modalNumPending: {
+                paddingRight: 5,
+            },
             even: {
                 backgroundColor: COLORS.background,
             },
         });
 
-        this.numPending = this.countPendingClients();
+        const numPending = this.countPendingClients();
         return (
             <>
                 <TouchableOpacity onPress={this.showModal} activeOpacity={1} style={this.props.index % 2 === 0 ? [styles.container, styles.even] : styles.container}>
                     <Text style={styles.eventName} numberOfLines={2}>
                         {this.props.event.name}
                     </Text>
-                    {this.numPending > 0 &&
+                    {numPending > 0 &&
                         <TouchableOpacity style={styles.numPending} activeOpacity={0.9} onPress={() => { this.showModal(); setTimeout(() => { this.setModalView('pending') }, 400); }}>
                             <Text style={styles.numPendingText}>
-                                {this.numPending}
+                                {numPending}
                             </Text>
                         </TouchableOpacity>
                     }
@@ -180,17 +187,17 @@ class EventRow extends Component {
                                         {this.props.event.name}
                                     </Text>
                                     <View style={styles.rowButtonGroup}>
-                                        <SectionRowButton onPress={() => { this.setModalView('info'); }} colors={COLORS} text='EVENT INFO' first />
-                                        <SectionRowButton onPress={() => { this.setModalView('edit'); }} colors={COLORS} text='EDIT EVENT' />
-                                        <SectionRowButton onPress={() => { this.setModalView('link'); }} colors={COLORS} text='GET EVENT LINK' />
+                                        <SectionRowButton onPress={() => { this.setModalView('info'); }} colors={COLORS} leftIcon={<MaterialIcon name='info-outline' color={COLORS.text} size={iconSize} />} text='EVENT INFO' first />
+                                        <SectionRowButton onPress={() => { this.setModalView('edit'); }} colors={COLORS} leftIcon={<MaterialIcon name='edit' color={COLORS.text} size={iconSize} />} text='EDIT EVENT' />
+                                        <SectionRowButton onPress={() => { this.setModalView('link'); }} colors={COLORS} leftIcon={<MaterialCIcon name='link-variant' color={COLORS.text} size={iconSize} />} text='GET EVENT LINK' />
                                     </View>
                                     <View style={styles.rowButtonGroup}>
-                                        <SectionRowButton onPress={() => { this.setModalView('pending'); }} colors={COLORS} text={`PENDING CLIENTS ${this.numPending > 0 ? `(${this.numPending})` : ''}`} first />
-                                        <SectionRowButton onPress={() => { this.setModalView('clients'); }} colors={COLORS} text='APPROVED CLIENTS' />
-                                        <SectionRowButton onPress={() => { this.setModalView('times'); }} colors={COLORS} text='VIEW TIME SLOTS' />
+                                        <SectionRowButton onPress={() => { this.setModalView('pending'); }} colors={COLORS} leftIcon={<MaterialCIcon name='clock-outline' color={COLORS.text} size={iconSize} />} text='PENDING CLIENTS' icon={numPending > 0 && <View style={{ flexDirection: 'row', alignItems: 'center', }}><MaterialCIcon name={numPending < 10 ? `numeric-${numPending}-circle` : `numeric-9-plus-circle`} color={COLORS.button} size={30} style={styles.modalNumPending} /><Icon name='angle-right' size={36} color={this.props.color || COLORS.text} style={styles.arrow} /></View>} first />
+                                        <SectionRowButton onPress={() => { this.setModalView('clients'); }} colors={COLORS} leftIcon={<MaterialIcon name='group' color={COLORS.text} size={iconSize} />} text='APPROVED CLIENTS' />
+                                        <SectionRowButton onPress={() => { this.setModalView('times'); }} colors={COLORS} leftIcon={<MaterialCIcon name='calendar-month' color={COLORS.text} size={iconSize} />} text='VIEW TIME SLOTS' />
                                     </View>
                                     <View style={[styles.rowButtonGroup, { paddingVertical: 2 }]}>
-                                        <SectionRowButton onPress={() => { this.setModalView('delete'); }} colors={COLORS} text='DELETE EVENT' color='#FF0000' first />
+                                        <SectionRowButton onPress={() => { this.setModalView('delete'); }} colors={COLORS} leftIcon={<MaterialIcon name='delete-forever' color={COLORS.red} size={iconSize} />} text='DELETE EVENT' color={COLORS.red} first />
                                     </View>
                                 </ScrollView>
                             </View>
@@ -198,7 +205,7 @@ class EventRow extends Component {
                             {
                                 this.state.modalView === 'event'
                                     ? null
-                                    : <View style={{ flex: 1 }}><KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>{this.renderModalView(this.state.modalView)}</KeyboardAvoidingView></View>
+                                    : <View style={{ flex: 1 }}><KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>{this.renderModalView(this.state.modalView)}</KeyboardAvoidingView></View>
                             }
                         </ScrollView>
 

@@ -134,7 +134,7 @@ class CreateEvent0 extends Component {
                 </View>
 
                 <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center', marginTop: 20, }}>
-                    <Text style={styles.maxClientsLabel}>Max Clients/Slot: </Text>
+                    <Text style={styles.maxClientsLabel}>Max Clients / Slot: </Text>
                     <View style={{ width: '100%', marginLeft: 'auto', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
                         <TouchableOpacity style={styles.numberChanger} onPress={this.decMaxClients} activeOpacity={0.8}><FontIcon name='minus' color={COLORS.text} size={24} /></TouchableOpacity>
                         <TextInput maxLength={2} onFocus={this.props.hideNav} defaultValue={this.props.values.maxClients.toString()} onBlur={this.fixMaxClients} style={styles.numberInput} onChangeText={(val) => { this.props.setValue('maxClients', val); }} textAlign='center' placeholder='1' placeholderTextColor='#808080' selectionColor='#000' keyboardType='numeric' />

@@ -90,30 +90,30 @@ class Settings extends Component {
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
                 >
-                    <View style={{ flex: 1, height:'100%', }}>
+                    <View style={{ flex: 1, height: '100%', }}>
                         {/*<ScrollView style={styles.scrollView} contentContainerStyle={{ alignItems: 'center' }} showsVerticalScrollIndicator={false}>*/}
-                            <View style={styles.rowButtonGroup}>
-                                <Text style={styles.name} numberOfLines={1}>{this.props.user.name}</Text>
-                                <Text style={styles.email} numberOfLines={1}>{this.props.user.email}</Text>
-                                <SectionRowButton onPress={() => { this.setWhichView('name'); }} colors={COLORS} text='CHANGE NAME' />
-                                <SectionRowButton onPress={() => { this.setWhichView('password'); }} colors={COLORS} text='CHANGE PASSWORD' />
-                                <SectionRowButton onPress={() => { this.setWhichView('toggleEmails'); }} colors={COLORS} text={this.props.user.emailNotify ? 'DISABLE ALL EMAILS' : 'ENABLE EMAILS'} color={this.props.user.emailNotify ? COLORS.red : COLORS.green} />
-                            </View>
-                            <View style={[styles.rowButtonGroup, { paddingVertical: 2 }]}>
-                                <SectionRowButton
-                                    colors={COLORS}
-                                    text={`DARK ${Platform.OS === 'ios' ? 'MODE' : 'THEME'}`}
-                                    icon={<Switch onValueChange={this.darkModeToggled} value={this.state.darkModeEnabled} trackColor={{ true: COLORS.button }} />}
-                                    first />
-                            </View>
-                            <View style={[styles.rowButtonGroup, { paddingVertical: 2 }]}>
-                                <SectionRowButton
-                                    colors={COLORS}
-                                    text='LOGOUT'
-                                    icon={<Icon name='log-out-outline' size={36} color={COLORS.text} />}
-                                    onPress={this.logout}
-                                    first />
-                            </View>
+                        <View style={styles.rowButtonGroup}>
+                            <Text style={styles.name} numberOfLines={1}>{this.props.user.name}</Text>
+                            <Text style={styles.email} numberOfLines={1}>{this.props.user.email}</Text>
+                            <SectionRowButton onPress={() => { this.setWhichView('name'); }} colors={COLORS} text='CHANGE NAME' />
+                            <SectionRowButton onPress={() => { this.setWhichView('password'); }} colors={COLORS} text='CHANGE PASSWORD' />
+                            <SectionRowButton onPress={() => { this.setWhichView('toggleEmails'); }} colors={COLORS} text={this.props.user.emailNotify ? 'DISABLE ALL EMAILS' : 'ENABLE EMAILS'} color={this.props.user.emailNotify ? COLORS.red : COLORS.green} />
+                        </View>
+                        <View style={[styles.rowButtonGroup, { paddingVertical: 2 }]}>
+                            <SectionRowButton
+                                colors={COLORS}
+                                text={Platform.OS === 'ios' ? 'DARK MODE' : 'DARK THEME'}
+                                icon={<Switch onValueChange={this.darkModeToggled} value={this.state.darkModeEnabled} trackColor={{ true: COLORS.button }} />}
+                                first />
+                        </View>
+                        <View style={[styles.rowButtonGroup, { paddingVertical: 2 }]}>
+                            <SectionRowButton
+                                colors={COLORS}
+                                text='LOGOUT'
+                                icon={<Icon name='log-out-outline' size={36} color={COLORS.text} />}
+                                onPress={this.logout}
+                                first />
+                        </View>
                         {/*</ScrollView>*/}
                     </View>
 

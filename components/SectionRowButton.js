@@ -14,19 +14,19 @@ class SectionRowButton extends Component {
         const styles = StyleSheet.create({
             container: {
                 width: '100%',
-                justifyContent: 'center',
+                flexDirection: 'row',
+                alignItems: 'center',
                 paddingHorizontal: 10,
+                paddingLeft: this.props.leftIcon ? 2 : 10,
                 paddingVertical: 20,
                 borderTopColor: COLORS.gray,
-                borderTopWidth: 1,
-            },
-            first: {
-                borderTopWidth: 0,
+                borderTopWidth: this.props.first ? 0 : 1,
             },
             text: {
-                color: COLORS.text,
+                color: this.props.color || COLORS.text,
                 fontSize: 17,
                 fontWeight: 'bold',
+                paddingLeft: this.props.leftIcon && 15,
             },
             arrow: {
                 position: 'absolute',
@@ -35,8 +35,9 @@ class SectionRowButton extends Component {
         });
 
         return (
-            <TouchableOpacity onPress={this.props.onPress} style={this.props.first ? [styles.container, styles.first] : styles.container} activeOpacity={0.8}>
-                <Text style={this.props.color ? [styles.text, { color: this.props.color }] : styles.text}>
+            <TouchableOpacity onPress={this.props.onPress} style={styles.container} activeOpacity={0.8}>
+                {this.props.leftIcon}
+                <Text style={styles.text}>
                     {this.props.text}
                 </Text>
                 {

@@ -15,7 +15,7 @@ const getEventActionStyles = (COLORS) => {
             height: 50,
             backgroundColor: '#FFF',
             borderRadius: 25,
-            borderWidth: COLORS.lightMode ? 3 : 0,
+            borderWidth: COLORS.lightMode ? 2 : 0,
             borderColor: COLORS.brown,
             paddingHorizontal: 20,
             color: 'black',
