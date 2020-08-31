@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, RefreshControl, } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import AntIcon from 'react-native-vector-icons/AntDesign';
+import MaterialCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import getEventActionStyles from './styles';
 import { Client } from '../event_actions';
 import API from '../../api';
@@ -78,8 +78,8 @@ class PendingClients extends Component {
                 <Icon name='angle-left' size={40} color={COLORS.text} onPress={this.props.goBack} style={commonStyles.backButton} />
                 <Text style={commonStyles.title}>PENDING CLIENTS</Text>
                 {this.state.clients.length === 0
-                    ? <View style={{alignItems:'center', marginTop: '-30%'}}>
-                        <AntIcon name='closecircleo' size={80} color={COLORS.text} style={{marginBottom: 50,}} />
+                    ? <View style={{ alignItems: 'center', marginTop: '-50%' }}>
+                        <MaterialCIcon name='numeric-0-circle' size={150} color={COLORS.button} style={{ marginBottom: '20%', }} />
                         <Text style={[commonStyles.text, { fontSize: 20 }]}>
                             This event has no pending clients.
                         </Text>
