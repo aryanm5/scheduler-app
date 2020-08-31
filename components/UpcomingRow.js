@@ -127,7 +127,7 @@ class UpcomingRow extends Component {
                         {this.props.time.clients.length === 0 || this.props.time.clients === 'none'
                             ? null
                             : <View style={styles.clientNames}>
-                                {this.props.time.clients.slice(0, (this.props.time.clients.length === 2 ? 2 : 1)).map(client => <Text numberOfLines={1} style={{ color: this.props.current ? '#000' : COLORS.text }}>{client.Name}</Text>)}
+                                {this.props.time.clients.slice(0, (this.props.time.clients.length === 2 ? 2 : 1)).map((client, index) => <Text key={index.toString()} numberOfLines={1} style={{ color: this.props.current ? '#000' : COLORS.text }}>{client.Name}</Text>)}
                                 {this.props.time.clients.length > 2 &&
                                     <Text numberOfLines={1} style={{ color: this.props.current ? '#000' : COLORS.text, fontStyle: 'italic', }}>+{this.props.time.clients.length - 1} More...</Text>
                                 }

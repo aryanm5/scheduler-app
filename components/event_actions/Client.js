@@ -185,7 +185,7 @@ class Client extends Component {
                         }
 
                         <Text style={styles.time}>{this.props.upcoming ? this.props.index+1 : this.props.item.startTime}</Text>
-                        <Text style={styles.clientInfo}>{this.props.event.clientInfo.map(i => { return <><Text style={{ fontWeight: 'bold', }}>{'\n' + i}:</Text><Text> {this.props.item[i]}</Text></>; })}</Text>
+                        <Text style={styles.clientInfo}>{this.props.event.clientInfo.map((i, index) => { return <React.Fragment key={index}><Text style={{ fontWeight: 'bold', }}>{'\n' + i}:</Text><Text> {this.props.item[i]}</Text></React.Fragment>; })}</Text>
 
                         <View style={styles.buttons}>
                             {this.props.pending &&
