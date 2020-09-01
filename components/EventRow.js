@@ -182,7 +182,7 @@ class EventRow extends Component {
                         >
                             <View style={{ flex: 1 }}>
 
-                                <ScrollView style={{ width: '100%', position: 'absolute', top: 30, bottom: 35, paddingHorizontal: 20, }} showsVerticalScrollIndicator={false}>
+                                <ScrollView style={{ width: '100%', position: 'absolute', top: 30, bottom: 5, paddingHorizontal: 20, }} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
                                     <Text style={styles.modalEventName} numberOfLines={2}>
                                         {this.props.event.name}
                                     </Text>

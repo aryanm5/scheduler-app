@@ -26,6 +26,7 @@ const getEventActionStyles = (COLORS) => {
             height: 120,
             paddingHorizontal: 10,
             paddingTop: 8,
+            textAlignVertical: 'top',
         },
         text: {
             color: COLORS.text,

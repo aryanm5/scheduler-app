@@ -137,7 +137,7 @@ class CreateEvent0 extends Component {
                     <Text style={styles.maxClientsLabel}>Max Clients / Slot: </Text>
                     <View style={{ width: '100%', marginLeft: 'auto', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
                         <TouchableOpacity style={styles.numberChanger} onPress={this.decMaxClients} activeOpacity={0.8}><FontIcon name='minus' color={COLORS.text} size={24} /></TouchableOpacity>
-                        <TextInput maxLength={2} onFocus={this.props.hideNav} defaultValue={this.props.values.maxClients.toString()} onBlur={this.fixMaxClients} style={styles.numberInput} onChangeText={(val) => { this.props.setValue('maxClients', val); }} textAlign='center' placeholder='1' placeholderTextColor='#808080' selectionColor='#000' keyboardType='numeric' />
+                        <TextInput maxLength={2} onFocus={this.props.hideNav} defaultValue={this.props.values.maxClients.toString()} onBlur={this.fixMaxClients} style={styles.numberInput} onChangeText={(val) => { this.props.setValue('maxClients', val); }} textAlign='center' placeholder='1' placeholderTextColor='#808080' selectionColor='#000' keyboardType='number-pad' />
                         <TouchableOpacity style={[styles.numberChanger, { paddingRight: 5, }]} onPress={this.incMaxClients} activeOpacity={0.8}><FontIcon name='plus' color={COLORS.text} size={24} /></TouchableOpacity>
                     </View>
                 </View>
