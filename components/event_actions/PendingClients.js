@@ -50,7 +50,7 @@ class PendingClients extends Component {
     }
 
     renderPendingClient = ({ item, index }) => {
-        return <Client pending={true} fillClients={() => { this.setState({ isFetching: false, clients: this.fillClients() }); }} newDate={index === 0 || item.date !== this.state.clients[index - 1].date} newTime={index === 0 || item.startTime !== this.state.clients[index - 1].startTime} colors={this.props.colors} user={this.props.user} updateUser={this.props.updateUser} item={item} event={this.props.event} index={index} />
+        return <Client pending={true} fillClients={() => { this.setState({ isFetching: false, clients: this.fillClients() }); }} lastTime={index === this.state.clients.length-1 || item.date !== this.state.clients[index+1].date || item.startTime !== this.state.clients[index+1].startTime} newDate={index === 0 || item.date !== this.state.clients[index - 1].date} newTime={index === 0 || item.startTime !== this.state.clients[index - 1].startTime} colors={this.props.colors} user={this.props.user} updateUser={this.props.updateUser} item={item} event={this.props.event} index={index} />
     };
 
 

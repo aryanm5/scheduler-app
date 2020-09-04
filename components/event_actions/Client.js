@@ -108,6 +108,10 @@ class Client extends Component {
                 minWidth: '100%',
                 backgroundColor: COLORS.background,
                 marginTop: this.props.newTime ? 10 : 0,
+                borderTopLeftRadius: !this.props.newDate && !this.props.newTime ? 0 : 10,
+                borderTopRightRadius: !this.props.newDate && !this.props.newTime ? 0 : 10,
+                borderBottomLeftRadius: this.props.lastTime ? 10 : 0,
+                borderBottomRightRadius: this.props.lastTime ? 10 : 0,
             },
             upcomingDate: {
                 ...commonStyles.text,
