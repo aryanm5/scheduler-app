@@ -172,7 +172,7 @@ class EventRow extends Component {
                             horizontal={true}
                             decelerationRate={0}
                             snapToInterval={Dimensions.get('window').width - 30}
-                            snapToAlignment={'center'}
+                            snapToAlignment='center'
                             contentContainerStyle={{ width: this.state.modalView === 'event' ? '100%' : '200%', }}
                             onMomentumScrollEnd={(e) => { if (this.willRemoveModalView || this.state.modalView !== 'event' && e.nativeEvent.contentOffset.x <= 2) { this.setState({ modalView: 'event' }); this.willRemoveModalView = false; } }}
                             overScrollMode='never'

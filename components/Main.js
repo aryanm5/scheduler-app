@@ -78,7 +78,7 @@ class Main extends Component {
                         horizontal={true}
                         decelerationRate={0}
                         snapToInterval={Dimensions.get('window').width - styles.container.paddingHorizontal * 2}
-                        snapToAlignment={'center'}
+                        snapToAlignment='center'
                         contentContainerStyle={{ width: this.state.showingCreate ? '200%' : '100%', }}
                         onMomentumScrollEnd={(e) => { if (this.willRemoveCreate || this.state.showingCreate && e.nativeEvent.contentOffset.x <= 10) { this.setState({ showingCreate: false }); this.willRemoveCreate = false; } }}
                         onScroll={(event) => {

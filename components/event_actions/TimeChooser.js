@@ -107,7 +107,7 @@ class TimeChooser extends Component {
                 textAlign: 'center',
                 color: COLORS.text,
                 fontWeight: 'bold',
-                fontSize:15,
+                fontSize: 15,
             },
             columnDate: {
                 width: '100%',
@@ -117,7 +117,7 @@ class TimeChooser extends Component {
             slot: {
                 width: '100%',
                 backgroundColor: COLORS.secondary,
-                margin:1,
+                margin: 1,
             },
             activeSlot: {
                 backgroundColor: COLORS.button,
@@ -139,9 +139,7 @@ class TimeChooser extends Component {
                 contentContainerStyle={styles.container}
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}>
-                {
-                    this.renderGrid(styles)
-                }
+                {this.renderGrid(styles)}
             </ScrollView>
         );
     }

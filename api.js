@@ -1,7 +1,7 @@
 var API = {
     get: (params, after) => {
         var pString = '?'
-        Object.keys(params).forEach(function (key, index) {
+        Object.keys(params).forEach(key => {
             pString += key + '=' + encodeURIComponent(params[key]) + '&';
         });
         fetch('https://4l609mp251.execute-api.us-east-1.amazonaws.com/dev/main' + pString.slice(0, -1))
@@ -23,7 +23,7 @@ var API = {
     },
 
     post: (params, after) => {
-        Object.keys(params).forEach(function (key, index) {
+        Object.keys(params).forEach(key => {
             if (typeof params[key] === 'string') {
                 params[key] = encodeURIComponent(params[key]);
             }
