@@ -151,9 +151,9 @@ class Upcoming extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.filterContainer}>
-                        <Text style={styles.filterText}>SHOW EMPTY </Text>
-                        <Switch onValueChange={this.setShowEmpty} value={this.state.showEmpty} trackColor={{ true: COLORS.button }} ios_backgroundColor={COLORS.lightMode ? undefined : COLORS.secondary} style={{ transform: [{ scaleX: .75 }, { scaleY: .75 }] }} />
-                    </View>
+                    <Text style={styles.filterText}>SHOW EMPTY </Text>
+                    <Switch onValueChange={this.setShowEmpty} value={this.state.showEmpty} trackColor={{ true: COLORS.button }} ios_backgroundColor={COLORS.lightMode ? undefined : COLORS.secondary} style={{ transform: [{ scaleX: .75 }, { scaleY: .75 }] }} />
+                </View>
                 {
                     this.state.times.length > 0
                         ? <FlatList

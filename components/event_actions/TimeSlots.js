@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, TouchableWithoutFeedback, TouchableHighlight } from 'react-native';
 import Slider from '@react-native-community/slider';
 import getEventActionStyles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -105,6 +105,15 @@ class TimeSlots extends Component {
         return columns;
     }
 
+    backDays = () => {
+        this.setState({ startDay: this.state.startDay - this.state.daysShowing >= 0 ? this.state.startDay - this.state.daysShowing : 0 });
+    }
+    forwardDays = () => {
+        console.log('startDay: ' + this.state.startDay);
+        console.log('daysShowing: ' + this.state.daysShowing);
+        this.setState({ startDay: this.state.startDay + this.state.daysShowing * 2 < this.dates.length ? this.state.startDay + this.state.daysShowing : this.dates.length - this.state.daysShowing });
+    }
+
     render() {
         const COLORS = this.props.colors;
         const commonStyles = getEventActionStyles(COLORS);
@@ -171,12 +180,15 @@ class TimeSlots extends Component {
             },
             button: {
                 ...commonStyles.button,
-                paddingVertical: 10,
+                backgroundColor: 'transparent',
+                paddingVertical: 0,
                 borderRadius: 0,
-                marginHorizontal: 5,
                 flex: 1,
                 alignItems: 'center',
                 justifyContent: 'center',
+            },
+            buttonDisabled: {
+                opacity: 0.2,
             },
             daysShowing: {
                 flex: 2,
@@ -195,23 +207,26 @@ class TimeSlots extends Component {
                 <Icon name='angle-left' size={40} color={COLORS.text} onPress={this.props.goBack} style={commonStyles.backButton} />
                 <Text style={commonStyles.title}>TIME SLOTS</Text>
                 <View style={styles.gridControls}>
-                    <TouchableOpacity style={styles.button}><Icon5 name='angle-left' color='#FFF' size={26} /></TouchableOpacity>
+                    <TouchableHighlight onPress={this.backDays} style={this.state.startDay <= 0 ? [styles.button, styles.buttonDisabled] : styles.button}><Icon5 name='angle-left' color={COLORS.text} size={32} /></TouchableHighlight>
+
                     <View style={styles.daysShowing}>
                         <Text adjustsFontSizeToFit numberOfLines={1} style={[styles.sliderLabel, { marginBottom: this.dates.length > 1 ? -8 : 0, }]}>Days to show:</Text>
                         {this.dates.length > 1 &&
                             <Slider
                                 style={{ width: '100%', }}
                                 minimumValue={1}
-                                maximumValue={7}
-                                minimumTrackTintColor='#FFF'
-                                maximumTrackTintColor='#000'
+                                maximumValue={this.dates.length >= 7 ? 7 : this.dates.length}
+                                minimumTrackTintColor={COLORS.button}
+                                maximumTrackTintColor={COLORS.background}
+                                thumbTintColor={COLORS.button}
                                 step={1}
-                                value={this.dates.length >= 7 ? 7 : this.dates.length}
-                                onValueChange={(val) => { this.setState({ daysShowing: val }); }}
+                                value={this.state.daysShowing}
+                                onValueChange={(val) => { this.setState({ daysShowing: val }); if (this.state.startDay > this.dates.length - val) { this.setState({ startDay: this.dates.length - this.state.daysShowing, }); } }}
                             />}
                         <Text style={[styles.sliderLabel, { marginTop: this.dates.length > 1 ? -8 : 0, fontWeight: this.dates.length > 1 ? 'normal' : 'bold', fontSize: this.dates.length > 1 ? undefined : 18, }]}>{this.state.daysShowing}</Text>
                     </View>
-                    <TouchableOpacity style={styles.button}><Icon5 name='angle-right' color='#FFF' size={26} /></TouchableOpacity>
+
+                    <TouchableHighlight onPress={this.forwardDays} style={this.state.startDay + this.state.daysShowing >= this.dates.length ? [styles.button, styles.buttonDisabled] : styles.button}><Icon5 name='angle-right' color={COLORS.text} size={32} /></TouchableHighlight>
                 </View>
 
                 <View style={styles.gridContainer}>
