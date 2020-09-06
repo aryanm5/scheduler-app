@@ -4,7 +4,7 @@ var API = {
         Object.keys(params).forEach(key => {
             pString += key + '=' + encodeURIComponent(params[key]) + '&';
         });
-        fetch('https://4l609mp251.execute-api.us-east-1.amazonaws.com/dev/main' + pString.slice(0, -1))
+        fetch('https://api.mittaldev.com/scheduler/main' + pString.slice(0, -1))
             .then((response) => response.text()).then((response) => {
                 response = JSON.parse(response);
 
@@ -28,7 +28,7 @@ var API = {
                 params[key] = encodeURIComponent(params[key]);
             }
         });
-        fetch('https://4l609mp251.execute-api.us-east-1.amazonaws.com/dev/main', {
+        fetch('https://api.mittaldev.com/scheduler/main', {
             method: 'POST',
             headers: {},
             body: JSON.stringify(params),
