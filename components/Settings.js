@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, StyleSheet, Switch, Platform, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Switch, Platform, Dimensions } from 'react-native';
 import { SectionRowButton } from '../components';
-import { ChangeName, ChangePassword, DisableEmails, EnableEmails } from './settings_actions';
+import { ChangeName, ChangePassword, DisableEmails, EnableEmails, About } from './settings_actions';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -105,8 +105,14 @@ class Settings extends Component {
                                 text={Platform.OS === 'ios' ? 'DARK MODE' : 'DARK THEME'}
                                 icon={<Switch onValueChange={this.darkModeToggled} value={this.state.darkModeEnabled} trackColor={{ true: COLORS.button }} />}
                                 first />
+                            <SectionRowButton
+                                colors={COLORS}
+                                text='ABOUT THE APP'
+                                onPress={() => { this.setWhichView('about'); }} />
                         </View>
                         <View style={[styles.rowButtonGroup, { paddingVertical: 2 }]}>
+
+
                             <SectionRowButton
                                 colors={COLORS}
                                 text='LOGOUT'
@@ -133,6 +139,7 @@ class Settings extends Component {
             case 'name': return <ChangeName user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.viewBack} />;
             case 'password': return <ChangePassword user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.viewBack} />;
             case 'toggleEmails': return (this.props.user.emailNotify ? <DisableEmails user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.viewBack} /> : <EnableEmails user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.viewBack} />);
+            case 'about': return <About colors={this.props.colors} goBack={this.viewBack} />;
         }
     }
 }
