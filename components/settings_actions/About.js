@@ -53,14 +53,13 @@ class About extends Component {
                 <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
                     <Text style={styles.sectionTitle}>Scheduler</Text>
                     <Text style={[styles.text, { paddingHorizontal: 5, }]}>
-                        A centralized, end-to-end platform to quickly and easily set up appointments, classes, and meetings.{'\n'}
-                        This app was made with React Native.{'\n'}
+                        A centralized, end-to-end platform to quickly and easily set up appointments, classes, and meetings, made with React Native.{'\n'}
                         <Text style={{ ...styles.text, color: COLORS.button, fontWeight: 'bold', }}
                         onPress={() => Linking.openURL('https://github.com/aryanm5/scheduler-app')}>
                         View Repository
                     </Text>
                     </Text>
-                    <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center', marginTop: 50 }}>
+                    <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center', marginTop: 60 }}>
                         <Image
                             style={styles.creatorImage}
                             source={require('../../images/creator-image.png')}
@@ -68,11 +67,11 @@ class About extends Component {
                         <View style={{ flex: 1, marginLeft: 10, }}>
                             <Text style={[styles.sectionTitle, { textAlign: 'left', }]}>Aryan Mittal</Text>
                             <Text style={[styles.text, { textAlign: 'left', }]}>                                
-                                Along with writing for his school's newspaper, Aryan enjoys tennis with his friends and developing apps for his community. 
+                                Along with writing for his school's newspaper, Aryan enjoys playing tennis with his friends and developing apps for his community. 
                             </Text>
                         </View>
                     </View>
-                    <Text style={[styles.sectionTitle, { marginTop: 50, }]}>Contact Me</Text>
+                    <Text style={[styles.sectionTitle, { marginTop: 60, }]}>Contact Me</Text>
                     <Text style={styles.text}>
                         Have feedback? Found a bug?{'\n'}Contact me at{'\n'}
                         <Text style={[styles.text, { fontWeight: 'bold', }]}>aryan@mittaldev.com</Text>
