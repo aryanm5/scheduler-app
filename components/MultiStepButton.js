@@ -4,10 +4,6 @@ import Icon from 'react-native-vector-icons/Entypo';
 
 
 class MultiStepButton extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const stage = this.props.num < this.props.step ? 'done' : this.props.num > this.props.step ? 'above' : 'current';
         const COLORS = this.props.colors;

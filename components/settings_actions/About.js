@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Linking, TouchableHighlight, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import MaterialCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import getSettingsActionStyles from './styles';
 
-
 class About extends Component {
-    constructor(props) {
-        super(props);
+    openEmail = () => {
+        Linking.openURL(`mailto:aryan@mittaldev.com?subject=Scheduler%20${Platform.OS === 'ios' ? 'iOS' : 'Android'}%20-%20Contact%20Aryan`);
     }
-
+    openWebsite = () => {
+        Linking.openURL('https://mittaldev.com?fromApp=' + Platform.OS);
+    }
     render() {
         const COLORS = this.props.colors;
         const commonStyles = getSettingsActionStyles(COLORS);
@@ -21,21 +24,26 @@ class About extends Component {
                 paddingTop: 80,
                 width: '100%',
             },
-            text: {
-                ...commonStyles.text,
-            },
             sectionTitle: {
                 ...commonStyles.text,
                 fontWeight: 'bold',
                 fontSize: 22,
             },
-            creatorImage: {
-                alignSelf: 'center',
-                width: Dimensions.get('window').width * 0.3,
-                height: Dimensions.get('window').width * 0.3,
-                borderRadius: Dimensions.get('window').width * 0.15,
-                borderColor: COLORS.text,
-                borderWidth: COLORS.lightMode ? 1 : 0,
+            paragraph: {
+                ...commonStyles.text,
+                paddingHorizontal: 5,
+            },
+            contactRow: {
+                flexDirection: 'row',
+                alignItems: 'center',
+                paddingVertical: 5,
+            },
+            contactIcon: {
+                paddingRight: 6,
+            },
+            contactRowText: {
+                ...commonStyles.text,
+                fontWeight: 'bold',
             },
             versionText: {
                 ...commonStyles.text,
@@ -50,18 +58,29 @@ class About extends Component {
             <View style={styles.container}>
                 <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
                     <Text style={styles.sectionTitle}>Scheduler</Text>
-                    <Text style={[styles.text, { paddingHorizontal: 5, }]}>
-                        A centralized, end-to-end platform to quickly and easily set up appointments, classes, and meetings, made with React Native.{'\n'}
+                    <Text style={styles.paragraph}>
+                        A centralized, end-to-end platform to quickly and easily set up appointments, classes, and meetings.{'\n'}Made with React Native.{'\n'}
                     </Text>
                     <Text style={[styles.sectionTitle, { marginTop: 60, }]}>Aryan Mittal</Text>
-                    <Text style={[styles.text, { paddingHorizontal: 5, }]}>
+                    <Text style={styles.paragraph}>
                         Along with writing for his school's newspaper, Aryan enjoys playing tennis with his friends and developing apps for his community.
                     </Text>
                     <Text style={[styles.sectionTitle, { marginTop: 60, }]}>Contact Me</Text>
-                    <Text style={styles.text}>
-                        Have feedback? Found a bug?{'\n'}Contact me at{'\n'}
-                        <Text style={[styles.text, { fontWeight: 'bold', }]}>aryan@mittaldev.com</Text>
+                    <Text style={commonStyles.text}>
+                        Have feedback? Found a bug?{'\n'}
                     </Text>
+
+                    <View style={{ alignSelf: 'center', alignItems: 'flex-start', }}>
+                        <TouchableOpacity style={styles.contactRow} onPress={this.openEmail} activeOpacity={0.5}>
+                            <MaterialIcon name='mail-outline' size={26} color={COLORS.text} style={styles.contactIcon} />
+                            <Text style={styles.contactRowText}>aryan@mittaldev.com</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.contactRow} onPress={this.openWebsite} activeOpacity={0.5}>
+                            <MaterialCIcon name='web' color={COLORS.text} size={26} style={styles.contactIcon} />
+                            <Text style={styles.contactRowText}>mittaldev.com</Text>
+                        </TouchableOpacity>
+                    </View>
+
                 </ScrollView>
                 <Icon name='angle-left' size={40} color={COLORS.text} onPress={this.props.goBack} style={commonStyles.backButton} />
                 <Text style={commonStyles.title}>ABOUT THE APP</Text>

@@ -6,9 +6,6 @@ import FontIcon from 'react-native-vector-icons/FontAwesome';
 
 
 class CreateEvent0 extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     validateName = () => {
         this.props.showNav();

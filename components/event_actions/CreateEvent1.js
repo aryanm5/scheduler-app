@@ -4,10 +4,6 @@ import getEventActionStyles from './styles';
 
 
 class CreateEvent1 extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     setClientInfo = (num, newVal) => {
         var old = this.props.values.clientInfo;
         old[num] = newVal;
