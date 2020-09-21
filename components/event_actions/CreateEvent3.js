@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Linking, Share, ActivityIndicator, Dimensions } from 'react-native';
 import getEventActionStyles from './styles';
 import Ionicon from 'react-native-vector-icons/Ionicons';
-import AntIcon from 'react-native-vector-icons/AntDesign';
 
 
 class CreateEvent3 extends Component {
@@ -47,7 +46,7 @@ class CreateEvent3 extends Component {
         const styles = StyleSheet.create({
             container: {
                 ...commonStyles.container,
-                paddingHorizontal: 0,
+                paddingHorizontal: 10,
             },
             eventName: {
                 ...commonStyles.text,

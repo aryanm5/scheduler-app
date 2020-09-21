@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { LoginModal, SignUpModal, SwitchButton } from '../components';
+import { View, Text, StyleSheet, Dimensions, TouchableWithoutFeedback, Keyboard, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { LoginModal, SignUpModal } from '../components';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-community/async-storage';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import API from '../api';
 
 const hapticOptions = {
     enableVibrateFallback: true,
@@ -13,7 +14,24 @@ const hapticOptions = {
 class Landing extends Component {
     constructor(props) {
         super(props);
-        this.state = { showDarkModeToggle: true, };
+        this.state = { loadingLogin: false, whichView: 'landing', showDarkModeToggle: true, };
+        AsyncStorage.getItem('schedToken', (err, result) => {
+            if (!err && result !== null) {
+                this.setState({ loadingLogin: true });
+                API.get({
+                    task: 'getUser',
+                    token: result,
+                }, (data) => {
+                    this.setState({ loadingLogin: false });
+                    if (data.err) {
+                        AsyncStorage.removeItem('schedToken');
+                    } else {
+                        this.props.updateUser(data);
+                        this.props.changeView('main');
+                    }
+                });
+            }
+        });
     }
     componentDidMount() {
         this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
@@ -37,6 +55,15 @@ class Landing extends Component {
         });
     }
 
+    changeView = (changeTo) => {
+        this.setState({ whichView: changeTo }, () => { setTimeout(() => { this.swiper.scrollToEnd(); }, 1); });
+    }
+
+    goBack = () => {
+        this.willRemoveView = true;
+        this.swiper.scrollTo({ x: 0 });
+    }
+
     render() {
         const COLORS = this.props.colors;
         const styles = StyleSheet.create({
@@ -47,15 +74,17 @@ class Landing extends Component {
                 justifyContent: 'center',
             },
             topSection: {
-                flex: 2,
+                flex: 3,
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
             },
-            contentSection: {
-                flex: 3,
+            bottomSection: {
+                flex: 2,
                 flexDirection: 'column',
+                justifyContent: 'flex-end',
                 alignItems: 'center',
+                paddingHorizontal: 25,
             },
             title: {
                 color: COLORS.text,
@@ -67,6 +96,7 @@ class Landing extends Component {
                 marginTop: 20,
             },
             subtitle: {
+                color: COLORS.text,
                 paddingHorizontal: 20,
                 textAlign: 'center',
                 marginTop: 20,
@@ -74,52 +104,70 @@ class Landing extends Component {
             },
             text: {
                 color: COLORS.text,
+                textAlign: 'center',
             },
             lightModeToggle: {
-                position: 'absolute',
-                right: 10,
-                bottom: 5,
-                padding: 20,
-                //transform: [{ scaleX: -1 }],
+                paddingTop: 10,
+                paddingBottom: 20,
+                paddingHorizontal: 30,
+                alignSelf: 'flex-end',
+            },
+            button: {
+                width: '100%',
+                backgroundColor: COLORS.button,
+                color: '#FFF',
+                alignItems: 'center',
+                padding: 15,
+                marginVertical: 10,
+                borderRadius: 3,
+            },
+            buttonText: {
+                color: '#FFF',
+                fontWeight: 'bold',
             },
         });
 
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={styles.container}>
-                <View style={{ flex: 1 }}>
-                    <View style={styles.topSection}>
-                        <Text style={styles.title}>SCHEDULER</Text>
-                        <Text style={[styles.text, styles.subtitle]}>A centralized, end-to-end platform to quickly and easily set up appointments, classes, and meetings.</Text>
-                    </View>
-                    <View style={styles.contentSection}>
-
-                        <SwitchButton
-                            initialValue={this.props.view}
-                            onValueChange={(val) => this.props.landingChangeView(val)}      // this is necessary for this component
-                            text1='LOGIN'                        // optional: first text in switch button --- default ON
-                            text2='SIGN UP'                       // optional: second text in switch button --- default OFF
-                            switchWidth={Dimensions.get('window').width}                 // optional: switch width --- default 44
-                            switchHeight={Dimensions.get('window').height * 3 / 5 / 8}                 // optional: switch height --- default 100
-                            switchdirection='ltr'             // optional: switch button direction ( ltr and rtl ) --- default ltr
-                            switchBorderRadius={0}          // optional: switch border radius --- default oval
-                            switchSpeedChange={250}           // optional: button change speed --- default 100
-                            switchBorderColor='rgba(52, 52, 52, 0)'       // optional: switch border color --- default #d4d4d4
-                            switchBackgroundColor={COLORS.background}      // optional: switch background color --- default #fff
-                            btnBorderColor={COLORS.button}          // optional: button border color --- default #00a4b9
-                            btnBackgroundColor={COLORS.button}      // optional: button background color --- default #00bcd4
-                            fontColor={COLORS.gray}               // optional: text font color --- default #b1b1b1
-                            activeFontColor='#fff'            // optional: active font color --- default #fff
-                        />
-                        {
-                            this.props.view === 1
-                                ? <LoginModal colors={this.props.colors} updateUser={this.props.updateUser} changeView={this.props.changeView} />
-                                : <SignUpModal colors={this.props.colors} updateUser={this.props.updateUser} changeView={this.props.changeView} />
-                        }
-                    </View>
-                    {this.state.showDarkModeToggle &&
+                <ScrollView
+                    ref={(component) => { this.swiper = component; }}
+                    horizontal={true}
+                    decelerationRate={0}
+                    snapToInterval={Dimensions.get('window').width}
+                    snapToAlignment='center'
+                    contentContainerStyle={{ width: this.state.whichView === 'landing' ? '100%' : '200%', }}
+                    onMomentumScrollEnd={(e) => { if (this.willRemoveView || this.state.whichView !== 'landing' && e.nativeEvent.contentOffset.x <= 5) { this.setState({ whichView: 'landing' }); this.willRemoveView = false; } }}
+                    overScrollMode='never'
+                    bounces={false}
+                    showsHorizontalScrollIndicator={false}
+                    showsVerticalScrollIndicator={false}
+                    style={{ flex: 1, width: '100%', height: '100%', }}>
+                    <View style={{ flex: 1, }}>
+                        <View style={styles.topSection}>
+                            <Text style={styles.title}>SCHEDULER</Text>
+                            <Text style={styles.subtitle}>A centralized, end-to-end platform to quickly and easily set up appointments, classes, and meetings.</Text>
+                        </View>
+                        <View style={styles.bottomSection}>
+                            <TouchableOpacity style={styles.button} onPress={() => { this.changeView('login'); }} activeOpacity={0.8}>
+                                {this.state.loadingLogin
+                                    ? <ActivityIndicator size='small' color='#FFF' animating={this.state.loadingLogin} />
+                                    : <Text style={styles.buttonText}>Login</Text>
+                                }
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.button} onPress={() => { this.changeView('signup'); }} activeOpacity={0.8}><Text style={styles.buttonText}>Sign Up</Text></TouchableOpacity>
+                        </View>
                         <Icon name={COLORS.lightMode ? 'moon-sharp' : 'sunny'} size={26} color={COLORS.text} onPress={this.toggleLightMode} style={styles.lightModeToggle} />
+                    </View>
+                    {
+                        this.state.whichView === 'login'
+                            ? <LoginModal colors={this.props.colors} updateUser={this.props.updateUser} changeView={this.props.changeView} goBack={this.goBack} />
+                            : this.state.whichView === 'signup'
+                                ? <SignUpModal colors={this.props.colors} updateUser={this.props.updateUser} changeView={this.props.changeView} goBack={this.goBack} />
+                                : null
                     }
-                </View>
+                </ScrollView>
+
+
             </TouchableWithoutFeedback >
         );
     }

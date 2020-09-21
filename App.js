@@ -24,14 +24,10 @@ class App extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { landingKey: 1, showLanding: true, loadingColors: true, whichView: 'landing', landingWhichView: 1, user: { loggedIn: false }, colors: {}, };
+        this.state = { loadingLogin: false, landingKey: 1, showLanding: true, loadingColors: true, whichView: 'landing', user: { loggedIn: false }, colors: {}, };
         getColors('check', (result) => {
             this.setState({ colors: result, loadingColors: false });
         });
-    }
-
-    landingChangeView = (changeTo) => {
-        this.setState({ landingWhichView: changeTo });
     }
     updateUser = (user) => {
         this.setState({ user: user });
@@ -93,8 +89,8 @@ class App extends Component {
                                         <View style={{ flex: 1 }}>
                                             {
                                                 this.state.whichView === 'verify'
-                                                    ? <VerifyModal colors={this.state.colors} updateUser={this.updateUser} landingChangeView={this.landingChangeView} changeView={this.changeView} user={this.state.user} />
-                                                    : this.state.showLanding && <Landing key={this.state.landingKey.toString()} colors={this.state.colors} setColors={this.setColors} view={this.state.landingWhichView} landingChangeView={this.landingChangeView} updateUser={this.updateUser} changeView={this.changeView} />
+                                                    ? <VerifyModal colors={this.state.colors} updateUser={this.updateUser} changeView={this.changeView} user={this.state.user} />
+                                                    : this.state.showLanding && <Landing key={this.state.landingKey.toString()} colors={this.state.colors} setColors={this.setColors} updateUser={this.updateUser} changeView={this.changeView} />
                                             }
                                             {
                                                 this.state.whichView === 'main' &&

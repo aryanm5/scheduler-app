@@ -31,7 +31,7 @@ class Main extends Component {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                paddingHorizontal: 20,
+                paddingHorizontal: 0,
             },
             header: {
                 flex: 0,
@@ -39,7 +39,7 @@ class Main extends Component {
                 height: Dimensions.get('window').height / 14,
                 justifyContent: 'flex-start',
                 alignItems: 'flex-end',
-                paddingLeft: 15,
+                paddingLeft: 25,
             },
             headerText: {
                 color: COLORS.text,

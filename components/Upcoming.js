@@ -125,7 +125,7 @@ class Upcoming extends Component {
                 flex: 1,
                 width: '100%',
                 alignItems: 'center',
-                paddingHorizontal: 10,
+                paddingHorizontal: 20,
                 borderTopColor: COLORS.gray,
                 borderTopWidth: 1,
             },

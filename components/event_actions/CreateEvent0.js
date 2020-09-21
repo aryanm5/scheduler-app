@@ -53,7 +53,7 @@ class CreateEvent0 extends Component {
             container: {
                 ...commonStyles.container,
                 alignItems: 'flex-start',
-                paddingHorizontal: 15,
+                paddingHorizontal: 20,
             },
             textInputError: {
                 ...commonStyles.textInput,

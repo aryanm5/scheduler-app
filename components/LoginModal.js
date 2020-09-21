@@ -3,29 +3,13 @@ import { View, TextInput, Text, TouchableOpacity, StyleSheet, Keyboard, Activity
 import API from '../api';
 import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import AntIcon from 'react-native-vector-icons/AntDesign';
 
 class LoginModal extends Component {
     constructor(props) {
         super(props);
         this.state = { emailText: '', passwordText: '', errorMessage: '', loading: false, };
-        AsyncStorage.getItem('schedToken', (err, result) => {
-            if (!err && result !== null) {
-                this.setState({ loading: true });
-                API.get({
-                    task: 'getUser',
-                    token: result,
-                }, (data) => {
-                    this.setState({ loading: false });
-                    if (data.err) {
-                        this.setState({ errorMessage: data.message });
-                        AsyncStorage.removeItem('schedToken');
-                    } else {
-                        this.props.updateUser(data);
-                        this.props.changeView('main');
-                    }
-                });
-            }
-        });
+        
     }
 
     login = () => {
@@ -55,9 +39,8 @@ class LoginModal extends Component {
         const styles = StyleSheet.create({
             container: {
                 flex: 1,
-                width: '100%',
+                justifyContent: 'center',
                 alignItems: 'center',
-                marginTop: 30,
             },
             textInput: {
                 width: '100%',
@@ -90,26 +73,47 @@ class LoginModal extends Component {
                 textAlign: 'center',
             },
             textInputContainer: {
-                width:'80%',
-                alignItems:'center',
+                width: '80%',
+                alignItems: 'center',
             },
             textInputIcon: {
-                position:'absolute',
-                left:0,
-                height:50,
-                paddingLeft:18,
-                paddingRight:10,
-                justifyContent:'center',
-                alignItems:'center',
+                position: 'absolute',
+                left: 0,
+                height: 50,
+                paddingLeft: 18,
+                paddingRight: 10,
+                justifyContent: 'center',
+                alignItems: 'center',
             },
             iconColor: {
                 color: COLORS.lightMode ? COLORS.brown : COLORS.secondary,
+            },
+            backButton: {
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                paddingVertical: 10,
+                paddingHorizontal: 15,
+            },
+            welcome: {
+                color: COLORS.text,
+                fontWeight: 'bold',
+                fontSize: 26,
+                padding: 2,
+            },
+            text: {
+                color: COLORS.text,
+                fontSize: 15,
             },
         });
 
         return (
             <View style={styles.container}>
-                <View style={styles.textInputContainer}>
+                <AntIcon name='arrowleft' size={36} color={COLORS.text} onPress={this.props.goBack} style={styles.backButton} />
+                
+                <Text style={styles.welcome}>Welcome back!</Text>
+                <Text style={styles.text}>Log in with your email to continue.</Text>
+                <View style={[styles.textInputContainer, { marginTop: 50, }]}>
                     <TextInput style={styles.textInput} onChangeText={(val) => { this.setState({ emailText: val }); }} placeholder='EMAIL ADDRESS' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='email' autoCapitalize='none' returnKeyType='next' keyboardType='email-address' onSubmitEditing={() => { this.passwordTextInput.focus(); }} blurOnSubmit={false} textContentType='emailAddress' />
                     <View style={styles.textInputIcon}><Icon name='mail-outline' size={24} style={styles.iconColor} /></View>
                 </View>
