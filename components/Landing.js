@@ -108,7 +108,7 @@ class Landing extends Component {
             },
             lightModeToggle: {
                 paddingTop: 10,
-                paddingBottom: 20,
+                paddingBottom: 25,
                 paddingHorizontal: 30,
                 alignSelf: 'flex-end',
             },
