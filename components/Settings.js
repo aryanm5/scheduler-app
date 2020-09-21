@@ -101,34 +101,18 @@ class Settings extends Component {
                             <SectionRowButton onPress={() => { this.setWhichView('toggleEmails'); }} colors={COLORS} text={this.props.user.emailNotify ? 'DISABLE ALL EMAILS' : 'ENABLE EMAILS'} color={this.props.user.emailNotify ? COLORS.red : COLORS.green} />
                         </View>
                         <View style={[styles.rowButtonGroup, { paddingVertical: 2 }]}>
-                            <SectionRowButton
-                                colors={COLORS}
-                                text={Platform.OS === 'ios' ? 'DARK MODE' : 'DARK THEME'}
-                                icon={<Switch onValueChange={this.darkModeToggled} value={this.state.darkModeEnabled} trackColor={{ true: COLORS.button }} />}
-                                first />
-                            <SectionRowButton
-                                colors={COLORS}
-                                text='ABOUT THE APP'
-                                onPress={() => { this.setWhichView('about'); }} />
+                            <SectionRowButton colors={COLORS} text={Platform.OS === 'ios' ? 'DARK MODE' : 'DARK THEME'} icon={<Switch onValueChange={this.darkModeToggled} value={this.state.darkModeEnabled} trackColor={{ true: COLORS.button }} />} first />
+                            <SectionRowButton colors={COLORS} text='ABOUT THE APP' onPress={() => { this.setWhichView('about'); }} />
                         </View>
                         <View style={[styles.rowButtonGroup, { paddingVertical: 2 }]}>
-
-
-                            <SectionRowButton
-                                colors={COLORS}
-                                text='LOGOUT'
-                                icon={<Icon name='log-out-outline' size={36} color={COLORS.text} />}
-                                onPress={this.logout}
-                                first />
+                            <SectionRowButton colors={COLORS} text='LOGOUT' icon={<Icon name='log-out-outline' size={36} color={COLORS.text} />} onPress={this.logout} first />
                         </View>
                         {/*</ScrollView>*/}
                     </View>
-
                     {
                         this.state.whichView === 'settings'
                             ? null
                             : <View style={{ flex: 1 }}>{this.renderView(this.state.whichView)}</View>
-
                     }
                 </ScrollView>
             </View>
