@@ -148,13 +148,13 @@ class Landing extends Component {
                             <Text style={styles.subtitle}>A centralized, end-to-end platform to quickly and easily set up appointments, classes, and meetings.</Text>
                         </View>
                         <View style={styles.bottomSection}>
-                            <TouchableOpacity style={styles.button} onPress={() => { this.changeView('login'); }} activeOpacity={0.8}>
+                            <TouchableOpacity style={styles.button} onPress={() => { this.changeView('login'); }} activeOpacity={0.6}>
                                 {this.state.loadingLogin
                                     ? <ActivityIndicator size='small' color='#FFF' animating={this.state.loadingLogin} />
                                     : <Text style={styles.buttonText}>Login</Text>
                                 }
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.button} onPress={() => { this.changeView('signup'); }} activeOpacity={0.8}><Text style={styles.buttonText}>Sign Up</Text></TouchableOpacity>
+                            <TouchableOpacity style={styles.button} onPress={() => { this.changeView('signup'); }} activeOpacity={0.6}><Text style={styles.buttonText}>Sign Up</Text></TouchableOpacity>
                         </View>
                         <Icon name={COLORS.lightMode ? 'moon-sharp' : 'sunny'} size={26} color={COLORS.text} onPress={this.toggleLightMode} style={styles.lightModeToggle} />
                     </View>
@@ -166,8 +166,6 @@ class Landing extends Component {
                                 : null
                     }
                 </ScrollView>
-
-
             </TouchableWithoutFeedback >
         );
     }
