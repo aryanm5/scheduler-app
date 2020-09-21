@@ -90,7 +90,7 @@ class Landing extends Component {
                 color: COLORS.text,
                 fontFamily: Platform.OS === 'ios'
                     ? 'Futura'
-                    : 'Roboto',
+                    : 'sans-serif-medium',
                 fontSize: 40,
                 fontWeight: 'bold',
                 marginTop: 20,
