@@ -38,6 +38,7 @@ class TimeChooser extends Component {
         super(props);
         this.d = new Date();
         this.today = months[this.d.getMonth()] + ' ' + this.d.getDate();
+        this.numColumns = (23 - (Number(this.props.values.startTime.split(':')[0]) + (this.props.values.startTime.split(' ')[1] === 'AM' ? 0 : 12)))*60/this.props.values.duration;
     }
 
     renderColumn = (info, slots, styles) => {
@@ -52,7 +53,7 @@ class TimeChooser extends Component {
 
     renderSlot = (time, styles) => {
         return (
-            <TouchableOpacity onPress={() => { time.active ? this.props.removeTime(time.date, time.startTime) : this.props.addTime(time.date, time.startTime) }} style={time.active ? [styles.slot, styles.activeSlot] : styles.slot} key={time.date + time.startTime} activeOpacity={1}>
+            <TouchableOpacity onPress={() => { time.active ? this.props.removeTime(time.date, time.startTime) : this.props.addTime(time.date, time.startTime) }} style={time.active ? [styles.slot, styles.activeSlot] : styles.slot} key={time.date + '-' + time.startTime} activeOpacity={1}>
                 <Text style={time.active ? [styles.slotText, styles.activeSlotText] : styles.slotText} adjustsFontSizeToFit numberOfLines={2}>
                     {time.startTime}
                 </Text>
@@ -63,7 +64,7 @@ class TimeChooser extends Component {
     renderGrid = (styles) => {
         var date = this.props.values.startDate;
         var dur = this.props.values.duration;
-        var firstTime = '6:00 AM';
+        var firstTime = this.props.values.startTime;
         var currentTime = firstTime;
         var tempTimeObj = {};
         for (var i = 0; i < this.props.values.times.length; ++i) {
@@ -74,7 +75,7 @@ class TimeChooser extends Component {
         for (var i = 1; i <= 7; ++i) {
             var dayOfWeek = new Date(this.d.getFullYear(), months.indexOf(date.split(' ')[0]), Number(date.split(' ')[1])).getDay();
             var slots = [];
-            for (var j = 0; j < 1020 / dur; ++j) {
+            for (var j = 0; j < this.numColumns; ++j) {
                 slots.push({ date: date, startTime: currentTime, active: tempTimeObj[date + '-' + currentTime] === true, });
                 currentTime = addMinutes(currentTime, dur);
             }

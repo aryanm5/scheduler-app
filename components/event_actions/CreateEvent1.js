@@ -1,9 +1,26 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, StyleSheet, Switch, } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Switch, Platform, TouchableHighlight, TouchableOpacity } from 'react-native';
 import getEventActionStyles from './styles';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
+const formatAMPM = (date) => {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    return hours + ':' + minutes + ' ' + ampm;
+}
 
 class CreateEvent1 extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { showTimePicker: false };
+    }
+    setTimePickerVisible = (setTo) => {
+        this.setState({ showTimePicker: setTo, });
+    }
     setClientInfo = (num, newVal) => {
         var old = this.props.values.clientInfo;
         old[num] = newVal;
@@ -67,6 +84,24 @@ class CreateEvent1 extends Component {
                     <Switch onValueChange={(val) => { this.props.setValue('emailNotify', val); }} value={this.props.values.emailNotify} trackColor={{ true: COLORS.button }} />
                     <Text style={[commonStyles.inputLabel, { paddingTop: 2, marginLeft: 0, marginRight: 2 }]}>Notify me on sign ups </Text>
                 </View>
+                <View style={{ flexDirection: 'row', width: '100%', marginTop: 20 }}>
+                    <Text style={[commonStyles.inputLabel, { textAlignVertical: 'center', marginTop: 10, }]}>Grid start time: </Text>
+                    {
+                        Platform.OS === 'android' &&
+                        <TouchableOpacity style={[commonStyles.button, { marginLeft: 10, paddingVertical: 10, }]} onPress={() => { this.setTimePickerVisible(true); }}><Text style={commonStyles.buttonText}>{this.props.values.startTime}</Text></TouchableOpacity>
+                    }
+                </View>
+                {
+                    (Platform.OS === 'ios' || this.state.showTimePicker) &&
+                    <DateTimePicker
+                        style={Platform.OS === 'ios' ? { width: '100%', } : { width: '100%', height: 120, }}
+                        value={new Date(2000, 0, 0, Number(this.props.values.startTime.split(':')[0]) + (this.props.values.startTime.split(' ')[1] === 'AM' ? 0 : 12), Number(this.props.values.startTime.split(' ')[0].split(':')[1]))}
+                        mode='time'
+                        is24Hour={false}
+                        minuteInterval={5}
+                        display={Platform.OS === 'ios' ? 'default' : 'spinner'}
+                        onChange={(event, selectedDate) => { this.props.setValue('startTime', formatAMPM(selectedDate), () => { this.setTimePickerVisible(Platform.OS === 'ios'); }); }}
+                    />}
             </View>
         );
     }

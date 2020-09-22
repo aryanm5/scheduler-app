@@ -13,7 +13,7 @@ class CreateEvent extends Component {
     constructor(props) {
         super(props);
         this.d = new Date();
-        this.state = { values: { times: [], startDate: months[this.d.getMonth()] + ' ' + this.d.getDate(), eventPassword: '', clientInfo: ['', '', ''], manualApprove: true, emailNotify: true, eventName: '', eventDesc: '', eventNameError: '', eventDescError: '', duration: 60, maxClients: 1, step0valid: false, }, created: false, showingNavigation: true, step: 0, };
+        this.state = { values: { times: [], startTime: '6:00 AM', startDate: months[this.d.getMonth()] + ' ' + this.d.getDate(), eventPassword: '', clientInfo: ['', '', ''], manualApprove: true, emailNotify: true, eventName: '', eventDesc: '', eventNameError: '', eventDescError: '', duration: 60, maxClients: 1, step0valid: false, }, created: false, showingNavigation: true, step: 0, };
     }
 
     componentDidMount() {
@@ -102,11 +102,12 @@ class CreateEvent extends Component {
             },
             title: {
                 ...commonStyles.title,
+                right: 10,
                 fontSize: 24,
             },
             backButton: {
                 ...commonStyles.backButton,
-                paddingLeft: 10,
+                paddingLeft: 20,
                 paddingRight: 50,
             },
             multiStepContainer: {

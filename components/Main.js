@@ -49,7 +49,7 @@ class Main extends Component {
             },
             createEventButton: {
                 position: 'absolute',
-                right: 5,
+                right: 20,
             },
             settingsButton: {
                 position: 'absolute',
