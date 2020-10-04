@@ -1,3 +1,7 @@
+# APK Signing Key
+/android/app/scheduler-upload-key.keystore
+
+
 # OSX
 #
 .DS_Store
