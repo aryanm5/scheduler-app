@@ -17,6 +17,7 @@ class CreateEvent1 extends Component {
     constructor(props) {
         super(props);
         this.state = { showTimePicker: false };
+        this.iosVersion = parseInt(Platform.Version, 10);
     }
     setTimePickerVisible = (setTo) => {
         this.setState({ showTimePicker: setTo, });
@@ -64,6 +65,11 @@ class CreateEvent1 extends Component {
                 fontVariant: ['tabular-nums'],
                 color: COLORS.gray,
             },
+            timePicker: {
+                width: '100%',
+                ...(Platform.OS === 'android' && { height: 120 }),
+                ...((Platform.OS === 'ios' && this.iosVersion < 14) && { height: 60, }),
+            },
         });
 
         return (
@@ -72,11 +78,11 @@ class CreateEvent1 extends Component {
                 <TextInput onFocus={this.props.hideNav} onBlur={this.props.showNav} defaultValue={this.props.values.eventPassword} style={[commonStyles.textInput, { borderWidth: COLORS.lightMode ? 2 : 0, }]} onChangeText={(val) => { this.props.setValue('eventPassword', val); }} placeholder='None' placeholderTextColor='#808080' selectionColor='#000' />
                 <Text style={[commonStyles.inputLabel, { marginTop: 20, }]}>Questions for clients (optional):</Text>
 
-                {this.renderClientInfoInput(0, 'Phone Number', styles)}
-                {this.renderClientInfoInput(1, 'Street Address', styles)}
-                {this.renderClientInfoInput(2, 'Date Of Birth', styles)}
+                {this.renderClientInfoInput(0, 'Example: Phone Number', styles)}
+                {this.renderClientInfoInput(1, 'Example: Street Address', styles)}
+                {this.renderClientInfoInput(2, 'Example: Date Of Birth', styles)}
 
-                <View style={{ flexDirection: 'row-reverse', width: '100%', marginTop: 25, paddingLeft: 15, }}>
+                <View style={{ flexDirection: 'row-reverse', width: '100%', marginTop: Platform.OS === 'ios' && this.iosVersion < 14 ? 10 : 20, paddingLeft: 15, }}>
                     <Switch onValueChange={(val) => { this.props.setValue('manualApprove', val); }} value={this.props.values.manualApprove} trackColor={{ true: COLORS.button }} />
                     <Text style={[commonStyles.inputLabel, { paddingTop: 2, marginLeft: 0, marginRight: 2 }]}>Manually approve clients </Text>
                 </View>
@@ -84,7 +90,7 @@ class CreateEvent1 extends Component {
                     <Switch onValueChange={(val) => { this.props.setValue('emailNotify', val); }} value={this.props.values.emailNotify} trackColor={{ true: COLORS.button }} />
                     <Text style={[commonStyles.inputLabel, { paddingTop: 2, marginLeft: 0, marginRight: 2 }]}>Notify me on sign ups </Text>
                 </View>
-                <View style={{ flexDirection: 'row', width: '100%', marginTop: 20 }}>
+                <View style={{ flexDirection: 'row', width: '100%', marginTop: Platform.OS === 'ios' && this.iosVersion < 14 ? 10 : 20 }}>
                     <Text style={[commonStyles.inputLabel, { textAlignVertical: 'center', marginTop: 10, }]}>Grid start time: </Text>
                     {
                         Platform.OS === 'android' &&
@@ -94,11 +100,12 @@ class CreateEvent1 extends Component {
                 {
                     (Platform.OS === 'ios' || this.state.showTimePicker) &&
                     <DateTimePicker
-                        style={Platform.OS === 'ios' ? { width: '100%', } : { width: '100%', height: 120, }}
+                        style={styles.timePicker}
                         value={new Date(2000, 0, 0, Number(this.props.values.startTime.split(':')[0]) + (this.props.values.startTime.split(' ')[1] === 'AM' ? 0 : 12), Number(this.props.values.startTime.split(' ')[0].split(':')[1]))}
                         mode='time'
                         is24Hour={false}
                         minuteInterval={5}
+                        textColor={COLORS.text}
                         display={Platform.OS === 'ios' ? 'default' : 'spinner'}
                         onChange={(event, selectedDate) => { this.props.setValue('startTime', formatAMPM(selectedDate), () => { this.setTimePickerVisible(Platform.OS === 'ios'); }); }}
                     />}

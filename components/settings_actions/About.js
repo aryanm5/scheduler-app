@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Linking, TouchableHighlight, Platform } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Linking, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import MaterialCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -51,12 +51,14 @@ class About extends Component {
                 color: COLORS.gray,
                 fontWeight: 'bold',
                 fontSize: 16,
+                marginTop: 20,
+                paddingBottom: 120,
             },
         });
 
         return (
             <View style={styles.container}>
-                <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
+                <ScrollView  style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
                     <Text style={styles.sectionTitle}>Scheduler</Text>
                     <Text style={styles.paragraph}>
                         A centralized, end-to-end platform to quickly and easily set up appointments, classes, and meetings.{'\n'}Made with React Native.{'\n'}
@@ -80,13 +82,12 @@ class About extends Component {
                             <Text style={styles.contactRowText}>mittaldev.com</Text>
                         </TouchableOpacity>
                     </View>
-
+                    <Text style={styles.versionText}>
+                        AM Scheduler v1.0.1
+                    </Text>
                 </ScrollView>
                 <Icon name='angle-left' size={40} color={COLORS.text} onPress={this.props.goBack} style={commonStyles.backButton} />
                 <Text style={commonStyles.title}>ABOUT THE APP</Text>
-                <Text style={styles.versionText}>
-                    AM Scheduler v1.0.0
-                </Text>
             </View>
         );
     }
