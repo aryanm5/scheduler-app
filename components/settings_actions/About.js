@@ -83,7 +83,7 @@ class About extends Component {
                         </TouchableOpacity>
                     </View>
                     <Text style={styles.versionText}>
-                        AM Scheduler v1.0.1
+                        AM Scheduler v1.0.2
                     </Text>
                 </ScrollView>
                 <Icon name='angle-left' size={40} color={COLORS.text} onPress={this.props.goBack} style={commonStyles.backButton} />

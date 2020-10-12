@@ -141,7 +141,7 @@ class SignUpModal extends Component {
                     <TextInput style={styles.textInput} onChangeText={(val) => { this.setState({ confirmPasswordText: val }); }} placeholder='CONFIRM PASSWORD' placeholderTextColor='#808080' selectionColor='#000' autoCompleteType='password' secureTextEntry={true} autoCapitalize='none' returnKeyType='done' textContentType='password' />
                     <View style={styles.textInputIcon}><Icon name='lock-outline' size={24} style={styles.iconColor} /></View>
                 </View>
-                <TouchableOpacity activeOpacity={0.9} onPress={this.signup} style={styles.submitButton}>
+                <TouchableOpacity activeOpacity={0.8} onPress={this.signup} style={styles.submitButton}>
                     {this.state.loading
                         ? <ActivityIndicator size='small' color='#FFF' animating={this.state.loading} style={{ paddingHorizontal: 15 }} />
                         : <Text style={styles.submitText}>SIGN UP</Text>
