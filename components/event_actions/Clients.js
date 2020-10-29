@@ -15,7 +15,7 @@ class Clients extends Component {
     }
 
     setDeleteAnimation = () => {
-        LayoutAnimation.configureNext(LayoutAnimation.create(500, 'easeInEaseOut', 'opacity'));
+        LayoutAnimation.configureNext(LayoutAnimation.create(400, 'easeInEaseOut', 'opacity'));
     }
 
     fillClients = () => {

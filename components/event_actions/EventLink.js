@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Linking, Share } from 'react-native';
+import { View, Text, TouchableOpacity, Share } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import getEventActionStyles from './styles';
+import openURL from '../../openURL';
 
 
 class EventLink extends Component {
@@ -34,7 +35,7 @@ class EventLink extends Component {
                     <Text style={{ fontSize: 24, fontWeight: 'bold' }}>{this.props.event.name}</Text>{'\n\n'}
                     Send this permanent URL to your clients for them to select time slots:{'\n\n'}
                     <Text style={{ color: COLORS.button, fontWeight: 'bold', }}
-                        onPress={() => Linking.openURL(eventURL)}>
+                        onPress={() => openURL(eventURL.replace('https://tinyurl.com/scdlr', 'https://mittaldev.com/scheduler/event.html'), COLORS)}>
                         {`${eventURL}`}
                     </Text>
                 </Text>

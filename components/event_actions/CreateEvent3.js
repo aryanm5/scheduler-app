@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Linking, Share, ActivityIndicator, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Share, ActivityIndicator, Dimensions } from 'react-native';
 import getEventActionStyles from './styles';
 import Ionicon from 'react-native-vector-icons/Ionicons';
+import openURL from '../../openURL';
 
 
 class CreateEvent3 extends Component {
@@ -76,7 +77,7 @@ class CreateEvent3 extends Component {
                         <Text style={styles.eventName}>{this.props.values.eventName + '\n'}</Text>
                         <Text style={commonStyles.text}>Your event has been created! Send this permanent URL to your clients for them to select time slots:{'\n'}</Text>
                         <Text style={styles.eventLink}
-                            onPress={() => Linking.openURL(eventURL)}>
+                            onPress={() => openURL(eventURL.replace('https://tinyurl.com/scdlr', 'https://mittaldev.com/scheduler/event.html'), COLORS)}>
                             {eventURL}
                         </Text>
                         <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center', }}>

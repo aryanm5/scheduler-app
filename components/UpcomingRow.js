@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Dimensions, Platform, FlatList, Switch } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Dimensions, Platform, FlatList, } from 'react-native';
 import Modal from '@kazzkiq/react-native-modalbox';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Client } from './event_actions';

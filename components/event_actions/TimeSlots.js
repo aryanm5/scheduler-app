@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, TouchableWithoutFeedback, TouchableHighlight } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableHighlight } from 'react-native';
 import Slider from '@react-native-community/slider';
 import getEventActionStyles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';

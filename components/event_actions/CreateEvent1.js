@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, StyleSheet, Switch, Platform, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Switch, Platform, TouchableOpacity } from 'react-native';
 import getEventActionStyles from './styles';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
