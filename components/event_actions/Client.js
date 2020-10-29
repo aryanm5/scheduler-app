@@ -30,6 +30,7 @@ class Client extends Component {
             if (data.err) {
                 Alert.alert('There was an error approving this pending client: ' + data.message);
             } else {
+                this.props.setDeleteAnimation();
                 this.props.updateUser(data);
                 if(!this.props.upcoming) { this.props.fillClients(); }
             }
@@ -52,6 +53,7 @@ class Client extends Component {
                     Alert.alert('There was an error declining this pending client: ' + data.message);
                 } else {
                     this.setState({ showingDecline: false, });
+                    this.props.setDeleteAnimation();
                     this.props.updateUser(data);
                     if(!this.props.upcoming) { this.props.fillClients(); }
                 }
@@ -75,6 +77,7 @@ class Client extends Component {
                     Alert.alert('There was an error removing this client: ' + data.message);
                 } else {
                     this.setState({ showingDecline: false, });
+                    this.props.setDeleteAnimation();
                     this.props.updateUser(data);
                     if(!this.props.upcoming) { this.props.fillClients(); }
                 }

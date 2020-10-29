@@ -224,7 +224,7 @@ class EventRow extends Component {
             case 'clients': return <Clients event={this.props.event} user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.modalBack} />;
             case 'times': return <TimeSlots event={this.props.event} user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.modalBack} />;
             case 'link': return <EventLink event={this.props.event} user={this.props.user} colors={this.props.colors} goBack={this.modalBack} />;
-            case 'delete': return <DeleteEvent hideModal={this.hideModal} event={this.props.event} user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.modalBack} />;
+            case 'delete': return <DeleteEvent setDeleteAnimation={this.props.setDeleteAnimation} hideModal={this.hideModal} event={this.props.event} user={this.props.user} updateUser={this.props.updateUser} colors={this.props.colors} goBack={this.modalBack} />;
         }
     }
 }

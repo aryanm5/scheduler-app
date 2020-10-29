@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, RefreshControl, } from 'react-native';
+import { View, Text, FlatList, RefreshControl, LayoutAnimation } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MaterialCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import getEventActionStyles from './styles';
@@ -12,6 +12,10 @@ class PendingClients extends Component {
     constructor(props) {
         super(props);
         this.state = { refresh: false, isFetching: false, clients: this.fillClients(), }
+    }
+
+    setDeleteAnimation = () => {
+        LayoutAnimation.configureNext(LayoutAnimation.create(500, 'easeInEaseOut', 'opacity'));
     }
 
     fillClients = () => {
@@ -50,7 +54,7 @@ class PendingClients extends Component {
     }
 
     renderPendingClient = ({ item, index }) => {
-        return <Client pending={true} fillClients={() => { this.setState({ isFetching: false, clients: this.fillClients() }); }} lastTime={index === this.state.clients.length-1 || item.date !== this.state.clients[index+1].date || item.startTime !== this.state.clients[index+1].startTime} newDate={index === 0 || item.date !== this.state.clients[index - 1].date} newTime={index === 0 || item.startTime !== this.state.clients[index - 1].startTime} colors={this.props.colors} user={this.props.user} updateUser={this.props.updateUser} item={item} event={this.props.event} index={index} />
+        return <Client setDeleteAnimation={this.setDeleteAnimation} pending={true} fillClients={() => { this.setState({ isFetching: false, clients: this.fillClients() }); }} lastTime={index === this.state.clients.length-1 || item.date !== this.state.clients[index+1].date || item.startTime !== this.state.clients[index+1].startTime} newDate={index === 0 || item.date !== this.state.clients[index - 1].date} newTime={index === 0 || item.startTime !== this.state.clients[index - 1].startTime} colors={this.props.colors} user={this.props.user} updateUser={this.props.updateUser} item={item} event={this.props.event} index={index} />
     };
 
 

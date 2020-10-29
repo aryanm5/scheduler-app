@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text, Image, StyleSheet, Alert, RefreshControl, TouchableOpacity } from 'react-native';
+import { View, FlatList, Text, StyleSheet, Alert, RefreshControl, TouchableOpacity, LayoutAnimation } from 'react-native';
 import API from '../api';
 import { EventRow } from '../components';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -10,7 +10,11 @@ class Events extends Component {
         this.state = { isFetching: false, }
     }
 
-    eventRenderItem = ({ item, index }) => (<EventRow colors={this.props.colors} user={this.props.user} updateUser={this.props.updateUser} event={item} index={index} />);
+    setDeleteAnimation = () => {
+        LayoutAnimation.configureNext(LayoutAnimation.create(500, 'easeInEaseOut', 'opacity'));
+    }
+
+    eventRenderItem = ({ item, index }) => (<EventRow setDeleteAnimation={this.setDeleteAnimation} colors={this.props.colors} user={this.props.user} updateUser={this.props.updateUser} event={item} index={index} />);
 
     refreshUser = () => {
         API.get({

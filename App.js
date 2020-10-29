@@ -15,10 +15,17 @@ import {
     StatusBar,
     ScrollView,
     Dimensions,
+    UIManager,
+    Platform,
 } from 'react-native';
 import getColors from './colors';
 import { Landing, VerifyModal, Main } from './components';
 
+if (Platform.OS === 'android') {
+    if (UIManager.setLayoutAnimationEnabledExperimental) {
+        UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+}
 
 class App extends Component {
 
