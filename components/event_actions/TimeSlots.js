@@ -109,8 +109,6 @@ class TimeSlots extends Component {
         this.setState({ startDay: this.state.startDay - this.state.daysShowing >= 0 ? this.state.startDay - this.state.daysShowing : 0 });
     }
     forwardDays = () => {
-        console.log('startDay: ' + this.state.startDay);
-        console.log('daysShowing: ' + this.state.daysShowing);
         this.setState({ startDay: this.state.startDay + this.state.daysShowing * 2 < this.dates.length ? this.state.startDay + this.state.daysShowing : this.dates.length - this.state.daysShowing });
     }
 

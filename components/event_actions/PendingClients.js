@@ -1,21 +1,44 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, RefreshControl, LayoutAnimation } from 'react-native';
+import { View, Text, FlatList, RefreshControl, LayoutAnimation, } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MaterialCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import getEventActionStyles from './styles';
 import { Client } from '../event_actions';
 import API from '../../api';
+import SearchBar from 'react-native-search-bar';
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 class PendingClients extends Component {
     constructor(props) {
         super(props);
-        this.state = { refresh: false, isFetching: false, clients: this.fillClients(), }
+        this.state = { refresh: false, isFetching: false, clients: this.fillClients(), searchedClients: 'none', };
+        this.searchValue = '';
     }
 
-    setDeleteAnimation = () => {
-        LayoutAnimation.configureNext(LayoutAnimation.create(400, 'easeInEaseOut', 'opacity'));
+    setDeleteAnimation = (dur = 300) => {
+        LayoutAnimation.configureNext(LayoutAnimation.create(dur, 'easeInEaseOut', 'opacity'));
+    }
+
+    updateSearch = () => {
+        this.searchChanged(this.searchValue);
+    }
+
+    searchChanged = (newSearch) => {
+        this.searchValue = newSearch;
+        if (this.searchValue.length === 0) {
+            this.setDeleteAnimation();
+            this.setState({ searchedClients: 'none', });
+        } else {
+            newSearchedClients = [];
+            for (var i = 0; i < this.state.clients.length; ++i) {
+                if (this.state.clients[i].Name.toLowerCase().replace(/\s+/g, '').includes(newSearch) || this.state.clients[i].Email.toLowerCase().replace(/\s+/g, '').includes(newSearch)) {
+                    newSearchedClients.push(this.state.clients[i]);
+                }
+            }
+            this.setDeleteAnimation(newSearchedClients.length === 0 ? 200 : 300);
+            this.setState({ searchedClients: newSearchedClients, });
+        }
     }
 
     fillClients = () => {
@@ -54,7 +77,8 @@ class PendingClients extends Component {
     }
 
     renderPendingClient = ({ item, index }) => {
-        return <Client setDeleteAnimation={this.setDeleteAnimation} pending={true} fillClients={() => { this.setState({ isFetching: false, clients: this.fillClients() }); }} lastTime={index === this.state.clients.length-1 || item.date !== this.state.clients[index+1].date || item.startTime !== this.state.clients[index+1].startTime} newDate={index === 0 || item.date !== this.state.clients[index - 1].date} newTime={index === 0 || item.startTime !== this.state.clients[index - 1].startTime} colors={this.props.colors} user={this.props.user} updateUser={this.props.updateUser} item={item} event={this.props.event} index={index} />
+        items = this.state.searchedClients === 'none' ? this.state.clients : this.state.searchedClients;
+        return <Client updateSearch={this.updateSearch} setDeleteAnimation={this.setDeleteAnimation} pending={true} fillClients={after => { this.setState({ isFetching: false, clients: this.fillClients(), searchedClients: 'none', }, () => after()); }} lastTime={index === items.length - 1 || (item.date !== items[index + 1].date || item.startTime !== items[index + 1].startTime)} newDate={index === 0 || item.date !== items[index - 1].date} newTime={index === 0 || item.startTime !== items[index - 1].startTime} colors={this.props.colors} user={this.props.user} updateUser={this.props.updateUser} item={item} event={this.props.event} index={index} />
     };
 
 
@@ -68,7 +92,7 @@ class PendingClients extends Component {
                 Alert.alert('Refresh Error', 'An error occurred while refreshing.\nPlease check your internet connection or logout and login again.\nError Message: ' + data.message);
             } else {
                 this.props.updateUser(data);
-                this.setState({ isFetching: false, clients: this.fillClients() });
+                this.setState({ isFetching: false, clients: this.fillClients() }, () => this.updateSearch());
             }
         });
     }
@@ -76,7 +100,6 @@ class PendingClients extends Component {
     render() {
         const COLORS = this.props.colors;
         const commonStyles = getEventActionStyles(COLORS);
-
         return (
             <View style={commonStyles.container}>
                 <Icon name='angle-left' size={40} color={COLORS.text} onPress={this.props.goBack} style={commonStyles.backButton} />
@@ -88,19 +111,36 @@ class PendingClients extends Component {
                             This event has no pending clients.
                         </Text>
                     </View>
-                    : <View style={{ flex: 1, top: 80, }}>
-                        <FlatList
-                            showsVerticalScrollIndicator={false}
-                            showsHorizontalScrollIndicator={false}
-                            refreshControl={<RefreshControl
-                                colors={[COLORS.button]}
-                                tintColor={COLORS.button}
-                                refreshing={this.state.isFetching}
-                                onRefresh={this.refreshUser} />}
-                            data={this.state.clients}
-                            keyExtractor={(item, index) => index.toString()}
-                            renderItem={this.renderPendingClient}
-                            contentContainerStyle={{ paddingBottom: 100 }} />
+                    : <View style={{ flex: 1, top: 60, }}>
+                        <SearchBar
+                            ref={search => { this.searchBar = search; }}
+                            placeholder="Search name or email"
+                            onChangeText={(input) => { setTimeout(() => this.searchChanged(input.toLowerCase().replace(/\s+/g, '')), 1); }}
+                            onSearchButtonPress={() => { this.searchBar.unFocus(); }}
+                            onCancelButtonPress={() => { this.searchValue = ''; this.setDeleteAnimation(); this.setState({ searchedClients: 'none', }); }}
+                            keyboardAppearance={COLORS.lightMode ? 'light' : 'dark'}
+                            hideBackground={true}
+                            textColor={COLORS.text}
+                            keyboardType='email-address'
+                            autoCapitalize='none'
+                        />
+                        {this.state.searchedClients.length === 0
+                            ? <View style={{ minWidth: '100%', paddingTop: 30, alignItems: 'center', }}>
+                                <Text style={{ color: COLORS.text, fontSize: 20, fontWeight: 'bold' }}>No Results</Text>
+                            </View>
+                            : <FlatList
+                                showsVerticalScrollIndicator={false}
+                                showsHorizontalScrollIndicator={false}
+                                refreshControl={<RefreshControl
+                                    colors={[COLORS.button]}
+                                    tintColor={COLORS.button}
+                                    refreshing={this.state.isFetching}
+                                    onRefresh={this.refreshUser} />}
+                                data={this.state.searchedClients === 'none' ? this.state.clients : this.state.searchedClients}
+                                keyExtractor={(item, index) => `${item.Name};${item.Email};${item.date};${item.startTime}`}
+                                renderItem={this.renderPendingClient}
+                                contentContainerStyle={{ paddingBottom: 100 }} />
+                        }
                     </View>
                 }
             </View>

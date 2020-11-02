@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Dimensions, Platform, FlatList, } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Dimensions, Platform, FlatList, LayoutAnimation, } from 'react-native';
 import Modal from '@kazzkiq/react-native-modalbox';
+import MaterialCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Client } from './event_actions';
 
@@ -16,6 +17,10 @@ class UpcomingRow extends Component {
         this.state = { showingModal: false, };
     }
 
+    setDeleteAnimation = (dur = 300) => {
+        LayoutAnimation.configureNext(LayoutAnimation.create(dur, 'easeInEaseOut', 'opacity'));
+    }
+
     showModal = () => {
         if (this.props.time.clients.length > 0 && this.props.time.clients !== 'none') {
             this.setState({ showingModal: true });
@@ -26,7 +31,7 @@ class UpcomingRow extends Component {
     }
 
     renderClient = ({ item, index }) => {
-        return <Client user={this.props.user} updateUser={this.props.updateUser} upcoming lastTime newDate={index === 0} newTime item={{ ...item, date: this.props.time.date, startTime: this.props.time.startTime, endTime: this.props.time.endTime }} event={this.props.event} index={index} colors={this.props.colors} />
+        return <Client setDeleteAnimation={this.setDeleteAnimation} user={this.props.user} updateUser={this.props.updateUser} upcoming lastTime newDate={index === 0} newTime item={{ ...item, date: this.props.time.date, startTime: this.props.time.startTime, endTime: this.props.time.endTime }} event={this.props.event} index={index} colors={this.props.colors} />
     }
 
     render() {
@@ -139,7 +144,7 @@ class UpcomingRow extends Component {
                 <Modal
                     swipeToClose={true}
                     swipeArea={Dimensions.get('window').height * 0.05 + 50} // The height in pixels of the swipeable area, window height by default
-                    swipeThreshold={50} // The threshold to reach in pixels to close the modal
+                    swipeThreshold={this.props.time.clients.length === 0 || this.props.time.clients === 'none' ? 1000 : 50} // The threshold to reach in pixels to close the modal
                     isOpen={this.state.showingModal}
                     onClosed={this.hideModal}
                     backdropOpacity={0.5}
@@ -150,8 +155,9 @@ class UpcomingRow extends Component {
                     <SafeAreaView style={{ flex: 1, }}>
                         <View style={styles.modalHandle} />
                         {this.props.time.clients.length === 0 || this.props.time.clients === 'none'
-                            ? <View style={{ marginTop: 80, width: '100%', alignItems: 'center', }}>
-                                <Text style={{ color: COLORS.text }}>
+                            ? <View style={{ alignItems: 'center', width: '100%', marginTop: 160, }}>
+                                <MaterialCIcon name='numeric-0-circle' size={150} color={COLORS.button} style={{ marginBottom: '20%', }} />
+                                <Text style={{ color: COLORS.text, fontSize: 18, }}>
                                     This time slot has no approved clients.
                                 </Text>
                             </View>

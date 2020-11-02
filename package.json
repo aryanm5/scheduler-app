@@ -19,6 +19,7 @@
     "react-native-email-link": "^1.9.2",
     "react-native-haptic-feedback": "^1.10.0",
     "react-native-inappbrowser-reborn": "^3.5.1",
+    "react-native-search-bar": "^3.5.1",
     "react-native-swiper": "^1.6.0-rc.3",
     "react-native-vector-icons": "^7.0.0",
     "react-native-view-more-text": "^2.1.0"

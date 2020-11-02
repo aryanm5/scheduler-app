@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import API from '../../api';
 
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-const months  = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const getDay = (str) => {
     return days[new Date(new Date().getFullYear(), months.indexOf(str.split(' ')[0]), str.split(' ')[1]).getDay()];
 };
@@ -32,7 +32,7 @@ class Client extends Component {
             } else {
                 this.props.setDeleteAnimation();
                 this.props.updateUser(data);
-                if(!this.props.upcoming) { this.props.fillClients(); }
+                if (!this.props.upcoming) { this.props.fillClients(() => this.props.updateSearch()); }
             }
         });
     }
@@ -55,7 +55,7 @@ class Client extends Component {
                     this.setState({ showingDecline: false, });
                     this.props.setDeleteAnimation();
                     this.props.updateUser(data);
-                    if(!this.props.upcoming) { this.props.fillClients(); }
+                    if (!this.props.upcoming) { this.props.fillClients(() => this.props.updateSearch()); }
                 }
             });
         }
@@ -79,7 +79,7 @@ class Client extends Component {
                     this.setState({ showingDecline: false, });
                     this.props.setDeleteAnimation();
                     this.props.updateUser(data);
-                    if(!this.props.upcoming) { this.props.fillClients(); }
+                    if (!this.props.upcoming) { this.props.fillClients(() => this.props.updateSearch()); }
                 }
             });
         }
@@ -188,10 +188,10 @@ class Client extends Component {
                     <TouchableOpacity activeOpacity={1} onPress={this.dismissDecline} style={{ paddingHorizontal: 20, paddingVertical: 20, }}><>
                         {
                             !this.props.newDate && !this.props.newTime &&
-                                <View style={styles.divider} />
+                            <View style={styles.divider} />
                         }
 
-                        <Text style={styles.time}>{this.props.upcoming ? this.props.index+1 : this.props.item.startTime}</Text>
+                        <Text style={styles.time}>{this.props.upcoming ? this.props.index + 1 : this.props.item.startTime}</Text>
                         <Text style={styles.clientInfo}>{this.props.event.clientInfo.map((i, index) => { return <React.Fragment key={index}><Text style={{ fontWeight: 'bold', }}>{'\n' + i}:</Text><Text> {this.props.item[i]}</Text></React.Fragment>; })}</Text>
 
                         <View style={styles.buttons}>
