@@ -65,7 +65,7 @@ class About extends Component {
                     </Text>
                     <Text style={[styles.sectionTitle, { marginTop: 60, }]}>Aryan Mittal</Text>
                     <Text style={styles.paragraph}>
-                        Along with writing for his school's newspaper, Aryan enjoys playing tennis with his friends and developing apps for his community.
+                        Along with writing for his high school's newspaper, Aryan enjoys playing tennis with his friends and developing apps for his community.
                     </Text>
                     <Text style={[styles.sectionTitle, { marginTop: 60, }]}>Contact Me</Text>
                     <Text style={commonStyles.text}>
@@ -83,7 +83,7 @@ class About extends Component {
                         </TouchableOpacity>
                     </View>
                     <Text style={styles.versionText}>
-                        AM Scheduler v1.0.2
+                        AM Scheduler v1.0.4
                     </Text>
                 </ScrollView>
                 <Icon name='angle-left' size={40} color={COLORS.text} onPress={this.props.goBack} style={commonStyles.backButton} />
