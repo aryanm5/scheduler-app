@@ -143,8 +143,8 @@ class UpcomingRow extends Component {
 
                 <Modal
                     swipeToClose={true}
-                    swipeArea={Dimensions.get('window').height * 0.05 + 50} // The height in pixels of the swipeable area, window height by default
-                    swipeThreshold={this.props.time.clients.length === 0 || this.props.time.clients === 'none' ? 1000 : 50} // The threshold to reach in pixels to close the modal
+                    swipeArea={this.props.time.clients.length === 0 || this.props.time.clients === 'none' ? Dimensions.get('window').height : Dimensions.get('window').height * 0.05 + 50} // The height in pixels of the swipeable area, window height by default
+                    swipeThreshold={50} // The threshold to reach in pixels to close the modal
                     isOpen={this.state.showingModal}
                     onClosed={this.hideModal}
                     backdropOpacity={0.5}

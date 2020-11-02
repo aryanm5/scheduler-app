@@ -118,7 +118,7 @@ class EventRow extends Component {
                 top: 0,
                 bottom: 0,
                 right: 0,
-                borderTopRightRadius: 20,//30
+                borderTopRightRadius: 20,
                 borderBottomRightRadius: 20,
             },
             numPendingText: {
@@ -150,8 +150,6 @@ class EventRow extends Component {
                             </Text>
                         </TouchableOpacity>
                     }
-
-
                 </TouchableOpacity>
 
                 <Modal
