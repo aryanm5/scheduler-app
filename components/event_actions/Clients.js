@@ -129,7 +129,7 @@ class Clients extends Component {
                                 <Text style={{ color: COLORS.text, fontSize: 20, fontWeight: 'bold' }}>No Results</Text>
                             </View>
                             : <FlatList
-                                showsVerticalScrollIndicator={false}
+                                showsVerticalScrollIndicator={true}
                                 showsHorizontalScrollIndicator={false}
                                 refreshControl={<RefreshControl
                                     colors={[COLORS.button]}
@@ -139,7 +139,9 @@ class Clients extends Component {
                                 data={this.state.searchedClients === 'none' ? this.state.clients : this.state.searchedClients}
                                 keyExtractor={(item, index) => `${item.Name};${item.Email};${item.date};${item.startTime}`}
                                 renderItem={this.renderClient}
-                                contentContainerStyle={{ paddingBottom: 100 }} />
+                                contentContainerStyle={{ paddingBottom: 100 }}
+                                initialNumToRender={6}
+                            />
                         }
                     </View>
                 }

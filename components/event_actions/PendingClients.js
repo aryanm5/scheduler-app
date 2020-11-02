@@ -129,7 +129,7 @@ class PendingClients extends Component {
                                 <Text style={{ color: COLORS.text, fontSize: 20, fontWeight: 'bold' }}>No Results</Text>
                             </View>
                             : <FlatList
-                                showsVerticalScrollIndicator={false}
+                                showsVerticalScrollIndicator={true}
                                 showsHorizontalScrollIndicator={false}
                                 refreshControl={<RefreshControl
                                     colors={[COLORS.button]}
