@@ -119,6 +119,7 @@ class PendingClients extends Component {
                             onSearchButtonPress={() => { this.searchBar.unFocus(); }}
                             onCancelButtonPress={() => { this.searchValue = ''; this.setDeleteAnimation(); this.setState({ searchedClients: 'none', }); }}
                             keyboardAppearance={COLORS.lightMode ? 'light' : 'dark'}
+                            textFieldBackgroundColor={COLORS.background}
                             hideBackground={true}
                             textColor={COLORS.text}
                             keyboardType='email-address'
