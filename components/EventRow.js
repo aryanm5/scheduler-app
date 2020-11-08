@@ -28,10 +28,10 @@ class EventRow extends Component {
     }
 
     showModal = () => {
-        this.setState({ showingModal: true });
+        this.setState({ modalView: 'event', showingModal: true });
     }
     hideModal = () => {
-        this.setState({ modalView: 'event', showingModal: false });
+        this.setState({ showingModal: false });
     }
     setModalView = (setTo) => {
         this.setState({ modalView: setTo }, () => { setTimeout(() => { this.swiper.scrollToEnd(); }, 1); });

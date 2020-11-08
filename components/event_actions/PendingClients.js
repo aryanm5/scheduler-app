@@ -105,11 +105,28 @@ class PendingClients extends Component {
                 <Icon name='angle-left' size={40} color={COLORS.text} onPress={this.props.goBack} style={commonStyles.backButton} />
                 <Text style={commonStyles.title}>PENDING CLIENTS</Text>
                 {this.state.clients.length === 0
-                    ? <View style={{ alignItems: 'center', marginTop: '-50%' }}>
-                        <MaterialCIcon name='numeric-0-circle' size={150} color={COLORS.button} style={{ marginBottom: '20%', }} />
-                        <Text style={[commonStyles.text, { fontSize: 20 }]}>
-                            This event has no pending clients.
-                        </Text>
+                    ? <View style={{ alignItems: 'center', marginTop: '20%' }}>
+                        <FlatList
+                            showsVerticalScrollIndicator={false}
+                            showsHorizontalScrollIndicator={false}
+                            refreshControl={<RefreshControl
+                                colors={[COLORS.button]}
+                                tintColor={COLORS.button}
+                                refreshing={this.state.isFetching}
+                                onRefresh={this.refreshUser} />}
+                            data={[0]}
+                            keyExtractor={(item, index) => index.toString()}
+                            renderItem={() => (
+                                <View style={{ alignItems: 'center' }}>
+                                    <MaterialCIcon name='numeric-0-circle' size={150} color={COLORS.button} style={{ marginBottom: '20%', }} />
+                                    <Text style={[commonStyles.text, { fontSize: 20 }]}>
+                                        This event has no pending clients.
+                                    </Text>
+                                </View>
+                            )}
+                            contentContainerStyle={{ paddingTop: '30%', }}
+                        />
+
                     </View>
                     : <View style={{ flex: 1, top: 60, }}>
                         <SearchBar
@@ -140,7 +157,9 @@ class PendingClients extends Component {
                                 data={this.state.searchedClients === 'none' ? this.state.clients : this.state.searchedClients}
                                 keyExtractor={(item, index) => `${item.Name};${item.Email};${item.date};${item.startTime}`}
                                 renderItem={this.renderPendingClient}
-                                contentContainerStyle={{ paddingBottom: 100 }} />
+                                contentContainerStyle={{ paddingBottom: 100 }}
+                                indicatorStyle={COLORS.lightMode ? 'black' : 'white'}
+                            />
                         }
                     </View>
                 }

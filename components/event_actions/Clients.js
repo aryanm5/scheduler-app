@@ -105,12 +105,29 @@ class Clients extends Component {
                 <Icon name='angle-left' size={40} color={COLORS.text} onPress={this.props.goBack} style={commonStyles.backButton} />
                 <Text style={commonStyles.title}>APPROVED CLIENTS</Text>
                 {this.state.clients.length === 0
-                    ? <View style={{ alignItems: 'center', marginTop: '-50%' }}>
-                        <MaterialCIcon name='numeric-0-circle' size={150} color={COLORS.button} style={{ marginBottom: '20%', }} />
-                        <Text style={[commonStyles.text, { fontSize: 20 }]}>
-                            This event has no approved clients.
-                        </Text>
-                    </View>
+                    ? <View style={{ alignItems: 'center', marginTop: '20%' }}>
+                    <FlatList
+                        showsVerticalScrollIndicator={false}
+                        showsHorizontalScrollIndicator={false}
+                        refreshControl={<RefreshControl
+                            colors={[COLORS.button]}
+                            tintColor={COLORS.button}
+                            refreshing={this.state.isFetching}
+                            onRefresh={this.refreshUser} />}
+                        data={[0]}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={() => (
+                            <View style={{ alignItems: 'center' }}>
+                                <MaterialCIcon name='numeric-0-circle' size={150} color={COLORS.button} style={{ marginBottom: '20%', }} />
+                                <Text style={[commonStyles.text, { fontSize: 20 }]}>
+                                    This event has no approved clients.
+                                </Text>
+                            </View>
+                        )}
+                        contentContainerStyle={{ paddingTop: '30%', }}
+                    />
+
+                </View>
                     : <View style={{ flex: 1, top: 60, }}>
                         <SearchBar
                             ref={search => { this.searchBar = search; }}
@@ -142,6 +159,7 @@ class Clients extends Component {
                                 renderItem={this.renderClient}
                                 contentContainerStyle={{ paddingBottom: 100 }}
                                 initialNumToRender={6}
+                                indicatorStyle={COLORS.lightMode ? 'black' : 'white'}
                             />
                         }
                     </View>

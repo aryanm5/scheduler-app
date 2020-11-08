@@ -105,7 +105,7 @@ class VerifyModal extends Component {
                 <Text style={styles.mainText}>
                     Your account has been created. Now you must verify that you own <Text style={{ fontWeight: 'bold' }}>{this.props.user.email}</Text>.{'\n\n'}
                     An email has been sent to you. Click the link in the email to verify your account and continue.{'\n\n'}
-                    There may be a small delay (≈10 min) before you receive the email.{'\n'}
+                    There may be a small delay (≈1 min) before you receive the email.{'\n'}
                 </Text>
                 <TouchableOpacity activeOpacity={0.9} style={[styles.button, { paddingVertical: 13, }]} onPress={this.inboxPressed}>
                     <MaterialIcon name='mail' size={28} color={COLORS.text} />

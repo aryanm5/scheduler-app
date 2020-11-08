@@ -8,7 +8,27 @@ import API from '../../api';
 class EditEvent extends Component {
     constructor(props) {
         super(props);
-        this.state = { passwordText: props.event.passwordProtected ? props.event.password : '', descText: props.event.desc, manualApprove: props.event.manualApprove, emailNotify: props.event.emailNotify, loadingDesc: false, loadingToggle: false, passwordError: '', descError: '', toggleError: '' };
+        this.state = { nameText: props.event.name, passwordText: props.event.passwordProtected ? props.event.password : '', descText: props.event.desc, manualApprove: props.event.manualApprove, emailNotify: props.event.emailNotify, loadingName: false, loadingDesc: false, loadingPassword: false, loadingToggle: false, nameError: '', passwordError: '', descError: '', toggleError: '', };
+    }
+
+    changeName = () => {
+        if (this.state.nameText.length > 0 && this.state.nameText !== this.props.event.name) {
+            this.setState({ loadingName: true, nameError: '' });
+            API.get({
+                task: 'editEventName',
+                token: this.props.user.token,
+                eventName: this.props.event.name,
+                newName: this.state.nameText,
+            }, (data) => {
+                this.setState({ loadingName: false });
+                if (data.err) {
+                    this.setState({ nameError: data.message });
+                } else {
+                    this.props.updateUser(data);
+                    this.props.goBack();
+                }
+            });
+        }
     }
 
     changePassword = () => {
@@ -92,24 +112,24 @@ class EditEvent extends Component {
             <View style={commonStyles.container}>
                 <Icon name='angle-left' size={40} color={COLORS.text} onPress={this.props.goBack} style={commonStyles.backButton} />
                 <Text style={commonStyles.title}>EDIT EVENT</Text>
-                <ScrollView style={{ width: '100%', marginTop: 50 }} showsVerticalScrollIndicator={false} centerContent>
+                <ScrollView style={{ width: '100%', top: 40, }} contentContainerStyle={{ paddingBottom: 30, }} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
                     <Text style={[commonStyles.text, { fontSize: 24, fontWeight: 'bold', }]}>
                         {`${this.props.event.name}\n`}
                     </Text>
-                    <View style={{ width: '100%' }}>
-                        <Text style={[commonStyles.text, { textAlign: 'left', fontWeight: 'bold', fontSize: 15, }]}> PASSWORD</Text>
-                        <TextInput defaultValue={this.props.event.passwordProtected ? this.props.event.password : ''} style={commonStyles.textInput} onChangeText={(val) => { this.setState({ passwordText: val }); }} placeholder='Blank = no password' autoCapitalize='none' placeholderTextColor='#808080' selectionColor='#000' />
+                    <View style={{ width: '100%', }}>
+                        <Text style={[commonStyles.text, { textAlign: 'left', fontWeight: 'bold', fontSize: 15, }]}> NAME</Text>
+                        <TextInput defaultValue={this.props.event.name} style={commonStyles.textInput} onChangeText={(val) => { this.setState({ nameText: val }); }} placeholder='Event Name' autoCapitalize='words' placeholderTextColor='#808080' selectionColor='#000' />
                         <View style={{ flexDirection: 'row', width: '100%' }}>
-                            <TouchableOpacity onPress={this.changePassword} activeOpacity={0.9} style={[commonStyles.button, { width: '40%', paddingVertical: 10, marginTop: 5, }]}>
+                            <TouchableOpacity onPress={this.changeName} activeOpacity={0.9} style={[commonStyles.button, { width: '40%', paddingVertical: 10, marginTop: 5, }]}>
                                 {
-                                    this.state.loadingPassword
-                                        ? <ActivityIndicator size='small' color={commonStyles.buttonText.color} animating={this.state.loadingPassword} />
+                                    this.state.loadingName
+                                        ? <ActivityIndicator size='small' color={commonStyles.buttonText.color} animating={this.state.loadingName} />
                                         : <Text style={[commonStyles.buttonText, { fontSize: 16, }]}>Save</Text>
                                 }
                             </TouchableOpacity>
                         </View>
-                        {this.state.passwordError.length > 0 &&
-                            <Text style={commonStyles.errorText}>{this.state.passwordError}</Text>
+                        {this.state.nameError.length > 0 &&
+                            <Text style={commonStyles.errorText}>{this.state.nameError}</Text>
                         }
                     </View>
                     <View style={{ width: '100%', marginTop: 30, }}>
@@ -128,6 +148,23 @@ class EditEvent extends Component {
                             <Text style={commonStyles.errorText}>{this.state.descError}</Text>
                         }
                     </View>
+                    <View style={{ width: '100%', marginTop: 30, }}>
+                        <Text style={[commonStyles.text, { textAlign: 'left', fontWeight: 'bold', fontSize: 15, }]}> PASSWORD</Text>
+                        <TextInput defaultValue={this.props.event.passwordProtected ? this.props.event.password : ''} style={commonStyles.textInput} onChangeText={(val) => { this.setState({ passwordText: val }); }} placeholder='Blank = no password' autoCapitalize='none' placeholderTextColor='#808080' selectionColor='#000' />
+                        <View style={{ flexDirection: 'row', width: '100%' }}>
+                            <TouchableOpacity onPress={this.changePassword} activeOpacity={0.9} style={[commonStyles.button, { width: '40%', paddingVertical: 10, marginTop: 5, }]}>
+                                {
+                                    this.state.loadingPassword
+                                        ? <ActivityIndicator size='small' color={commonStyles.buttonText.color} animating={this.state.loadingPassword} />
+                                        : <Text style={[commonStyles.buttonText, { fontSize: 16, }]}>Save</Text>
+                                }
+                            </TouchableOpacity>
+                        </View>
+                        {this.state.passwordError.length > 0 &&
+                            <Text style={commonStyles.errorText}>{this.state.passwordError}</Text>
+                        }
+                    </View>
+                    
                     <View style={{ width: '80%', flexDirection: 'row', marginTop: 70, }}>
                         <Text style={commonStyles.text}>Manually Approve Clients: </Text>
                         <Switch disabled={this.state.loadingToggle} onValueChange={this.manualApproveToggled} value={this.state.manualApprove} trackColor={{ true: COLORS.button }} style={{ position: 'absolute', right: 0 }} />
