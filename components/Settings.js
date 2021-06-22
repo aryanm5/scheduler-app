@@ -92,7 +92,6 @@ class Settings extends Component {
                     showsVerticalScrollIndicator={false}
                 >
                     <View style={{ flex: 1, height: '100%', }}>
-                        {/*<ScrollView style={styles.scrollView} contentContainerStyle={{ alignItems: 'center' }} showsVerticalScrollIndicator={false}>*/}
                         <View style={styles.rowButtonGroup}>
                             <Text style={styles.name} numberOfLines={1}>{this.props.user.name}</Text>
                             <Text style={styles.email} numberOfLines={1}>{this.props.user.email}</Text>
@@ -107,7 +106,6 @@ class Settings extends Component {
                         <View style={[styles.rowButtonGroup, { paddingVertical: 2 }]}>
                             <SectionRowButton colors={COLORS} text='LOGOUT' icon={<Icon name='log-out-outline' size={36} color={COLORS.text} />} onPress={this.logout} first />
                         </View>
-                        {/*</ScrollView>*/}
                     </View>
                     {
                         this.state.whichView === 'settings'
